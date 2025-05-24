@@ -4,4 +4,9 @@ class Post < ApplicationRecord
 
     validates :title, presence: true, length: { minimum: 5 }
     validates :body, presence: true, length: { minimum: 50 }
+
+    scope :random, -> { order("RANDOM()") }
+    scope :from_user, ->(user_id) { where(author_id: user_id) }
+
+    paginates_per 10
 end

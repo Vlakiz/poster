@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   resources :comments, except: [:index, :show, :edit]
-  resources :users
-  resources :posts
+  resources :users do
+    get :posts, to: "posts#index"
+  end
+  resources :posts, except: [:index]
 
-  root to: "posts#index"
+  root to: "posts#feed"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

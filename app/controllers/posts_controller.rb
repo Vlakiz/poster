@@ -4,7 +4,14 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @can_post = params[:user_id]&.to_i == @current_user.id
+    @posts = Post.from_user(params[:user_id]).page(params[:p])
+  end
+
+  def feed
+    @can_post = true
+    @posts = Post.random.page(1)
+    render :index
   end
 
   # GET /posts/1 or /posts/1.json
