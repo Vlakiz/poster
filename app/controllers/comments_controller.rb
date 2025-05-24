@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :set_current_user
 
   # GET /comments or /comments.json
   def index
@@ -22,6 +23,7 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = Comment.new(comment_params)
+    @comment.user = @current_user;
 
     respond_to do |format|
       if @comment.save
@@ -63,8 +65,12 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params.expect(:id))
     end
 
+    def set_current_user
+      @current_user = User.find(1)
+    end
+
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.expect(comment: [ :body, :user_id, :post_id ])
+      params.expect(comment: [ :body, :post_id ])
     end
 end

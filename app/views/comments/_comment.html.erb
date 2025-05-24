@@ -3,6 +3,11 @@
     <strong>
       <%= comment.user.login%>:
     </strong>
-    <%= comment.body %>
+    <span>
+      <%= comment.body %>
+    </span>
+    <div>
+      <%= format_comment_date(comment.created_at) %>
+    </div>
   </p>
 </div>
