@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :comments
+  resources :comments, except: [:index, :show, :edit]
   resources :users
   resources :posts
 

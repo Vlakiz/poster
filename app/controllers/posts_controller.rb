@@ -9,6 +9,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @new_comment = Comment.new(post: @post, user: @current_user)
+    @comments = @post.comments
   end
 
   # GET /posts/new
@@ -23,8 +25,8 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-    @post.user = @current_user;
-    @post.published_at = DateTime.now;
+    @post.user = @current_user
+    @post.published_at = DateTime.now
 
     respond_to do |format|
       if @post.save
@@ -67,7 +69,7 @@ class PostsController < ApplicationController
     end
 
     def set_current_user
-      @current_user = User.find(1);
+      @current_user = User.find(1)
     end
 
     # Only allow a list of trusted parameters through.
