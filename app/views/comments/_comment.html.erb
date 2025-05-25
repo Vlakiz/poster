@@ -1,13 +1,5 @@
-<div id="<%= dom_id comment %>">
-  <p>
-    <strong>
-      <%= comment.user.login%>:
-    </strong>
-    <span>
-      <%= comment.body %>
-    </span>
-    <div>
-      <%= format_comment_date(comment.created_at) %>
-    </div>
-  </p>
+<div id="<%= dom_id comment %>" class="card p-3 w-50">
+  <strong class="card-title"><%= comment.user.login%></strong>
+  <span class="card-subtitle mb-2 text-body-secondary"><%= format_comment_date(comment.created_at) %></span>
+  <p class="card-text"><%= comment.body %></p>
 </div>

@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @can_post = params[:user_id]&.to_i == @current_user.id
+    @user = User.find(params[:user_id])
     @posts = Post.from_user(params[:user_id]).page(params[:p])
   end
 
@@ -17,7 +18,7 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @new_comment = Comment.new(post: @post, user: @current_user)
-    @comments = @post.comments
+    @comments = @post.comments.order(created_at: :desc)
   end
 
   # GET /posts/new

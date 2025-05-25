@@ -1,4 +1,6 @@
-<p style="color: green"><%= notice %></p>
+<% if notice -%>
+  <p class="alert alert-success"><%= notice %></p>
+<% end -%>
 
 <%= render @post %>
 
