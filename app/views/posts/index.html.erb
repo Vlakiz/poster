@@ -2,9 +2,11 @@
 
 <% content_for :title, "Posts" %>
 
-<h1>
-  <%= @user.login %>' posts
-</h1>
+<% if @user %>
+  <h1>
+    <%= @user.nickname %>' posts
+  </h1>
+<% end %>
 
 <div id="posts">
   <% @posts.each do |post| %>

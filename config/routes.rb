@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :comments, only: [:create, :destroy, :update]
   resources :users do
     get :posts, to: "posts#index"
