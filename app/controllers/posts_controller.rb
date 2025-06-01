@@ -77,7 +77,7 @@ class PostsController < ApplicationController
     end
 
     def set_current_user
-      @current_user = User.find(1)
+      # @current_user = User.find(1)
     end
 
     # Only allow a list of trusted parameters through.

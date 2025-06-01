@@ -27,8 +27,20 @@
     <%= render 'layouts/header' %>
     <main>
       <div class="container">
+        <%= render 'layouts/flash' %>
         <%= yield %>
       </div>
+      <% unless user_signed_in? %>
+        <div class="modal fade" id="turboLoginModal" aria-labelledby="turboLoginModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <turbo-frame id='login_modal_frame' />
+                Loading...
+              </turbo-frame>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </main>
   </body>
 </html>

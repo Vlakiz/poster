@@ -27,8 +27,22 @@
                 </ul>
             </div>
             <div class="col d-flex align-items-center justify-content-end">
-                <%= button_tag "Login", class: 'btn btn-outline-danger' %>
-                <%= button_tag "Sign-up", class: 'btn btn-danger ms-2' %>
+                <% if user_signed_in? %>
+                    <span>
+                        Welcome, <b><%= current_user.nickname %></b>
+                    </span>
+                <% else %>
+                    <%= link_to "Login",
+                                new_user_session_path,
+                                class: 'btn btn-outline-danger',
+                                data: {
+                                    turbo_frame: "login_modal_frame",
+                                    bs_toggle: "modal",
+                                    bs_target: "#turboLoginModal",
+                                }
+                    %>
+                    <%= button_tag "Sign-up", class: 'btn btn-danger ms-2' %>
+                <% end %>
             </div>
         </div>
     </div>
