@@ -8,12 +8,6 @@
   </h1>
 <% end %>
 
-<%= link_to "Fill the frame", new_user_session_path, data: { turbo_frame: "newpostframe" } %>
-<br/>
-<turbo-frame id="newpostframe">
-  Это начальное содержимое в <strong>isolated_test_frame</strong>.
-</turbo-frame>
-
 <div id="posts">
   <% @posts.each do |post| %>
     <%= render post %>

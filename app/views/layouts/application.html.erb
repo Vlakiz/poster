@@ -31,9 +31,9 @@
         <%= yield %>
       </div>
       <% unless user_signed_in? %>
-        <div class="modal fade" id="turboLoginModal" aria-labelledby="turboLoginModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal fade" id="loginModal" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
               <turbo-frame id='login_modal_frame' />
                 Loading...
               </turbo-frame>

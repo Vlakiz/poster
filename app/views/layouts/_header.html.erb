@@ -32,15 +32,14 @@
                         Welcome, <b><%= current_user.nickname %></b>
                     </span>
                 <% else %>
-                    <%= link_to "Login",
-                                new_user_session_path,
-                                class: 'btn btn-outline-danger',
+                    <%= button_tag class: 'btn btn-outline-danger', data: { bs_toggle: "modal", bs_target: "#loginModal" } do %>
+                        <%= link_to "Login", new_user_session_path,
+                                class: "nav-link",
                                 data: {
-                                    turbo_frame: "login_modal_frame",
-                                    bs_toggle: "modal",
-                                    bs_target: "#turboLoginModal",
+                                    turbo_frame: "login_modal_frame"
                                 }
-                    %>
+                        %>
+                    <% end %>
                     <%= button_tag "Sign-up", class: 'btn btn-danger ms-2' %>
                 <% end %>
             </div>

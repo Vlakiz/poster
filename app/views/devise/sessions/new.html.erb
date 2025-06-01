@@ -1,3 +1,5 @@
-<h2>Log in</h2>
-<%= render "devise/sessions/form" %>
-<%= render "devise/shared/links" %>
+<%= turbo_frame_tag "login_modal_frame" do %>
+  <h2>Log in</h2>
+  <%= render "devise/sessions/form" %>
+  <%= render "devise/shared/links" %>
+<% end %>
