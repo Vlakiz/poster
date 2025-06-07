@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :set_current_user
 
   # GET /posts or /posts.json
   def index
-    @can_post = params[:user_id]&.to_i == @current_user.id
+    @can_post = params[:user_id]&.to_i == current_user.id
     @user = User.find(params[:user_id])
     @posts = Post.from_user(params[:user_id]).page(params[:p])
   end
@@ -17,7 +16,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @new_comment = Comment.new(post: @post, user: @current_user)
+    @new_comment = Comment.new(post: @post, user: current_user)
     @comments = @post.comments.order(created_at: :desc)
   end
 
@@ -33,7 +32,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-    @post.user = @current_user
+    @post.user = current_user
     @post.published_at = DateTime.now
 
     respond_to do |format|
@@ -74,10 +73,6 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params.expect(:id))
-    end
-
-    def set_current_user
-      # @current_user = User.find(1)
     end
 
     # Only allow a list of trusted parameters through.

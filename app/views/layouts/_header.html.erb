@@ -12,7 +12,7 @@
                         <%= link_to "Feed", feed_path, class: "nav-link link-body-emphasis" %>
                     </li>
                     <li class='nav-item'>
-                        <%= link_to "Users", users_path, class: "nav-link link-body-emphasis" %>
+                        <%= link_to "Users", '#', class: "nav-link link-body-emphasis" %>
                     </li>
                     <li class='nav-item'>
                         <a class="nav-link link-body-emphasis" href='#'>
@@ -28,19 +28,28 @@
             </div>
             <div class="col d-flex align-items-center justify-content-end">
                 <% if user_signed_in? %>
-                    <span>
-                        Welcome, <b><%= current_user.nickname %></b>
-                    </span>
+                    <%= link_to current_user.nickname, current_user, class: "nav-link" %>
+                    <%= link_to "Sign Out", destroy_user_session_path,
+                        class: "btn btn-danger ms-1",
+                        data: { turbo_method: :delete }
+                    %>
                 <% else %>
                     <%= button_tag class: 'btn btn-outline-danger', data: { bs_toggle: "modal", bs_target: "#loginModal" } do %>
                         <%= link_to "Login", new_user_session_path,
-                                class: "nav-link",
-                                data: {
-                                    turbo_frame: "login_modal_frame"
-                                }
+                            class: "nav-link",
+                            data: {
+                                turbo_frame: "login_modal_frame"
+                            }
                         %>
                     <% end %>
-                    <%= button_tag "Sign-up", class: 'btn btn-danger ms-2' %>
+                    <%= button_tag class: 'btn btn-danger ms-2', data: { bs_toggle: "modal", bs_target: "#signupModal" } do %>
+                        <%= link_to "Sign Up", new_user_registration_path,
+                            class: "nav-link",
+                            data: {
+                                turbo_frame: "signup_modal_frame"
+                            }
+                        %>
+                    <% end %>
                 <% end %>
             </div>
         </div>

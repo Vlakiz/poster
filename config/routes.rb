@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
   }
   resources :comments, only: [:create, :destroy, :update]
-  resources :users do
+  resources :users, only: [:show, :edit, :update] do
     get :posts, to: "posts#index"
   end
   resources :posts, except: [:index]
