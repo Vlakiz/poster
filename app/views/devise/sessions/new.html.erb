@@ -1,5 +1,9 @@
-<%= turbo_frame_tag "login_modal_frame" do %>
-  <h2>Log in</h2>
-  <%= render "devise/sessions/form" %>
-  <%= render "devise/shared/links" %>
-<% end %>
+<div class='d-flex justify-content-center'>
+  <div class="col-6 border rounded p-5">
+    <%= turbo_frame_tag "login_modal_frame" do %>
+      <h2 class="mb-4">Log in</h2>
+      <%= render "devise/sessions/form" %>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

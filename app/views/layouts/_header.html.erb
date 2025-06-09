@@ -34,21 +34,25 @@
                         data: { turbo_method: :delete }
                     %>
                 <% else %>
-                    <%= button_tag class: 'btn btn-outline-danger', data: { bs_toggle: "modal", bs_target: "#loginModal" } do %>
-                        <%= link_to "Login", new_user_session_path,
-                            class: "nav-link",
-                            data: {
-                                turbo_frame: "login_modal_frame"
-                            }
-                        %>
+                    <% if controller_name != 'sessions' %>
+                        <%= button_tag class: 'btn btn-outline-danger', data: { bs_toggle: "modal", bs_target: "#loginModal" } do %>
+                            <%= link_to "Login", new_user_session_path,
+                                class: "nav-link",
+                                data: {
+                                    turbo_frame: "login_modal_frame"
+                                }
+                            %>
+                        <% end %>
                     <% end %>
-                    <%= button_tag class: 'btn btn-danger ms-2', data: { bs_toggle: "modal", bs_target: "#signupModal" } do %>
-                        <%= link_to "Sign Up", new_user_registration_path,
-                            class: "nav-link",
-                            data: {
-                                turbo_frame: "signup_modal_frame"
-                            }
-                        %>
+                    <% if controller_name != 'registrations' %>
+                        <%= button_tag class: 'btn btn-danger ms-2', data: { bs_toggle: "modal", bs_target: "#signupModal" } do %>
+                            <%= link_to "Sign Up", new_user_registration_path,
+                                class: "nav-link",
+                                data: {
+                                    turbo_frame: "signup_modal_frame"
+                                }
+                            %>
+                        <% end %>
                     <% end %>
                 <% end %>
             </div>
