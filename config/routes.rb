@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions',
+    registrations: "users/registrations",
+    sessions: "users/sessions"
   }
-  resources :comments, only: [:create, :destroy, :update]
-  resources :users, only: [:show, :edit, :update] do
+  resources :comments, only: [ :create, :destroy, :update ]
+  resources :users, only: [ :show, :edit, :update ] do
     get :posts, to: "posts#index"
   end
-  resources :posts, except: [:index]
+  resources :posts, except: [ :index ]
 
-  root to: "posts#feed", :as => :feed
+  root to: "posts#feed", as: :feed
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
