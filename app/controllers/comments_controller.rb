@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment.post, notice: "Comment was successfully added." }
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to @comment.post, alert: @comment.errors.to_a.join("\n") }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -53,7 +53,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
+      format.html { redirect_to @comment.post, status: :see_other, notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
     end
   end

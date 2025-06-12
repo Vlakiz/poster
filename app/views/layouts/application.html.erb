@@ -26,9 +26,13 @@
   <body>
     <%= render 'layouts/header' %>
     <main>
-      <div class="container" id="flash">
-        <%= render 'layouts/flash' %>
-        <%= yield %>
+      <div class="container">
+        <div id="flash" class="d-flex justify-content-center">
+          <%= render 'layouts/flash' %>
+        </div>
+        <div id="page-content">
+          <%= yield %>
+        </div>
       </div>
       <% unless user_signed_in? %>
         <div class="modal fade" id="loginModal" aria-labelledby="loginModalLabel" aria-hidden="true">

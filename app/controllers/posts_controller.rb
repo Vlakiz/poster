@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_and_authorize_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
   def index
@@ -23,6 +23,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    authorize @post
   end
 
   # GET /posts/1/edit
@@ -32,6 +33,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    authorize @post
     @post.user = current_user
     @post.published_at = DateTime.now
 
@@ -71,8 +73,9 @@ class PostsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_post
+    def set_and_authorize_post
       @post = Post.find(params.expect(:id))
+      authorize @post
     end
 
     # Only allow a list of trusted parameters through.
