@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :set_comment_and_post, only: %i[ show edit update destroy ]
+  before_action :authorize_comment, only: %i[ show edit update destroy ]
 
   # GET /comments or /comments.json
   def index
@@ -39,10 +40,10 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
+        format.html { redirect_to @comment.post, notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to @comment.post, alert: @comment.errors.to_a.join("\n") }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -60,8 +61,13 @@ class CommentsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_comment
+    def set_comment_and_post
       @comment = Comment.find(params.expect(:id))
+      @post = @comment.post
+    end
+
+    def authorize_comment
+      authorize @comment
     end
 
     # Only allow a list of trusted parameters through.

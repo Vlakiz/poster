@@ -2,4 +2,10 @@
   <strong class="card-title"><%= comment.user.nickname%></strong>
   <span class="card-subtitle mb-2 text-body-secondary"><%= format_comment_date(comment.created_at) %></span>
   <p class="card-text"><%= comment.body %></p>
+  <% if comment.user == current_user %>
+    <div class="comment-controls row">
+      <%= link_to "Edit", edit_post_comment_path(comment.post, comment), class: "btn btn-outline-secondary w-25 me-2" %>
+      <%= link_to "Delete", post_comment_path(comment.post, comment), class: "btn btn-secondary w-25", data: { turbo_method: :delete } %>
+    </div>
+  <% end %>
 </div>

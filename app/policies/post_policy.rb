@@ -1,11 +1,4 @@
 class PostPolicy < ApplicationPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
   def index?
     true
   end
@@ -19,11 +12,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    @user
+    @user && (@record.user == @user || @user.admin? || @user.editor?)
   end
 
   def destroy?
-    @user
+    @user && (@record.user == @user || @user.admin? || @user.editor?)
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :posts, except: [ :index ]  do
-    resources :comments, only: [ :index, :create, :destroy, :update ]
+    resources :comments, only: [ :index, :create, :destroy, :update, :edit ]
   end
 
   root to: "posts#feed"
