@@ -4,15 +4,13 @@
   <h1>
     <%= @user.nickname %>'s posts
   </h1>
+  <hr/>
 <% end %>
 
-<div id="posts">
+<div id="feed" class="row row-cols-1 g-3">
   <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
+    <div class="post-wrapper col ps-0">
+      <%= render post %>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New post", new_post_path if @can_post %>

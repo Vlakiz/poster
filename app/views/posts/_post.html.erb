@@ -1,22 +1,21 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </p>
+<div id="<%= dom_id post %>" class="px-4 py-3 bg-light rounded-4">
+  <div class="row mb-2">
+    <div class="d-inline-block">
+      <%= link_to '@' + post.user.nickname, post.user, class: "link-underline link-underline-opacity-0" %>
+      <div class="d-inline text-secondary">
+        <%= time_ago_in_words post.published_at%> ago
+      </div>
+    </div>
+  </div>
+
+  <div class="post-heading mb-1">
+    <h3>
+      <%= link_to post.title, post, class: "nav-link" %>
+    </h3>
+  </div>
 
   <p>
-    <strong>By:</strong>
-    <%= post.user.nickname %>
-  </p>
-
-  <p>
-    <strong>Body:</strong>
     <%= post.body %>
-  </p>
-
-  <p>
-    <strong>Published at:</strong>
-    <%= format_post_date(post.published_at) %>
   </p>
 
 </div>

@@ -1,13 +1,16 @@
 <%= render @post %>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %>
-  <%= button_to "Destroy this post", @post, method: :delete %>
-</div>
-
+<%- if current_user == @post.user %>
+  <div>
+    <%= link_to "Edit this post", edit_post_path(@post) %>
+    <%= button_to "Destroy this post", @post, method: :delete %>
+  </div>
+<%- end %>
 <br/>
 
 <div>
-  <%= render "comments/form", post: @post, comment: @new_comment %>
+  <%- if user_signed_in? %>
+    <%= render "comments/form", post: @post, comment: @new_comment %>
+  <%- end %>
   <%= render @comments %>
 </div>
