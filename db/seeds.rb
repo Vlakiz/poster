@@ -39,7 +39,7 @@ puts "Creating posts..."
 10.times do |i|
     post_attributes = {
         title: Faker::Book.title,
-        body: Faker::Lorem.paragraph,
+        body: Faker::Lorem.paragraphs(number: 10).join("\n\n"),
         author_id: 1 + (rand() * 10).floor,
         published_at: i.days.from_now
     }

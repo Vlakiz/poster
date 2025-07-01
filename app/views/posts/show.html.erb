@@ -1,4 +1,19 @@
-<%= render @post %>
+<h1>
+  <%= @post.title %>
+</h1>
+<div class="row mb-4">
+  <div class="d-inline-block">
+    <%= link_to '@' + @post.user.nickname, @post.user, class: "link-underline link-underline-opacity-0" %>
+     - 
+    <div class="d-inline text-secondary">
+      <%= time_ago_in_words @post.published_at%> ago
+    </div>
+  </div>
+</div>
+
+<div id="post-content">
+  <%= @post.body %>
+</div>
 
 <%- if current_user == @post.user %>
   <div>
@@ -6,11 +21,26 @@
     <%= button_to "Destroy this post", @post, method: :delete %>
   </div>
 <%- end %>
-<br/>
 
-<div>
+<div id="comments-section" class="mt-5">
   <%- if user_signed_in? %>
     <%= render "comments/form", post: @post, comment: @new_comment %>
   <%- end %>
-  <%= render @comments %>
+
+  <div id='all-comments'>
+    <%- if @comments.any? %>
+      <h5 class="mb-3">
+        <%= @comments.count.to_s + ' ' + "comment".pluralize(@comments.count) %>
+      </h5>
+      <% @comments.each do |comment| %>
+        <div class="comment-wrapper ps-0 mb-3">
+          <%= render comment %>
+        </div>
+      <% end %>
+    <%- else %>
+      <div class="text-secondary">
+        No comments on the post yet. Be the first
+      </div>
+    <%- end %>
+  </div>
 </div>

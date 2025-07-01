@@ -1,6 +1,6 @@
-<%= form_with(model: [post, comment]) do |form| %>
+<%= form_with(model: [post, comment], class: 'w-50 mb-4 bg-light p-3 border rounded-2') do |form| %>
   <div>
-    <%= form.textarea :body %>
+    <%= form.textarea :body, placeholder: "Share your thoughts...", class: "form-control" %>
   </div>
 
   <div>
@@ -11,7 +11,7 @@
     <%= form.hidden_field :post_id %>
   </div>
 
-  <div>
-    <%= form.submit "Add comment" %>
+  <div class="mt-2">
+    <%= form.submit "Comment", class: "btn btn-danger rounded-3 px-4" %>
   </div>
 <% end %>
