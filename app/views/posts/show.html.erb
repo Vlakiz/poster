@@ -17,8 +17,10 @@
  
 <%- if current_user == @post.user %>
   <div id="post-controls" class="mb-4">
-    <%= link_to "Edit post", edit_post_path(@post) %>
-    <%= button_to "Delete post", @post, method: :delete %>
+    <div class="mb-2">
+      <%= link_to "Edit post", edit_post_path(@post), class: 'link-underline link-underline-opacity-0 link-underline-opacity-75-hover' %>
+    </div>
+    <%= button_to "Delete post", @post, method: :delete, class: 'btn btn-outline-danger' %>
   </div>
 <%- end %>
 
