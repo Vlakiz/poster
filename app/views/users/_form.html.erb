@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nickname, style: "display: block" %>
-    <%= form.text_field :nickname %>
+  <div class="mb-2 w-50">
+    <%= form.label :nickname, class: "form-label" %>
+    <%= form.text_field :nickname, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-danger" %>
   </div>
 <% end %>

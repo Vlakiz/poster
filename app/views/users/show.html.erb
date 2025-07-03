@@ -1,7 +1,30 @@
 <%= render @user %>
 
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user) %>
-  <%= button_to "Destroy this user", @user, method: :delete %>
-  <%= link_to "All posts", user_posts_path(@user) %>
+  <%= link_to "Edit profile info", edit_user_path(@user), class: "btn btn-outline-danger" %>
+</div>
+
+<hr/>
+
+<div id='user-posts'>
+  <%- if @posts.any? %>
+    <h5 class="mb-2">All posts</h5>
+    <% @posts.each do |post| %>
+      <div class="post-wrapper ps-0 mb-3">
+        <%= render post %>
+      </div>
+    <% end %>
+  <%- else %>
+      <% if @user == current_user %>
+        <div class="text-secondary mb-3">
+          You don't have any posts yet. Write your first!
+        </div>
+        <%= link_to 'New post', new_post_path, class: 'btn btn-secondary px-4' %>
+      <% else %>
+        <div class="text-secondary">
+          User does not have any posts
+        </div>
+      <% end %>
+    </div>
+  <%- end %>
 </div>

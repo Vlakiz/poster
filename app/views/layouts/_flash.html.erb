@@ -1,5 +1,6 @@
-<% [notice, alert].compact.each_with_index do |msg, i| %> 
-    <%= content_tag :div, class: "alert alert-#{i.zero? ? 'success' : 'danger'} text-center opacity-75 position-absolute d-flex align-items-center", role: 'alert' do %>
+<% [notice, alert].each_with_index do |msg, i| %>
+    <% next unless msg %>
+    <%= content_tag :div, class: "alert alert-#{i.zero? ? 'success' : 'danger'} text-center opacity-75 position-absolute d-flex align-items-center mt-3", role: 'alert' do %>
         <%= content_tag :i, '', class: "bi bi-#{i.zero? ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-2" %>
         <%= msg %>
         <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
