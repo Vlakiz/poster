@@ -6,8 +6,8 @@
                     style: "opacity: 75;",
                     'data-controller': "alert" do
     %>
-        <%= content_tag :i, '', class: "bi bi-#{i.zero? ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-2" %>
-        <%= msg %>
+        <%= content_tag :i, '', class: "bi bi-#{i.zero? ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-3" %>
+        <p class="mb-0"><%= msg.strip.gsub(/\n/, '<br/>').html_safe %></p>
         <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
     <% end %>
 <% end %>
