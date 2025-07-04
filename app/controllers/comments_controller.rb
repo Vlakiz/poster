@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+    @previous_page = @post
   end
 
   # POST /comments or /comments.json
@@ -43,7 +44,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment.post, notice: "Comment was updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
-        format.html { redirect_to @comment.post, alert: @comment.errors.to_a.join("\n") }
+        format.html { redirect_to edit_post_comment_path(@post, @comment), alert: @comment.errors.to_a.join("\n") }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

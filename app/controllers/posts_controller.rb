@@ -26,6 +26,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @previous_page = @post
   end
 
   # POST /posts or /posts.json
@@ -40,7 +41,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_post_path, alert: @post.errors.to_a.join("\n") }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -53,7 +54,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to edit_post_path(@post), alert: @post.errors.to_a.join("\n") }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
