@@ -31,7 +31,11 @@ class CommentsController < ApplicationController
         format.html { redirect_to @comment.post, notice: "Comment was added." }
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { redirect_to @comment.post, alert: @comment.errors.to_a.join("\n") }
+        @post = @comment.post
+        @new_comment = @comment
+        @comments = @post.comments.order(created_at: :desc)
+
+        format.html { render 'posts/show', status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

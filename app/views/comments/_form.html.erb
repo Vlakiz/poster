@@ -1,6 +1,6 @@
 <%= form_with(model: [post, comment], class: 'w-50 mb-4 bg-light p-3 border rounded-2') do |form| %>
-  <div>
-    <%= form.textarea :body, placeholder: "Share your thoughts...", class: "form-control" %>
+  <div data-controller="textarea-auto-resize">
+    <%= form.textarea :body, placeholder: "Share your thoughts...", class: "form-control", data: { textarea_auto_resize_target: "textarea", action: "input->textarea-auto-resize#resize" }, rows: 2 %>
   </div>
 
   <div>

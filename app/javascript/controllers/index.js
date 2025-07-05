@@ -5,5 +5,7 @@
 import { application } from "./application"
 
 import AlertController from "./alert_controller"
+import TextareaAutoResizeController from "./textarea_auto_resize_controller"
 
 application.register("alert", AlertController);
+application.register("textarea-auto-resize", TextareaAutoResizeController);

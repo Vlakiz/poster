@@ -29,6 +29,9 @@
 
 en:
   activerecord:
+    attributes:
+      comment:
+        body: 'Comment'
     errors:
       messages:
-        too_short: 'is too short (minimum %{count}) and cannot be blank'
+        too_short: 'is too short (minimum is %{count} characters) and cannot be blank'
