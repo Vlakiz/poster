@@ -16,6 +16,17 @@
     <%= form.text_field :nickname, class: "form-control" %>
   </div>
 
+  <div class="mb-2 w-50">
+    <%= form.label :avatar, 'Upload a photo', class: "form-label" %>
+    <%= form.file_field :avatar, class: "form-control" %>
+  </div>
+
+  <% if @user.avatar.attached? %>
+    <div class="attached-avatar mb-2">
+      <%= image_tag @user.avatar.variant(resize_to_limit: [100, 100]) %>
+    </div>
+  <% end %>
+
   <div>
     <%= form.submit class: "btn btn-danger" %>
   </div>
