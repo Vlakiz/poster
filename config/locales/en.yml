@@ -28,4 +28,7 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        too_short: 'is too short (minimum %{count}) and cannot be blank'
