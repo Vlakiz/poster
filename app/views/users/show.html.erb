@@ -8,7 +8,7 @@
 
 <div id='user-posts'>
   <%- if @posts.any? %>
-    <h5 class="mb-2">All posts</h5>
+    <h5 class="ms-3 mb-3">All user posts</h5>
     <% @posts.each do |post| %>
       <div class="post-wrapper ps-0 mb-3">
         <%= render post %>

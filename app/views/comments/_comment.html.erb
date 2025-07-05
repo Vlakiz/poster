@@ -21,9 +21,7 @@
       <% end %>
     </div>
   </div>
-  <div class="card-body">
-    <p class="card-text">
-      <%= comment.body %>
-    </p>
+  <div class="card-body comment-body">
+    <%= simple_format(comment.body) %>
   </div>
 </div>

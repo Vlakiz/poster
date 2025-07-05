@@ -1,0 +1,7 @@
+@import './application.bootstrap.scss';
+
+.comment-body, .post-content {
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
