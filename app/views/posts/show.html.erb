@@ -2,10 +2,13 @@
   <%= @post.title %>
 </h1>
 <div class="row mb-3">
-  <div class="d-inline-block">
-    <%= link_to '@' + @post.user.nickname, @post.user, class: "link-underline link-underline-opacity-0" %>
+  <div class="d-flex align-items-center">
+    <div class="post-avatar me-2 d-inline-block">
+      <%= avatar @post.user, class_name: 'img-xs rounded-circle' %>
+    </div>
+    <%= link_to '@' + @post.user.nickname, @post.user, class: "link-underline link-underline-opacity-0 me-2" %>
      - 
-    <div class="d-inline text-secondary">
+    <div class="d-inline text-secondary ms-1">
       <%= time_ago_in_words @post.published_at%> ago
     </div>
   </div>

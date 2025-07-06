@@ -1,9 +1,12 @@
 <div id="<%= dom_id post %>" class="px-4 py-3 bg-light rounded-4">
   <div class="row mb-2">
-    <div class="d-inline-block">
-      <%= link_to '@' + post.user.nickname, post.user, class: "link-underline link-underline-opacity-0" %>
+    <div class="d-flex align-items-center">
+      <div class="post-avatar me-2 d-inline-block">
+        <%= avatar post.user, class_name: 'img-xs rounded-circle' %>
+      </div>
+      <%= link_to '@' + post.user.nickname, post.user, class: "link-underline link-underline-opacity-0 me-2" %>
       <div class="d-inline text-secondary">
-        <%= time_ago_in_words post.published_at%> ago
+        <%= time_ago_in_words post.published_at %> ago
       </div>
     </div>
   </div>

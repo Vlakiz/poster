@@ -3,6 +3,10 @@ class UserPolicy < ApplicationPolicy
     true # @user
   end
 
+  def remove_avatar?
+    @user && (@record == @user || @user.admin?)
+  end
+
   def update?
     @user && (@record == @user || @user.admin?)
   end

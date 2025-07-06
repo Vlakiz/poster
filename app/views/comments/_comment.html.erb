@@ -1,9 +1,12 @@
 <div id="<%= dom_id comment %>" class="card w-50">
   <div class="card-header d-flex py-3">
     <div class="col d-flex align-items-center">
-      <strong class="me-1">
+      <div class="comment-avatar me-2">
+        <%= avatar comment.user, class_name: 'img-xs rounded-circle' %>
+      </div>
+      <div class="me-1 fw-semibold">
         <%= link_to '@' + comment.user.nickname, comment.user, class: "nav-link" %>
-      </strong>
+      </div>
       <span class="text-body-secondary">
         <%= time_ago_in_words comment.created_at %> ago
       </span>

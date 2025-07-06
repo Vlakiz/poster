@@ -5,3 +5,44 @@
         margin-bottom: 0;
     }
 }
+
+.post-avatar {
+    min-height: 25px;
+    min-width: 25px;
+    overflow: hidden;
+
+    img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.comment-avatar {
+    min-width: 25px;
+    min-height: 25px;
+
+    img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.profile-avatar {
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.img-md {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.img-lg {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.img-sm {
+    max-height: 100px;
+    max-width: 100px;
+}

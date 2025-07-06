@@ -1,7 +1,15 @@
 <div id="<%= dom_id user %>">
-  <p>
-    <strong>Nickname:</strong>
-    <%= user.nickname %>
-  </p>
+  <div class='row'>
+    <div class='col-12 col-lg-3 col-xxl-2 order-2 order-lg-1'>
+      <div class="border profile-avatar" style="min-height: 200px; width: 200px">
+        <%= avatar class_name: 'img-md' %>
+      </div>
+    </div>
+    <div class='col-12 col-lg-9 col-xxl-10 order-1 order-lg-2'>
+      <h3 class="border-bottom pb-2">
+        <%= user.nickname %>
+      </h3>
+    </div>
+  </div>
 
 </div>
