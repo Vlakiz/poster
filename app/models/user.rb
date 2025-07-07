@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  MINIMUM_AGE = 14
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,7 +12,48 @@ class User < ApplicationRecord
 
   enum :role, [ :user, :moderator, :editor, :admin ]
 
-  validates :nickname, presence: true, uniqueness: true
+  validates :nickname,
+    presence: true,
+    uniqueness: { case_sensitive: false },
+    length: { minimum: 3, maximum: 30 }
+    format: {
+      with: /\A[A-z]\w+\z/,
+      message: 'should start with a letter and contain only letters, numbers or underscore (_)',
+    }
+  validates :first_name,
+    presence: true,
+    length: { minimum: 3, maximum: 30 },
+    format: {
+      with: /\A[A-z][A-z\s\-]+\z/,
+      message: 'can only contain letters, spaces, or hyphens',
+    }
+  validates :last_name,
+    presence: true,
+    length: { minimum: 3, maximum: 30 },
+    format: {
+      with: /\A[A-z][A-z\s\-]+\z/,
+      message: 'can only contain letters, spaces, or hyphens',
+    }
+  validates :date_of_birth, presence: true
+  validates :registration_date, presence: true
+
+  validate :must_be_at_least_14_years_old
+
+  before_validation :set_registration_date, on: :create
 
   paginates_per 50
+
+  private
+
+  def must_be_at_least_14_years_old
+    minimum_birth_date = MINIMUM_AGE.years.ago.to_date
+
+    if date_of_birth > minimum_birth_date
+      errors.add(:date_of_birth, "must be at least 14 years old")
+    end
+  end
+
+  def set_registration_date
+    self.registration_date ||= Date.current
+  end
 end
