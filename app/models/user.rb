@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :nickname,
     presence: true,
     uniqueness: { case_sensitive: false },
-    length: { minimum: 3, maximum: 30 }
+    length: { minimum: 3, maximum: 30 },
     format: {
       with: /\A[A-z]\w+\z/,
       message: 'should start with a letter and contain only letters, numbers or underscore (_)',
@@ -36,6 +36,10 @@ class User < ApplicationRecord
     }
   validates :date_of_birth, presence: true
   validates :registration_date, presence: true
+  validates :country,
+    presence: true,
+    length: { is: 2 },
+    inclusion: { in: ISO3166::Country.all.map(&:alpha2), message: "is not a valid country" }
 
   validate :must_be_at_least_14_years_old
 

@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @posts = @user.posts.order(created_at: :desc).page(params[:p])
+    @country_name = ISO3166::Country.find_country_by_alpha2(@user.country).common_name
   end
 
   # GET /users/1/edit

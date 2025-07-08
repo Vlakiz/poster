@@ -76,7 +76,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_07_203131) do
     t.string "last_name", limit: 70, default: "Unknown", null: false
     t.date "date_of_birth", default: "2000-01-01", null: false
     t.date "registration_date", default: "2000-01-01", null: false
-    t.string "country", limit: 50, default: "Unknown", null: false
+    t.string "country", limit: 2, default: "US", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
