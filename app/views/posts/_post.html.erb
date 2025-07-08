@@ -1,4 +1,4 @@
-<div id="<%= dom_id post %>" class="px-4 py-3 bg-light rounded-4 border-start">
+<div id="<%= dom_id post %>" class="px-4 py-3 bg-light rounded-4 border-start ps-lg-5">
   <div class="row mb-2">
     <div class="d-flex align-items-center">
       <div class="post-avatar me-2 d-inline-block">
@@ -21,4 +21,10 @@
     <%= simple_format post.body %>
   </div>
 
+  <div class="post-footer text-secondary mt-3">
+    <%= link_to post_path(post, anchor: 'comments'), class: 'nav-link' do %>
+      <i class="bi bi-chat-fill me-1"></i>
+      <%= post.comments.count %> comments
+    <% end %>
+  </div>
 </div>

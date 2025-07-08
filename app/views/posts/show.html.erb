@@ -34,7 +34,7 @@
     <%= render "comments/form", post: @post, comment: @new_comment %>
   <%- end %>
 
-  <div id='all-comments'>
+  <div id='comments'>
     <%- if @comments.any? %>
       <h5 class="mb-3">
         <%= @comments.count.to_s + ' ' + "comment".pluralize(@comments.count) %>
