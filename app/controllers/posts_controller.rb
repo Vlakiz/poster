@@ -8,14 +8,14 @@ class PostsController < ApplicationController
   end
 
   def feed
-    @posts = Post.random.page(1)
+    @posts = Post.random.includes(user: :avatar_attachment).page(1)
     render :index
   end
 
   # GET /posts/1 or /posts/1.json
   def show
     @new_comment = Comment.new(post: @post, user: current_user)
-    @comments = @post.comments.order(created_at: :desc)
+    @comments = @post.comments.includes(user: :avatar_attachment).order(created_at: :desc)
   end
 
   # GET /posts/new

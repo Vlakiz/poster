@@ -24,7 +24,7 @@
   <div class="post-footer text-secondary mt-3">
     <%= link_to post_path(post, anchor: 'comments'), class: 'nav-link' do %>
       <i class="bi bi-chat-fill me-1"></i>
-      <%= post.comments.count %> comments
+      <%= post.comments_count %> comments
     <% end %>
   </div>
 </div>
