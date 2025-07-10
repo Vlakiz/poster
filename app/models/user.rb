@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
   has_many :posts, class_name: "Post", foreign_key: "author_id"
   has_many :comments
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'
 
   has_one_attached :avatar
 
