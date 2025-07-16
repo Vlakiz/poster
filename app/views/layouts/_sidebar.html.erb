@@ -1,15 +1,19 @@
-<aside class="p-4 bg-light w-100 rounded-4 border-start border-top" id="sidebar">
-    <% if user_signed_in? %>
-        <div class="sidebar-avatar mb-3">
-            <%= avatar current_user, class_name: 'img-md rounded-circle' %>
-        </div>
-        <div class="sidebar-nickname mb-2"> 
-            <%= current_user.nickname %>
-        </div>
-        <div>
-            <%= link_to "Go to profile", current_user %>
-        <div>
-    <% else %>
-        Please log in
-    <% end %>
-</aside>
+<%- unless controller_name == 'registrations' || controller_name == 'sessions' %>
+    <aside class="p-4 bg-light w-100 rounded-4 border-start border-top" id="sidebar">
+        <% if user_signed_in? %>
+            <div class="sidebar-avatar mb-3">
+                <%= avatar current_user, class_name: 'img-md rounded-circle' %>
+            </div>
+            <div class="sidebar-nickname mb-2"> 
+                <%= current_user.nickname %>
+            </div>
+            <div>
+                <%= link_to "Go to profile", current_user %>
+            <div>
+        <% else %>
+            <h4 class="mb-4">Log in</h4>
+            <%= render "devise/sessions/form" %>
+            <%= render "devise/shared/links" %>
+        <% end %>
+    </aside>
+<% end %>
