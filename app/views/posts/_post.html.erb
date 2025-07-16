@@ -1,4 +1,4 @@
-<div id="<%= dom_id post %>" class="px-4 py-3 bg-light rounded-4 border-start ps-lg-5">
+<div id="<%= dom_id post %>" class="px-4 py-3 bg-light rounded-4 border-top border-start ps-lg-5">
   <div class="row mb-2">
     <div class="d-flex align-items-center">
       <div class="post-avatar me-2 d-inline-block">
@@ -24,12 +24,12 @@
   <div class="post-footer text-secondary mt-3 d-flex align-items-center">
     <%= link_to '#', class: 'nav-link d-inline me-4' do %>
       <i class="bi bi-heart-fill me-1"></i>
-      <%= post.likes_count %> likes
+      <%= post.likes_count %>
     <% end %>
 
     <%= link_to post_path(post, anchor: 'comments'), class: 'nav-link d-inline' do %>
       <i class="bi bi-chat-fill me-1"></i>
-      <%= post.comments_count %> comments
+      <%= post.comments_count %>
     <% end %>
   </div>
 </div>

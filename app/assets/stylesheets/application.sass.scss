@@ -27,14 +27,9 @@
     }
 }
 
-.profile-avatar {
-    min-width: 200px;
-    min-height: 200px;
-}
-
 .img-md {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .img-lg {
@@ -45,4 +40,11 @@
 .img-sm {
     max-height: 100px;
     max-width: 100px;
+}
+
+#sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    min-height: 300px;
 }
