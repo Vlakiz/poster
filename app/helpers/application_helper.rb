@@ -10,4 +10,8 @@ module ApplicationHelper
     def devise_mapping
         @devise_mapping ||= Devise.mappings[:user]
     end
+
+    def sidebarable?
+        %w[posts users].include?(controller_name)
+    end
 end

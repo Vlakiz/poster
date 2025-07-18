@@ -1,5 +1,9 @@
 @import './application.bootstrap.scss';
 
+header {
+    z-index: 9999;
+}
+
 .comment-body, .post-content {
     p:last-child {
         margin-bottom: 0;

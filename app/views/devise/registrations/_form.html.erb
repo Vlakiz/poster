@@ -17,12 +17,12 @@
     <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-4">
     <%= f.label :password_confirmation, class: "form-label" %>
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-4 d-grid">
     <%= f.submit "Sign up", class: "btn btn-danger", data: { turbo_frame: "_top" } %>
   </div>
 <% end %>
