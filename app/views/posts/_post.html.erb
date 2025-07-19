@@ -22,9 +22,18 @@
   </div>
 
   <div class="post-footer text-secondary mt-3 d-flex align-items-center">
-    <%= link_to '#', class: 'nav-link d-inline me-4' do %>
-      <i class="bi bi-heart-fill me-1"></i>
-      <%= post.likes_count %>
+    <%= button_tag class: 'nav-link d-inline me-4',
+      data: { controller: 'likes', 'likes-is-liked-value': liked?(post), 'likes-post-id-value': post.id } do
+    %>
+      <div class="post-like text-danger">
+        <%= tag.i(
+          class: "bi bi-heart me-1 align-text-top",
+          data: { action: 'click->likes#like', 'likes-target': 'likeButton' }
+        )%>
+        <span data-likes-target='likeCount'>
+          <%= post.likes_count %>
+        </span>
+      </div>
     <% end %>
 
     <%= link_to post_path(post, anchor: 'comments'), class: 'nav-link d-inline' do %>
