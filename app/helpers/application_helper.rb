@@ -12,6 +12,6 @@ module ApplicationHelper
     end
 
     def sidebarable?
-        %w[posts users].include?(controller_name)
+        %w[posts].include?(controller_name)
     end
 end

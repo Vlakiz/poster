@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ["likeButton", "likeCount"]
   static values = {
     isLiked: { type: Boolean, default: false },
+    isAuthorized: { type: Boolean, default: false },
     postId: Number,
   }
 
@@ -13,20 +14,37 @@ export default class extends Controller {
   }
 
   like() {
+    if (!this.isAuthorizedValue || this.#isLiking()) return;
+
+    this.isLikedValue = !this.isLikedValue;
+    this.#refreshHeart();
+    if (this.isLikedValue) {
+      this.likeCountTarget.textContent = +this.likeCountTarget.textContent + 1
+      this.#setLiking();
+    } else {
+      this.likeCountTarget.textContent = +this.likeCountTarget.textContent - 1
+    }
+
     fetch(`/posts/${this.postIdValue}/like`, {
-      method: this.isLikedValue == true ? 'DELETE' : 'POST',
+      method: this.isLikedValue == false ? 'DELETE' : 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
       }
-    })
-      .then(response => response.json())
-      .then(data => {
-        this.likeCountTarget.textContent = data.likesCount;
-        this.isLikedValue = !this.isLikedValue;
-        this.#refreshHeart();
-      });
+    });
+  }
+
+  #setLiking() {
+    this.likeButtonTarget.classList.add('liking');
+
+    setTimeout(() => {
+      this.likeButtonTarget.classList.remove('liking');
+    }, 200);
+  }
+
+  #isLiking() {
+    this.likeButtonTarget.classList.contains('liking');
   }
 
   #refreshHeart() {

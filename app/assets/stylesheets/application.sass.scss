@@ -47,6 +47,16 @@ header {
     max-width: 100px;
 }
 
+.post-like {
+    i {
+        transition: transform 0.2s ease-in-out;
+
+        &.liking {
+            transform: scale(1.5);
+        }
+    }
+}
+
 #sidebar {
     position: -webkit-sticky;
     position: sticky;
