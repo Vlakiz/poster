@@ -1,6 +1,17 @@
-<%= form_with(model: [post, comment], class: 'w-50 mb-4 bg-light p-3 border rounded-2') do |form| %>
-  <div data-controller="textarea-auto-resize">
-    <%= form.textarea :body, placeholder: "Share your thoughts...", class: "form-control", data: { textarea_auto_resize_target: "textarea", action: "input->textarea-auto-resize#resize" }, rows: 2 %>
+<%= form_with(model: [post, comment], class: 'mb-4 bg-light p-3 border rounded-5') do |form| %>
+  <div class="d-flex">
+    <div class="author-avatar me-2">
+      <%= avatar comment.user, class_name: 'img-sm rounded-circle' %>
+    </div>
+    <div data-controller="textarea-auto-resize" class="w-100">
+      <%= form.textarea :body,
+        placeholder: "Share your thoughts...",
+        class: "form-control border-0 rounded-4",
+        data: { textarea_auto_resize_target: "textarea",
+                action: "input->textarea-auto-resize#resize", },
+        rows: 2
+      %>
+    </div>
   </div>
 
   <div>
@@ -11,7 +22,8 @@
     <%= form.hidden_field :post_id %>
   </div>
 
-  <div class="mt-2">
-    <%= form.submit "Comment", class: "btn btn-danger rounded-3 px-4" %>
+  <div class="mt-3 d-flex justify-content-end">
+    <%= button_tag "Cancel", class: "btn btn-secondary rounded-pill px-3 me-2", type: 'reset' %>
+    <%= form.submit "Comment", class: "btn btn-danger rounded-pill px-3" %>
   </div>
 <% end %>

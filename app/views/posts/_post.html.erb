@@ -4,14 +4,17 @@
       <div class="post-avatar me-2 d-inline-block">
         <%= avatar post.user, class_name: 'img-xs rounded-circle' %>
       </div>
-      <%= link_to '@' + post.user.nickname, post.user, class: "link-underline link-underline-opacity-0 me-2" %>
+      <%= link_to '@' + post.user.nickname, post.user, class: "nav-link text-danger fw-medium" %>
+      <span class="text-secondary mx-2">
+        •
+      </span>
       <div class="d-inline text-secondary">
         <%= time_ago_in_words post.published_at %> ago
       </div>
     </div>
   </div>
 
-  <div class="post-heading mb-1">
+  <div class="post-heading mb-3">
     <h3>
       <%= link_to post.title, post, class: "nav-link" %>
     </h3>
@@ -23,7 +26,7 @@
 
   <div class="post-footer text-secondary mt-3 d-flex align-items-center">
     <%= render 'shared/like', post: post %>
-    <%= link_to post_path(post, anchor: 'comments'), class: 'nav-link d-inline' do %>
+    <%= link_to post_path(post), class: 'nav-link d-inline' do %>
       <i class="bi bi-chat-fill me-1"></i>
       <%= post.comments_count %>
     <% end %>
