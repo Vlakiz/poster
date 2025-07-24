@@ -3,6 +3,14 @@
 header {
     z-index: 9999;
     max-height: 87px;
+
+    .header-logout {
+        transition: color 0.1s ease-in-out;
+
+        &:hover {
+            color: black !important;
+        }
+    }
 }
 
 .comment-body, .post-content {
@@ -71,6 +79,22 @@ header {
 #sidebar {
     position: -webkit-sticky;
     position: sticky;
-    top: 100px;
-    min-height: 300px;
+    top: 115px;
+
+    .sidebar-avatar {
+        width: 30%;
+        min-width: 64px;
+
+        img {
+            position: absolute;
+        }
+    }
+
+    .sidebar-logout {
+        transition: color 0.1s ease-in-out;
+
+        &:hover {
+            color: black !important;
+        }
+    }
 }

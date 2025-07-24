@@ -4,7 +4,7 @@
       <div class="comment-avatar me-2">
         <%= avatar comment.user, class_name: 'img-xs rounded-circle' %>
       </div>
-      <div class="me-1 fw-semibold">
+      <div class="me-1 fw-semibold text-truncate">
         <%= link_to '@' + comment.user.nickname, comment.user, class: "nav-link" %>
       </div>
       <span class="text-secondary">

@@ -38,16 +38,18 @@
   </div>
 <%- end %>
 
-<div id="comments" class="mt-4 col-12 col-md-10 col-lg-9 col-xl-8">
+<div id="comments" class="mt-4 col-12 col-lg-9 col-xl-8">
   <%- if user_signed_in? %>
     <%= render "comments/form", post: @post, comment: @new_comment %>
   <%- end %>
 
-  <div id='comments-list'>
+  <div id='comments-list' class="">
     <%- if @comments.any? %>
       <% @comments.each do |comment| %>
-        <div class="comment-wrapper ps-0 mb-3">
-          <%= render comment %>
+        <div class="comment-wrapper ps-0 mb-3 d-flex justify-content-center">
+          <div class="col-md-10 col-lg-12">
+            <%= render comment %>
+          </div>
         </div>
       <% end %>
     <%- else %>

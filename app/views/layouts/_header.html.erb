@@ -6,28 +6,20 @@
                     <img src="/poster-logo-min.png" height="50" />
                 </a>
             </div>
-            <div class="col d-flex align-items-center">
-                <ul class='nav d-flex align-items-center'>
-                    <li class='nav-item'>
-                        <%= link_to "Feed", root_path, class: "nav-link link-body-emphasis" %>
-                    </li>
-                    <li class='nav-item'>
-                        <%= link_to "Users", '#', class: "nav-link link-body-emphasis" %>
-                    </li>
-                    <li class='nav-item'>
-                        <a class="nav-link link-body-emphasis" href='#'>
-                            Test3
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col d-flex align-items-center justify-content-end">
+            <div class="d-flex d-lg-none align-items-center justify-content-end">
                 <% if user_signed_in? %>
-                    <%= link_to '@' + current_user.nickname, current_user, class: "nav-link me-3" %>
-                    <%= link_to "Sign Out", destroy_user_session_path,
-                        class: "btn btn-danger ms-1",
-                        data: { turbo_method: :delete }
-                    %>
+                    <div class="me-3">
+                        <%= link_to '@' + current_user.nickname, current_user,
+                            class: "nav-link fw-semibold" %>
+                    </div>
+                    <div>
+                        <%= link_to destroy_user_session_path,
+                            class: "nav-link text-danger fs-4 header-logout d-inline-block",
+                            data: { turbo_method: :delete } do
+                        %>
+                            <i class="bi bi-box-arrow-left"></i>
+                        <% end %>
+                    </div>
                 <% else %>
                     <% if controller_name != 'sessions' %>
                         <%= button_tag class: 'btn btn-outline-danger', data: { bs_toggle: "modal", bs_target: "#loginModal" } do %>
