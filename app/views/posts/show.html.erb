@@ -30,8 +30,8 @@
 </div>
  
 <%- if current_user == @post.user %>
-  <div>
-    <div class="mb-2 d-inline">
+  <div class="my-3">
+    <div class="d-inline">
       <%= link_to "Edit post", edit_post_path(@post), class: 'btn btn-outline-secondary' %>
     </div>
     <%= button_to "Delete post", @post, method: :delete, class: 'btn btn-outline-danger', form_class: 'd-inline' %>

@@ -49,10 +49,6 @@ class User < ApplicationRecord
 
   paginates_per 50
 
-  def rating
-    posts.sum(:likes_count)
-  end
-
   private
 
   def must_be_at_least_14_years_old
