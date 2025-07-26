@@ -10,17 +10,24 @@
         <%= user.nickname %>
       </h3>
       <div class="ms-3">
-        <div class="d-block mb-2 fw-medium">
+        <div class="mb-2 fw-medium">
           <%= full_name %>
         </div>
-        <div class="d-block mb-2 text-secondary">
+        <div class="mb-2 text-secondary">
           <div class="country-flag d-inline me-1">
             <%= flag %>
           </div>
           <%= @country_name %>
         </div>
-        <div class="d-block text-secondary">
-          Joined <%= time_ago_in_words user.registration_date %> ago
+        <div class="text-secondary">
+          Joined <%= days_ago_in_words user.registration_date %>
+        </div>
+        <div class="text-danger d-block mt-2">
+          Rating:
+          <span class='user-rating ms-1'>
+            <%= user.rating %>
+          </span>
+          <i class="bi bi-star-fill"></i>
         </div>
       </div>
     </div>

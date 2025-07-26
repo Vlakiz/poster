@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   validate :must_be_at_least_14_years_old
 
-  before_validation :set_registration_date, on: :create
+  before_create :set_registration_date
 
   paginates_per 50
 
@@ -60,6 +60,6 @@ class User < ApplicationRecord
   end
 
   def set_registration_date
-    self.registration_date ||= Date.current
+    self.registration_date = Date.current
   end
 end
