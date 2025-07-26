@@ -37,7 +37,7 @@ class User < ApplicationRecord
       message: 'can only contain letters, spaces, or hyphens',
     }
   validates :date_of_birth, presence: true
-  validates :registration_date, presence: true
+  validates :signed_up_at, presence: true
   validates :country,
     presence: true,
     length: { is: 2 },
@@ -60,6 +60,6 @@ class User < ApplicationRecord
   end
 
   def set_registration_date
-    self.registration_date = Date.current
+    self.signed_up_at = Time.now
   end
 end

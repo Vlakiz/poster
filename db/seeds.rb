@@ -28,7 +28,7 @@ puts "Creating users..."
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
         date_of_birth: Faker::Date.birthday(min_age: 16, max_age: 65),
-        registration_date: Faker::Date.backward(days: 365),
+        signed_up_at: Faker::Date.backward(days: 365),
         country: Faker::Address.country_code,
     }
     user = User.new(user_attributes)
