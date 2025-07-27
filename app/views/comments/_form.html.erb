@@ -1,4 +1,4 @@
-<%= form_with(model: [post, comment], class: 'mb-4 bg-light p-3 border rounded-5') do |form| %>
+<%= form_with(model: [post, comment]) do |form| %>
   <div class="d-flex">
     <div class="author-avatar me-2">
       <%= avatar comment.user, class_name: 'img-sm rounded-circle' %>
