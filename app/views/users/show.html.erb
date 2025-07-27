@@ -9,14 +9,10 @@
 <hr class="mt-5 mb-4"/>
 
 <div id='user-posts'>
-  <%- if @posts.any? %>
+  <%  if @posts.any? %>
     <h4 class="ms-3 mb-3">All posts</h4>
-    <% @posts.each do |post| %>
-      <div class="post-wrapper ps-0 mb-3">
-        <%= render post, user: @user %>
-      </div>
-    <% end %>
-  <%- else %>
+    <%= render 'posts/posts', posts: @posts %>
+  <% else %>
       <% if @user == current_user %>
         <div class="text-secondary mb-3">
           You don't have any posts yet. Write your first!

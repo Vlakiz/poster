@@ -1,23 +1,18 @@
 class UsersController < ApplicationController
-  before_action :set_and_authorize_user, only: %i[ show edit update remove_avatar ]
+  before_action :set_and_authorize_user
 
-  # GET /users or /users.json
-  def index
-    @users = User.all
-  end
-
-  # GET /users/1 or /users/1.json
   def show
-    @posts = @user.posts.order(created_at: :desc).includes([:user]).page(params[:p])
+    @posts = @user.posts.order(created_at: :desc).includes(user: :avatar_attachment).page(params[:p])
     @country_name = ISO3166::Country.find_country_by_alpha2(@user.country).common_name
+    puts 'TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET'
+    puts @posts.next_page.nil?
+    puts @posts.next_page
   end
 
-  # GET /users/1/edit
   def edit
     @previous_page = @user
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -30,6 +25,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_profile
+  end
+
   def remove_avatar
     @user.avatar.purge
     redirect_to :edit_user, notice: 'Avatar was successfully removed.'
@@ -37,13 +35,11 @@ class UsersController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_and_authorize_user
     @user = User.find(params.expect(:id))
     authorize @user
   end
 
-  # Only allow a list of trusted parameters through.
   def user_params
     params.expect(user: [ :nickname, :avatar ])
   end

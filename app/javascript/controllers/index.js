@@ -4,6 +4,8 @@
 
 import { application } from "./application"
 
+import ContentLoader from '@stimulus-components/content-loader'
+
 import AlertController from "./alert_controller"
 import LikesController from "./likes_controller"
 import TextareaAutoResizeController from "./textarea_auto_resize_controller"
@@ -11,3 +13,4 @@ import TextareaAutoResizeController from "./textarea_auto_resize_controller"
 application.register("alert", AlertController);
 application.register("textarea-auto-resize", TextareaAutoResizeController);
 application.register("likes", LikesController);
+application.register('content-loader', ContentLoader)

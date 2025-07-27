@@ -12,6 +12,7 @@ export default class extends Controller {
     if (this.textareaTarget.scrollHeight > 400) {
       return;
     }
+
     this.textareaTarget.style.height = 'auto';
     this.textareaTarget.style.height = this.textareaTarget.scrollHeight + 'px';
   }

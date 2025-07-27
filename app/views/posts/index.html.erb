@@ -8,9 +8,5 @@
 <% end %>
 
 <div id="feed" class="row row-cols-1 g-4">
-  <% @posts.each do |post| %>
-    <div class="post-wrapper col ps-0">
-      <%= render post %>
-    </div>
-  <% end %>
+  <%= render 'posts/posts', posts: @posts %>
 </div>

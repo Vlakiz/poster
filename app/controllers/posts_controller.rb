@@ -1,35 +1,32 @@
 class PostsController < ApplicationController
   before_action :set_and_authorize_post, only: %i[ show edit update destroy ]
 
-  # GET /posts or /posts.json
   def index
     @user = User.find(params[:user_id])
-    @posts = Post.from_user(params[:user_id]).page(params[:p])
+    @posts = @user.posts.order(created_at: :desc).includes(user: :avatar_attachment).page(params[:page])
+
+    render partial: 'posts/posts', locals: { posts: @posts }
   end
 
   def feed
-    @posts = Post.random.includes(user: :avatar_attachment).page(1)
+    @posts = Post.random.includes(user: :avatar_attachment).page(params[:p])
     render :index
   end
 
-  # GET /posts/1 or /posts/1.json
   def show
     @new_comment = Comment.new(post: @post, user: current_user)
     @comments = @post.comments.includes(user: :avatar_attachment).order(created_at: :desc)
   end
 
-  # GET /posts/new
   def new
     @post = Post.new
     authorize @post
   end
 
-  # GET /posts/1/edit
   def edit
     @previous_page = @post
   end
 
-  # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
     authorize @post
@@ -47,7 +44,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -61,7 +57,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy!
 
@@ -72,14 +67,13 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_and_authorize_post
-      @post = Post.find(params.expect(:id))
-      authorize @post
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.expect(post: [ :title, :body ])
-    end
+  def set_and_authorize_post
+    @post = Post.find(params.expect(:id))
+    authorize @post
+  end
+
+  def post_params
+    params.expect(post: [ :title, :body ])
+  end
 end
