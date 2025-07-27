@@ -9,7 +9,7 @@
         •
       </span>
       <div class="d-inline text-secondary">
-        <%= time_ago_in_words post.published_at %> ago
+        <%= time_ago_in_words post.published_at.to_i %> ago
       </div>
     </div>
   </div>

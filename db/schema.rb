@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_26_230613) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_27_180912) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -69,7 +69,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_26_230613) do
     t.integer "author_id", null: false
     t.integer "comments_count", default: 0, null: false
     t.integer "likes_count", default: 0, null: false
+    t.float "random_seed"
     t.index ["author_id"], name: "index_posts_on_author_id"
+    t.index ["published_at"], name: "index_posts_on_published_at"
   end
 
   create_table "users", force: :cascade do |t|

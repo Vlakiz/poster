@@ -2,11 +2,8 @@ class UsersController < ApplicationController
   before_action :set_and_authorize_user
 
   def show
-    @posts = @user.posts.order(created_at: :desc).includes(user: :avatar_attachment).page(params[:p])
+    @posts = @user.posts.order(published_at: :desc).includes(user: :avatar_attachment).page(params[:p])
     @country_name = ISO3166::Country.find_country_by_alpha2(@user.country).common_name
-    puts 'TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET'
-    puts @posts.next_page.nil?
-    puts @posts.next_page
   end
 
   def edit

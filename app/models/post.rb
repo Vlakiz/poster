@@ -7,8 +7,16 @@ class Post < ApplicationRecord
     validates :title, length: { minimum: 5, maximum: 50 }
     validates :body, length: { minimum: 15, maximum: 1000 }
 
-    scope :random, -> { order("RANDOM()") }
+    before_save :generate_random_seed
+
+    scope :random, ->(seed) { order(Arel.sql("ABS(random_seed - #{seed.to_f})")) }
     scope :from_user, ->(user_id) { where(author_id: user_id) }
 
     paginates_per 10
+
+    private
+
+    def generate_random_seed
+        self.random_seed = rand
+    end
 end

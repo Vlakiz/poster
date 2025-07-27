@@ -7,6 +7,6 @@
   <hr/>
 <% end %>
 
-<div id="feed" class="row row-cols-1 g-4">
-  <%= render 'posts/posts', posts: @posts %>
+<div id="feed">
+  <%= render 'posts/posts', posts: @posts, filter: { seed_id: @seed_id } %>
 </div>

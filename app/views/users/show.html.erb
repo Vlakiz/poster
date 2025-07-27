@@ -11,7 +11,7 @@
 <div id='user-posts'>
   <%  if @posts.any? %>
     <h4 class="ms-3 mb-3">All posts</h4>
-    <%= render 'posts/posts', posts: @posts %>
+    <%= render 'posts/posts', posts: @posts, filter: { user_id: @user.id } %>
   <% else %>
       <% if @user == current_user %>
         <div class="text-secondary mb-3">
