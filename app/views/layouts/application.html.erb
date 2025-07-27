@@ -44,7 +44,12 @@
                 </div>
               </div>
             <% else %>
-              <%= yield %>
+              <div class="row">
+                <div class="col-0 col-lg-2">
+                </div>
+                <div class="col-12 col-lg-8 col-xl-7">
+                  <%= yield %>
+                </div>
             <% end %>
           </div>
         </div>
