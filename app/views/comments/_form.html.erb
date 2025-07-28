@@ -1,8 +1,10 @@
 <%= form_with(model: [post, comment]) do |form| %>
   <div class="d-flex">
-    <div class="author-avatar me-2">
-      <%= avatar comment.user, class_name: 'img-sm rounded-circle' %>
-    </div>
+    <% unless turbo_frame_request? %>
+      <div class="author-avatar me-2">
+        <%= avatar comment.user, class_name: 'img-sm rounded-circle' %>
+      </div>
+    <% end %>
     <div data-controller="textarea-auto-resize" class="w-100">
       <%= form.textarea :body,
         placeholder: "Share your thoughts...",
@@ -23,7 +25,13 @@
   </div>
 
   <div class="mt-3 d-flex justify-content-end">
-    <%= button_tag "Cancel", class: "btn btn-secondary rounded-pill px-3 me-2", type: 'reset' %>
-    <%= form.submit "Comment", class: "btn btn-danger rounded-pill px-3" %>
+    <% if turbo_frame_request? %>
+      <%= link_to 'Back', comment.post, class: "btn btn-secondary rounded-pill px-3 me-2" %>
+    <% else %>
+      <%= button_tag "Cancel", class: "btn btn-secondary rounded-pill px-3 me-2", type: 'reset' %>
+    <% end %>
+    <%= form.submit(action_name == 'edit' ? 'Edit' : 'Comment',
+      class: "btn btn-danger rounded-pill px-3",)
+    %>
   </div>
 <% end %>

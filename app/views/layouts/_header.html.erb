@@ -9,7 +9,7 @@
             <div class="d-flex d-lg-none align-items-center justify-content-end">
                 <% if user_signed_in? %>
                     <div class="me-3">
-                        <%= link_to '@' + current_user.nickname, current_user,
+                        <%= link_to nickname(current_user), current_user,
                             class: "nav-link fw-semibold" %>
                     </div>
                     <div>

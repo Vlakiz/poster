@@ -1,9 +1,9 @@
 <div class='d-flex justify-content-center'>
   <div class="col-8 border rounded p-5">
-    <%= turbo_frame_tag "login_modal_frame" do %>
+    <turbo-frame id="login_modal_frame">
       <h2 class="mb-4">Log in</h2>
       <%= render "devise/sessions/form" %>
       <%= render "devise/shared/links" %>
-    <% end %>
+    </turbo-frame>
   </div>
 </div>

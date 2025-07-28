@@ -3,7 +3,7 @@
     <div class="post-avatar me-2 d-inline-block">
       <%= avatar @post.user, class_name: 'img-xs rounded-circle' %>
     </div>
-    <%= link_to '@' + @post.user.nickname, @post.user, class: "nav-link text-danger fw-medium" %>
+    <%= link_to nickname(@post.user), @post.user, class: "nav-link text-danger fw-medium" %>
     <span class="text-secondary mx-2">
       • 
     </span>
@@ -38,7 +38,7 @@
   </div>
 <%- end %>
 
-<div id="comments" class="mt-4 col-12 col-lg-9 col-xl-8">
+<div id="comments" class="mt-4 col-md-10 col-lg-9 col-xl-8">
   <div class='mb-4 bg-light p-3 border rounded-5'>
     <% if user_signed_in? %>
       <%= render "comments/form", post: @post, comment: @new_comment %>
@@ -61,10 +61,8 @@
   <div id='comments-list' class="">
     <%- if @comments.any? %>
       <% @comments.each do |comment| %>
-        <div class="comment-wrapper ps-0 mb-3 d-flex justify-content-center">
-          <div class="col-md-10 col-lg-12">
-            <%= render comment %>
-          </div>
+        <div class="comment-wrapper ps-0 mb-3">
+          <%= render comment %>
         </div>
       <% end %>
     <%- else %>

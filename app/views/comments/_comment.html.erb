@@ -1,33 +1,48 @@
 <div id="<%= dom_id comment %>" class="card rounded-5 overflow-hidden">
-  <div class="card-header d-flex py-3 border-0">
-    <div class="col-10 d-flex align-items-center">
-      <div class="comment-avatar me-2">
-        <%= avatar comment.user, class_name: 'img-xs rounded-circle' %>
+  <turbo-frame id="<%= dom_id comment %>_frame">
+    <div class="card-header d-flex py-3 border-0">
+      <div class="col-10 d-flex align-items-center text-truncate">
+        <div class="comment-avatar me-2">
+          <%= avatar comment.user, class_name: 'img-xs rounded-circle' %>
+        </div>
+        <div class="me-1 fw-semibold text-truncate">
+          <%= link_to nickname(comment.user), comment.user,
+            class: "nav-link text-truncate",
+            title: nickname(comment.user)
+          %>
+        </div>
+        <span class="text-secondary">
+          •
+        </span>
+        <span class="ms-1 text-body-secondary">
+          <%= time_ago_in_words comment.created_at %> ago
+        </span>
       </div>
-      <div class="me-1 fw-semibold text-truncate">
-        <%= link_to '@' + comment.user.nickname, comment.user, class: "nav-link" %>
+      <div class="col-2 text-end">
+        <% if comment.user == current_user %>
+          <div class="comment-controls">
+            <%= link_to edit_post_comment_path(comment.post, comment),
+              class: "nav-link d-inline me-2",
+              data: {
+                  turbo_frame: "#{dom_id comment}_frame",
+              } do
+            %>
+              <i class="bi bi-pen"></i>
+            <% end %>
+            <%= link_to post_comment_path(comment.post, comment), data: { turbo_method: :delete }, class: "nav-link d-inline" do %>
+              <i class="bi bi-trash3"></i>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <span class="text-secondary">
-        •
-      </span>
-      <span class="ms-1 text-body-secondary">
-        <%= time_ago_in_words comment.created_at %> ago
-      </span>
     </div>
-    <div class="col-2 text-end">
-      <% if comment.user == current_user %>
-        <div class="comment-controls">
-          <%= link_to edit_post_comment_path(comment.post, comment), class: "nav-link d-inline me-2" do %>
-            <i class="bi bi-pen"></i>
-          <% end %>
-          <%= link_to post_comment_path(comment.post, comment), data: { turbo_method: :delete }, class: "nav-link d-inline" do %>
-            <i class="bi bi-trash3"></i>
-          <% end %>
+    <div class="card-body comment-body mb-2 mx-2">
+      <%= simple_format(comment.body) %>
+      <% if modified?(comment) %>
+        <div class="position-absolute bottom-0 end-0 translate-middle text-body-tertiary">
+          <sub>Edited</sub>
         </div>
       <% end %>
     </div>
-  </div>
-  <div class="card-body comment-body">
-    <%= simple_format(comment.body) %>
-  </div>
+  </turbo-frame>
 </div>

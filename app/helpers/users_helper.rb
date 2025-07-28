@@ -14,6 +14,10 @@ module UsersHelper
         image_tag image, class: class_name
     end
 
+    def nickname(user)
+        '@' + user.nickname
+    end
+
     def full_name
         "#{@user.first_name} #{@user.last_name}"
     end
