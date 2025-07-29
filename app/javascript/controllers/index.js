@@ -9,8 +9,10 @@ import ContentLoader from '@stimulus-components/content-loader'
 import AlertController from "./alert_controller"
 import LikesController from "./likes_controller"
 import TextareaAutoResizeController from "./textarea_auto_resize_controller"
+import TurboFrameController from "./turbo_frame_controller"
 
 application.register("alert", AlertController);
 application.register("textarea-auto-resize", TextareaAutoResizeController);
 application.register("likes", LikesController);
-application.register('content-loader', ContentLoader)
+application.register('turbo-frame', TurboFrameController);
+application.register('content-loader', ContentLoader);

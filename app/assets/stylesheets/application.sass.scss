@@ -19,6 +19,16 @@ header {
     }
 }
 
+.comment-block {
+    turbo-frame {
+        &[busy] {
+            a {
+                pointer-events: none;
+            }
+        }
+    }
+}
+
 .post-avatar {
     min-height: 25px;
     min-width: 25px;
