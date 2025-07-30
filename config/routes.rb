@@ -14,7 +14,10 @@ Rails.application.routes.draw do
     post :like, to: "likes#create", as: :like
     delete :like, to: "likes#destroy", as: :unlike
 
-    resources :comments, only: [ :index, :create, :destroy, :update, :edit ]
+    resources :comments, except: [ :show ] do
+      post :like, to: "likes#create", as: :like
+      delete :like, to: "likes#destroy", as: :unlike
+    end
   end
 
   root to: "posts#feed"

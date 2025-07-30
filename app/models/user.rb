@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'
+  has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
 
   has_one_attached :avatar
 

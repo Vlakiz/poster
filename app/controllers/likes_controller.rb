@@ -1,14 +1,15 @@
 class LikesController < ApplicationController
   before_action :authorize_user!
-  before_action :set_post_and_like
+  before_action :set_likable_and_like
 
   def create
     respond_to do |format|
       if @like.save
-        format.html { redirect_to @post, notice: 'Post liked!' }
-        format.json { render json: { postId: @post.id, likesCount: @post.likes_count, liked: true } }
+        likableKey = "#{@likable.class.name.downcase}Id".to_sym
+        format.html { redirect_to @likable, notice: "#{@likable.class.name} liked" }
+        format.json { render json: { likableKey => @likable.id, likesCount: @likable.likes_count, liked: true } }
       else
-        format.html { redirect_to @post, alert: "Unable to like this post:\n #{@like.errors.full_messages.join("\n")}" }
+        format.html { redirect_to @likable, alert: "Unable to like this #{@likable.class.name.downcase}" }
         format.json { render json: { errors: @like.errors, liked: false }, status: :unprocessable_entity }
       end
     end
@@ -17,11 +18,12 @@ class LikesController < ApplicationController
   def destroy
     respond_to do |format|
       if @like.destroy
-        format.html { redirect_to @post, notice: 'Post unliked' }
-        format.json { render json: { postId: @post.id, likesCount: @post.likes_count, liked: false } }
+        likableKey = "#{@likable.class.name.downcase}Id".to_sym
+        format.html { redirect_to @likable, notice: "#{@likable.class.name} unliked" }
+        format.json { render json: { likableKey => @likable.id, likesCount: @likable.likes_count, liked: false } }
       else
-        format.html { redirect_to @post, alert: 'Unable to remove like' }
-        format.json { render json: {errors: @like.errors, liked: true }, status: :unprocessable_entity }
+        format.html { redirect_to @likable, alert: 'Unable to remove like' }
+        format.json { render json: { errors: @like.errors, liked: true }, status: :unprocessable_entity }
       end
     end
   end
@@ -32,8 +34,16 @@ class LikesController < ApplicationController
     return user_not_authorized unless user_signed_in?
   end
 
-  def set_post_and_like
-    @post = Post.find(params[:post_id])
-    @like = @post.likes.find_or_create_by(user: current_user)
+  def set_likable_and_like
+    if params[:comment_id]
+      @likable = Comment.find(params[:comment_id])
+    elsif params[:post_id]
+      @likable = Post.find(params[:post_id])
+    else
+      render json: { errors: ["Object id isn't provided"] }, status: :bad_request
+      return
+    end
+
+    @like = @likable.likes.find_or_create_by(user: current_user)
   end
 end

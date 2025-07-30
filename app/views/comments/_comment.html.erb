@@ -8,7 +8,8 @@
         <div class="me-1 fw-semibold text-truncate">
           <%= link_to nickname(comment.user), comment.user,
             class: "nav-link text-truncate",
-            title: nickname(comment.user)
+            title: nickname(comment.user),
+            data: { turbo_frame: "_top" }
           %>
         </div>
         <span class="text-secondary">
@@ -53,6 +54,9 @@
           <sub>Edited</sub>
         </div>
       <% end %>
+    </div>
+    <div class="card-footer text-body-secondary border-0">
+      <%= render 'shared/like', post: comment.post, comment: comment %>
     </div>
   </turbo-frame>
 </div>
