@@ -1,21 +1,21 @@
 module UsersHelper
-    def avatar(user = @user, class_name: 'img-md')
+    def avatar(user = @user, class_name: "img-md")
         size = case class_name
-            when /img-md/
+        when /img-md/
                 200
-            when /img-lg/
+        when /img-lg/
                 300
-            when /img-sm/
+        when /img-sm/
                 100
-            when /img-xs/
+        when /img-xs/
                 25
-            end
-        image = user.avatar.attached? ? user.avatar.variant(resize_to_limit: [size, size]) : "no-image.png"
+        end
+        image = user.avatar.attached? ? user.avatar.variant(resize_to_limit: [ size, size ]) : "no-image.png"
         image_tag image, class: class_name
     end
 
     def nickname(user)
-        '@' + user.nickname
+        "@" + user.nickname
     end
 
     def full_name

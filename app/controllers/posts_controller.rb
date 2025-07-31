@@ -2,11 +2,11 @@ class PostsController < ApplicationController
   before_action :set_and_authorize_post, only: %i[ show edit update destroy ]
 
   def index
-    if (params[:user_id])
+    if params[:user_id]
       filter = { user_id: params[:user_id] }
 
       @posts = Post.from_user(params[:user_id]).order(published_at: :desc)
-    elsif (params[:seed_id])
+    elsif params[:seed_id]
       filter = { seed_id: params[:seed_id] }
 
       @posts = Post.random(@seed_id)
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 
     @posts = @posts.includes(user: :avatar_attachment).page(params[:page])
 
-    render partial: 'posts/posts', locals: { posts: @posts, filter: filter }
+    render partial: "posts/posts", locals: { posts: @posts, filter: filter }
   end
 
   def feed

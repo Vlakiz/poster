@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
         @new_comment = @comment
         @comments = @post.comments.order(created_at: :desc)
 
-        format.html { render 'posts/show', status: :unprocessable_entity }
+        format.html { render "posts/show", status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

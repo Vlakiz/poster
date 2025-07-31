@@ -13,11 +13,11 @@ module ApplicationHelper
 
     def days_ago_in_words(time)
         if time > 1.day.ago
-            'today'
+            "today"
         elsif time > 2.days.ago
-            'yesterday'
+            "yesterday"
         else
-            time_ago_in_words(time) + ' ago'
+            time_ago_in_words(time) + " ago"
         end
     end
 
