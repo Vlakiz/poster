@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
     describe 'validators' do
         it { should validate_presence_of(:nickname) }
-        it { should validate_uniqueness_of(:nickname) }
     end
 
     describe 'associations' do

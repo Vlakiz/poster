@@ -1,6 +1,6 @@
-class LikesController < ApplicationControlle
+class LikesController < ApplicationController
   before_action :set_likable_and_like
-  before_action :autorize_like
+  before_action :authorize_like
 
   def create
     respond_to do |format|
@@ -22,7 +22,7 @@ class LikesController < ApplicationControlle
         format.html { redirect_to @likable, notice: "#{@likable.class.name} unliked" }
         format.json { render json: { likableKey => @likable.id, likesCount: @likable.likes_count, liked: false } }
       else
-        format.html { redirect_to @likable, alert: 'Unable to remove like' }
+        format.html { redirect_to @likable, alert: "Unable to remove like" }
         format.json { render json: { errors: @like.errors, liked: true }, status: :unprocessable_entity }
       end
     end
@@ -36,7 +36,7 @@ class LikesController < ApplicationControlle
     elsif params[:post_id]
       @likable = Post.find(params[:post_id])
     else
-      render json: { errors: ["Object id isn't provided"] }, status: :bad_request
+      render json: { errors: [ "Object id isn't provided" ] }, status: :bad_request
       return
     end
 

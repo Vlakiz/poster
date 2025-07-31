@@ -8,8 +8,8 @@ class User < ApplicationRecord
   has_many :posts, class_name: "Post", foreign_key: "author_id"
   has_many :comments
   has_many :likes, dependent: :destroy
-  has_many :liked_posts, through: :likes, source: :likable, source_type: 'Post'
-  has_many :liked_comments, through: :likes, source: :likable, source_type: 'Comment'
+  has_many :liked_posts, through: :likes, source: :likable, source_type: "Post"
+  has_many :liked_comments, through: :likes, source: :likable, source_type: "Comment"
 
   has_one_attached :avatar
 
@@ -21,21 +21,21 @@ class User < ApplicationRecord
     length: { minimum: 3, maximum: 30 },
     format: {
       with: /\A[A-z]\w+\z/,
-      message: 'should start with a letter and contain only letters, numbers or underscore (_)',
+      message: "should start with a letter and contain only letters, numbers or underscore (_)"
     }
   validates :first_name,
     presence: true,
     length: { minimum: 3, maximum: 30 },
     format: {
       with: /\A[A-z][A-z\s\-]+\z/,
-      message: 'can only contain letters, spaces, or hyphens',
+      message: "can only contain letters, spaces, or hyphens"
     }
   validates :last_name,
     presence: true,
     length: { minimum: 3, maximum: 30 },
     format: {
       with: /\A[A-z][A-z\s\-]+\z/,
-      message: 'can only contain letters, spaces, or hyphens',
+      message: "can only contain letters, spaces, or hyphens"
     }
   validates :date_of_birth, presence: true
   validates :signed_up_at, presence: true
@@ -43,7 +43,7 @@ class User < ApplicationRecord
     presence: true,
     length: { is: 2 },
     inclusion: { in: ISO3166::Country.all.map(&:alpha2), message: "is not a valid country" }
-  validates :completed, inclusion: [true, false]
+  validates :visible, inclusion: [ true, false ]
 
   validate :must_be_at_least_14_years_old
 

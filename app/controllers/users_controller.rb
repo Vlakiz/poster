@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def remove_avatar
     @user.avatar.purge
-    redirect_to :edit_user, notice: 'Avatar was successfully removed.'
+    redirect_to :edit_user, notice: "Avatar was successfully removed."
   end
 
   private

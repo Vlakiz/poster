@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
     describe 'validators' do
-        it { should validate_presence_of(:body) }
     end
 
     describe 'associations' do

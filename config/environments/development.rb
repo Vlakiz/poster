@@ -10,7 +10,7 @@ Rails.application.configure do
     Bullet.add_footer    = true
   end
 
-  config.web_console.whitelisted_ips = '172.17.0.1'
+  config.web_console.whitelisted_ips = "172.17.0.1"
 
   # Settings specified here will take precedence over those in config/application.rb.
 
