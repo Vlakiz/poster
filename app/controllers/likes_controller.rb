@@ -1,6 +1,6 @@
-class LikesController < ApplicationController
-  before_action :authorize_user!
+class LikesController < ApplicationControlle
   before_action :set_likable_and_like
+  before_action :autorize_like
 
   def create
     respond_to do |format|
@@ -30,10 +30,6 @@ class LikesController < ApplicationController
 
   private
 
-  def authorize_user!
-    return user_not_authorized unless user_signed_in?
-  end
-
   def set_likable_and_like
     if params[:comment_id]
       @likable = Comment.find(params[:comment_id])
@@ -45,5 +41,9 @@ class LikesController < ApplicationController
     end
 
     @like = @likable.likes.find_or_create_by(user: current_user)
+  end
+
+  def authorize_like
+    authorize @like
   end
 end

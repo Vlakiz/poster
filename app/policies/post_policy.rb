@@ -8,15 +8,15 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    @user
+    @user&.visible?
   end
 
   def update?
-    @user && (@record.user == @user || @user.admin? || @user.editor?)
+    @user&.visible? && (@record.user == @user || @user.admin? || @user.editor?)
   end
 
   def destroy?
-    @user && (@record.user == @user || @user.admin? || @user.editor?)
+    @user&.visible? && (@record.user == @user || @user.admin? || @user.editor?)
   end
 
   class Scope < ApplicationPolicy::Scope

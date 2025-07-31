@@ -10,25 +10,39 @@
         <%= user.nickname %>
       </h3>
       <div class="ms-3">
-        <div class="mb-2 fw-medium">
-          <%= full_name %>
-        </div>
-        <div class="mb-2 text-secondary">
-          <div class="country-flag d-inline me-1">
-            <%= flag %>
+        <% if user.visible? %>        
+          <div class="mb-2 fw-medium">
+            <%= full_name %>
           </div>
-          <%= @country_name %>
-        </div>
-        <div class="text-secondary">
-          Joined <%= days_ago_in_words user.signed_up_at %>
-        </div>
-        <div class="text-danger d-block mt-2">
-          Rating:
-          <span class='user-rating ms-1'>
-            <%= user.rating %>
-          </span>
-          <i class="bi bi-star-fill"></i>
-        </div>
+          <div class="mb-2 text-secondary">
+            <div class="country-flag d-inline me-1">
+              <%= flag %>
+            </div>
+            <%= @country_name %>
+          </div>
+          <div class="text-secondary">
+            Joined <%= days_ago_in_words user.signed_up_at %>
+          </div>
+          <div class="text-danger d-block mt-2">
+            Rating:
+            <span class='user-rating ms-1'>
+              <%= user.rating %>
+            </span>
+            <i class="bi bi-star-fill"></i>
+          </div>
+        <% elsif current_user == user %>
+          <div class="bg-light rounded-4 border border-3 px-5 py-3 text-center">
+            <h6>Please fill your personal details to use all the Poster's features</h6>
+            <div class="my-2 fs-4">
+              <i class="bi bi-arrow-down"></i>
+            </div>
+            <%= link_to 'Create profile', create_profile_user_path(user), class: 'btn btn-danger' %>
+          </div>
+        <% else %>
+          <div class="bg-light rounded-4 border border-3 p-5 text-center">
+            <h6>The user has not been completed information about himself yet</h6>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

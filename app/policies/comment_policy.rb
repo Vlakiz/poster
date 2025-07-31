@@ -8,15 +8,15 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def create?
-    @user
+    @user&.visible?
   end
 
   def update?
-    @user && (@record.user == @user || @user.admin? || @user.editor? || @user.moderator?)
+    @user&.visible? && (@record.user == @user || @user.admin? || @user.editor? || @user.moderator?)
   end
 
   def destroy?
-    @user && (@record.user == @user || @user.admin? || @user.editor? || @user.moderator?)
+    @user&.visbile? && (@record.user == @user || @user.admin? || @user.editor? || @user.moderator?)
   end
 
   class Scope < ApplicationPolicy::Scope

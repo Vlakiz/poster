@@ -43,6 +43,7 @@ class User < ApplicationRecord
     presence: true,
     length: { is: 2 },
     inclusion: { in: ISO3166::Country.all.map(&:alpha2), message: "is not a valid country" }
+  validates :completed, inclusion: [true, false]
 
   validate :must_be_at_least_14_years_old
 

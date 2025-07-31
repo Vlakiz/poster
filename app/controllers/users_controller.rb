@@ -22,9 +22,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def create_profile
-  end
-
   def remove_avatar
     @user.avatar.purge
     redirect_to :edit_user, notice: 'Avatar was successfully removed.'
