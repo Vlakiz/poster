@@ -42,11 +42,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :nickname, :avatar ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :nickname ])
   end
 
   def after_sign_up_path_for(resource)
-    user_path(resource)
+    if resource.is_a?(User)
+      new_profile_users_path
+    else
+      super
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.

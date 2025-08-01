@@ -29,25 +29,29 @@ class User < ApplicationRecord
     format: {
       with: /\A[A-z][A-z\s\-]+\z/,
       message: "can only contain letters, spaces, or hyphens"
-    }
+    },
+    on: :update
   validates :last_name,
     presence: true,
     length: { minimum: 3, maximum: 30 },
     format: {
       with: /\A[A-z][A-z\s\-]+\z/,
       message: "can only contain letters, spaces, or hyphens"
-    }
-  validates :date_of_birth, presence: true
-  validates :signed_up_at, presence: true
+    },
+    on: :update
+  validates :date_of_birth, presence: true, on: :update
+  validates :signed_up_at, presence: true, on: :update
   validates :country,
     presence: true,
     length: { is: 2 },
-    inclusion: { in: ISO3166::Country.all.map(&:alpha2), message: "is not a valid country" }
+    inclusion: { in: ISO3166::Country.all.map(&:alpha2), message: "is not a valid country" },
+    on: :update
   validates :visible, inclusion: [ true, false ]
 
-  validate :must_be_at_least_14_years_old
+  validate :must_be_at_least_14_years_old, on: :update
 
   before_create :set_registration_date
+  before_create :set_false_visible
 
   paginates_per 50
 
@@ -63,5 +67,9 @@ class User < ApplicationRecord
 
   def set_registration_date
     self.signed_up_at = Time.now
+  end
+
+  def set_false_visible
+    self.visible = false
   end
 end
