@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create_profile?
-    update?
+    @user && !@user.visible? && (@record == @user)
   end
 
   def remove_avatar?

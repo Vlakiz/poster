@@ -40,7 +40,7 @@ class LikesController < ApplicationController
       return
     end
 
-    @like = @likable.likes.find_or_create_by(user: current_user)
+    @like = @likable.likes.find_or_initialize_by(user: current_user)
   end
 
   def authorize_like

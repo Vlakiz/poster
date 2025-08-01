@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<% if current_user&.visible? %>
     <%= button_tag class: 'nav-link d-inline me-4',
         data: { controller: 'likes',
                 action: 'click->likes#like',
@@ -16,6 +16,22 @@
                 <%= (comment || post).likes_count %>
             </span>
         </div>
+    <% end %>
+<% elsif user_signed_in? %>
+    <%= button_tag class: 'nav-link d-inline me-4' do %>
+        <%= link_to create_profile_user_path(current_user),
+            class: "nav-link" do
+        %>
+            <div class="post-like text-danger">
+                <%= tag.i(
+                    class: "bi bi-heart me-1 align-text-top d-inline-block",
+                    data: { 'likes-target': 'likeButton' }
+                )%>
+                <span data-likes-target='likeCount'>
+                    <%= (comment || post).likes_count %>
+                </span>
+            </div>
+        <% end %>
     <% end %>
 <% else %>
     <%= button_tag class: 'nav-link d-inline me-4',
