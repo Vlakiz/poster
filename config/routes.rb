@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resources :users, only: [ :show, :edit, :update ] do
     member do
       delete :remove_avatar
-      get :create_profile
+    end
+
+    collection do
+      get "profile/new", action: :new_profile, as: "new_profile"
+      post "profile/create", action: :create_profile, as: "create_profile"
     end
 
     get :posts, to: "posts#index"

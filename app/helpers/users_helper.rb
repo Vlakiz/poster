@@ -24,6 +24,6 @@ module UsersHelper
 
     def flag
         flag_url = "https://flagcdn.com/w20/#{@user.country.downcase}.png"
-        image_tag flag_url, alt: @country_name
+        image_tag flag_url, alt: @country_name, class: "border"
     end
 end

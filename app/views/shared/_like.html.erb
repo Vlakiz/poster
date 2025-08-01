@@ -19,7 +19,7 @@
     <% end %>
 <% elsif user_signed_in? %>
     <%= button_tag class: 'nav-link d-inline me-4' do %>
-        <%= link_to create_profile_user_path(current_user),
+        <%= link_to new_profile_users_path,
             class: "nav-link" do
         %>
             <div class="post-like text-danger">

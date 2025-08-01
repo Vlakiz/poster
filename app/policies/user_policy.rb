@@ -3,8 +3,12 @@ class UserPolicy < ApplicationPolicy
     true # @user
   end
 
+  def new_profile?
+    create_profile?
+  end
+
   def create_profile?
-    @user && !@user.visible? && (@record == @user)
+    @user && !@user.visible?
   end
 
   def remove_avatar?

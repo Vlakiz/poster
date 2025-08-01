@@ -1,0 +1,29 @@
+<% content_for :title, "Create profile" %>
+
+<h2>Create profile</h2>
+
+<%= form_with model: current_user, url: create_profile_users_path, method: :post do |form| %>
+    <div class="mb-3">
+        <%= form.label :first_name, class: 'form-label' %>
+        <%= form.text_field :first_name, value: '', class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+        <%= form.label :last_name, class: 'form-label' %>
+        <%= form.text_field :last_name, value: '', class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+        <%= form.label :date_of_birth, class: 'form-label' %>
+        <%= form.date_field :date_of_birth, value: Date.today, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+        <%= form.label :country, class: 'form-label' %>
+        <%= form.select(:country, options_for_select(@countries, selected: 'US'), { }, { class: 'form-select' }) %>
+    </div>
+
+    <div class="mt-3">
+        <%= form.submit class: 'btn btn-danger' %>
+    </div>
+<% end %>
