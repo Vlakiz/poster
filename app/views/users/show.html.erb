@@ -6,6 +6,33 @@
   </div>
 <% end %>
 
+<% if @user == current_user %>
+  <div class="modal fade" id="imageModal" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-5">
+        <div class=''>
+          <%= form_with(model: @user) do |form| %>
+            <div class="mb-2">
+              <%= form.file_field :avatar, class: "form-control" %>
+            </div>
+            <div class="controls mt-4 text-center">
+              <div class="">
+                <% if @user.avatar.attached? %>
+                  <%= link_to 'Delete current avatar', remove_avatar_user_path(@user),
+                    data: { confirm: "Are you sure?", turbo_method: :delete },
+                    class: 'btn btn-outline-secondary'
+                  %>
+                <% end %>
+                <%= form.submit 'Upload new avatar', class: "btn btn-danger" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <hr class="mt-5 mb-4"/>
 
 <div id='user-posts'>

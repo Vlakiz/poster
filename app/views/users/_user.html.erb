@@ -1,8 +1,16 @@
 <div id="<%= dom_id user %>">
   <div class='row'>
     <div class='col-12 col-lg-4 col-xxl-3 mb-4 mb-lg-0'>
-      <div class="profile-avatar">
+      <div class="profile-avatar d-inline-block position-relative overflow-hidden rounded-circle">
         <%= avatar class_name: 'img-md rounded-circle' %>
+        <% if user == current_user %>
+          <div class="bg-dark change-avatar position-absolute top-0 w-100 h-100 fs-1 d-flex 
+                      align-items-center justify-content-center text-white"
+               data-bs-toggle="modal" data-bs-target="#imageModal"
+          >
+            <i class="bi bi-camera"></i>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class='col-12 col-lg-8 col-xxl-9'>

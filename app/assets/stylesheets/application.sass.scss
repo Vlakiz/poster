@@ -29,6 +29,17 @@ header {
     }
 }
 
+.profile-avatar {
+    .change-avatar {
+        cursor: pointer;
+        opacity: 0;
+
+        &:hover {
+            opacity: 50%;
+        }
+    }
+}
+
 .post-avatar {
     min-height: 25px;
     min-width: 25px;
