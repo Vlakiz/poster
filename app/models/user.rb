@@ -55,6 +55,10 @@ class User < ApplicationRecord
 
   paginates_per 50
 
+  def thumbnail(size)
+    avatar.variant(resize_to_fill: [ size, size ])
+  end
+
   private
 
   def must_be_at_least_14_years_old

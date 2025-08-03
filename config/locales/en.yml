@@ -34,4 +34,4 @@ en:
         body: 'Comment'
     errors:
       messages:
-        too_short: 'is too short (minimum is %{count} characters) and cannot be blank'
+        too_short: 'is too short (minimum is %{count} characters)'

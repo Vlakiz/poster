@@ -10,7 +10,7 @@ module UsersHelper
         when /img-xs/
                 25
         end
-        image = user.avatar.attached? ? user.avatar.variant(resize_to_limit: [ size, size ]) : "no-image.png"
+        image = user.avatar.attached? ? user.thumbnail(size) : "no-image.png"
         image_tag image, class: class_name
     end
 
