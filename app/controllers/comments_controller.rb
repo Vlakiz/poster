@@ -4,7 +4,24 @@ class CommentsController < ApplicationController
 
   # GET /comments or /comments.json
   def index
-    @comments = Comment.all
+    page = params[:page]
+    order_by = params[:order]
+    @post_id = params[:post_id]
+
+    @comments = Post.find(@post_id)
+                    .comments
+                    .includes(user: :avatar_attachment)
+                    .page(page)
+
+    if order_by == 'older'
+      @comments = @comments.order(created_at: :asc)
+    elsif order_by == 'newer'
+      @comments = @comments.order(created_at: :desc)
+    else
+      @comments = @comments.order(likes_count: :desc, created_at: :desc)
+    end
+
+    render partial: "comments/comments", locals: { comments: @comments, post_id: @post_id }
   end
 
   # GET /comments/1 or /comments/1.json
@@ -66,18 +83,17 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment_and_post
-      @comment = Comment.find(params.expect(:id))
-      @post = @comment.post
-    end
 
-    def authorize_comment
-      authorize @comment
-    end
+  def set_comment_and_post
+    @comment = Comment.find(params.expect(:id))
+    @post = @comment.post
+  end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.expect(comment: [ :body, :post_id ])
-    end
+  def authorize_comment
+    authorize @comment
+  end
+
+  def comment_params
+    params.expect(comment: [ :body, :post_id ])
+  end
 end
