@@ -27,7 +27,7 @@
                 class: "nav-link edit-comment d-inline",
                 data: {
                     turbo_frame: "#{dom_id comment}_frame",
-                    action: 'click->turbo-frame#makeSpinner'
+                    action: 'click->turbo-frame#addSpinnerToLink'
                 } do
               %>
                 <i class="bi bi-pen"></i>
@@ -38,7 +38,7 @@
               data: {
                 turbo_method: :delete,
                 turbo_frame: "_top",
-                action: 'click->turbo-frame#makeSpinner'
+                action: 'click->turbo-frame#addSpinnerToLink'
               } do
             %>
               <i class="bi bi-trash3"></i>

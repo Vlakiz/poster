@@ -1,0 +1,28 @@
+<div class="sort-button text-end mb-3 pe-3">
+    <%= button_tag 'Sort by',
+        type: 'button', class: "btn btn-outline-danger dropdown-toggle rounded-pill",
+        data: { bs_toggle: 'dropdown' }, aria_expanded: 'false'
+    %>
+    <div class="dropdown">
+        <ul class="dropdown-menu">
+        <li>
+            <%= link_to 'Best', post_comments_path(post_id: post_id),
+            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame",
+                                            action: 'click->turbo-frame#replaceBySpinner' }
+            %>
+        </li>
+        <li>
+            <%= link_to 'Newest', post_comments_path(post_id: post_id, order: 'newer'),
+            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame",
+                                            action: 'click->turbo-frame#replaceBySpinner' }
+            %>
+        </li>
+        <li>
+            <%= link_to 'Oldest', post_comments_path(post_id: post_id, order: 'older'),
+            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame",
+                                            action: 'click->turbo-frame#replaceBySpinner' }
+            %>
+        </li>
+        </ul>
+    </div>
+</div>

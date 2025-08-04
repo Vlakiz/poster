@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     post :like, to: "likes#create", as: :like
     delete :like, to: "likes#destroy", as: :unlike
 
-    resources :comments, except: [ :show ] do
+    resources :comments do
       post :like, to: "likes#create", as: :like
       delete :like, to: "likes#destroy", as: :unlike
     end

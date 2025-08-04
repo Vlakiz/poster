@@ -60,8 +60,9 @@
 
   <div id='comments-list' class="">
     <turbo-frame
-      id="<%= @post.id %>_comments_frame"
+      id="post_<%= @post.id %>_comments_frame"
       src="<%= post_comments_path(post_id: @post.id) %>"
+      data-controller="turbo-frame"
     >
       <div class='d-flex justify-content-center'>
         <div class="spinner-border text-danger" role="status">

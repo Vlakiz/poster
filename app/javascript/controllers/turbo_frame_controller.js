@@ -2,7 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="turbo-frame"
 export default class extends Controller {
-  connect() { 
+  static targets = ["spinner"]
+
+  connect() {
     this.element.addEventListener('turbo:before-prefetch', this.disablePreFetchEvent);
     this.element.addEventListener('turbo:before-fetch-request', this.disableAllInnerLinks);
   }
@@ -22,13 +24,26 @@ export default class extends Controller {
     event.preventDefault();
   }
   
-  makeSpinner(event) {
-    const isButton = event.currentTarget.classList.contains('btn');
+  addSpinnerToLink(event) {
     const spinner = document.createElement('div');
+    spinner.role = 'status';
+
+    const isButton = event.currentTarget.classList.contains('btn');
     spinner.className = `spinner-border ${isButton ? 'mx-2 text-secondary' : 'spinner-border-sm'}`;
-    spinner.role = 'status'
 
     event.currentTarget.classList.add('d-none');
     event.currentTarget.after(spinner);
+  }
+
+  replaceBySpinner(_event) {
+    const spinner = document.createElement('div');
+    spinner.role = 'status';spinner.className = 'spinner-border text-danger';
+
+    const spinnerWrap = document.createElement('div');
+    spinnerWrap.className = 'text-center';
+    spinnerWrap.appendChild(spinner);
+
+    this.spinnerTarget.classList.add('d-none');
+    this.spinnerTarget.after(spinnerWrap);
   }
 }

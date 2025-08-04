@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   # GET /comments or /comments.json
   def index
     page = params[:page]
-    order_by = params[:order]
+    @order = params[:order]
     @post_id = params[:post_id]
 
     @comments = Post.find(@post_id)
@@ -13,15 +13,16 @@ class CommentsController < ApplicationController
                     .includes(user: :avatar_attachment)
                     .page(page)
 
-    if order_by == 'older'
+    if @order == "older"
       @comments = @comments.order(created_at: :asc)
-    elsif order_by == 'newer'
+    elsif @order == "newer"
       @comments = @comments.order(created_at: :desc)
     else
+      @order = "rating"
       @comments = @comments.order(likes_count: :desc, created_at: :desc)
     end
 
-    render partial: "comments/comments", locals: { comments: @comments, post_id: @post_id }
+    render partial: "comments/comments", locals: { comments: @comments, post_id: @post_id, order: @order }
   end
 
   # GET /comments/1 or /comments/1.json
