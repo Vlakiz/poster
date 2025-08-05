@@ -70,6 +70,10 @@ class User < ApplicationRecord
     Subscription.create(follower_id: id, following_id: following_user.id)
   end
 
+  def unfollow!(following_user)
+    Subscription.find_by(follower_id: id, following_id: following_user.id).destroy
+  end
+
   private
 
   def must_be_at_least_14_years_old

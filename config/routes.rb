@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [ :show, :edit, :update ] do
     member do
       delete :remove_avatar
+
+      post :follow, to: "subscriptions#create"
+      delete :unfollow, to: "subscriptions#destroy"
     end
 
     collection do
