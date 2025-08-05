@@ -31,7 +31,14 @@ en:
   activerecord:
     attributes:
       comment:
-        body: 'Comment'
+        body: Comment
+      subscription:
+        follower_id: You
     errors:
       messages:
-        too_short: 'is too short (minimum is %{count} characters)'
+        too_short: is too short (minimum is %{count} characters)
+      models:
+        subscription:
+          attributes:
+            follower_id:
+              taken: are already following this user

@@ -5,11 +5,18 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
+
   has_many :posts, class_name: "Post", foreign_key: "author_id"
   has_many :comments
+
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :likable, source_type: "Post"
   has_many :liked_comments, through: :likes, source: :likable, source_type: "Comment"
+
+  has_many :passive_subscriptions, class_name: "Subscription", foreign_key: :following_id, dependent: :destroy
+  has_many :active_subscriptions, class_name: "Subscription", foreign_key: :follower_id, dependent: :destroy
+  has_many :followers, through: :passive_subscriptions, source: :follower
+  has_many :followings, through: :active_subscriptions, source: :following
 
   has_one_attached :avatar
 
@@ -57,6 +64,10 @@ class User < ApplicationRecord
 
   def thumbnail(size)
     avatar.variant(resize_to_fill: [ size, size ])
+  end
+
+  def follow!(following_user)
+    Subscription.create(follower_id: id, following_id: following_user.id)
   end
 
   private
