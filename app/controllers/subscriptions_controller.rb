@@ -2,7 +2,6 @@ class SubscriptionsController < ApplicationController
   before_action :authorize_subscription
   before_action :set_following_user
 
-  # POST /follows or /follows.json
   def create
     subscription = current_user.follow!(@following_user)
 
@@ -19,14 +18,8 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  # DELETE /follows/1 or /follows/1.json
   def destroy
     subscription = current_user.unfollow!(@following_user)
-
-    respond_to do |format|
-      format.html { redirect_to follows_path, status: :see_other, notice: "Follow was successfully destroyed." }
-      format.json { head :no_content }
-    end
 
     respond_to do |format|
       if subscription.errors.empty?
@@ -50,6 +43,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_following_user
-    @following_user = User.find(params[:user_id])
+    @following_user = User.find(params[:id])
   end
 end

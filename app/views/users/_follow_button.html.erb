@@ -1,0 +1,32 @@
+<% if !user_signed_in? %>
+    <%= button_tag 'Follow',
+        class: 'btn btn-danger rounded-pill',
+        data: { bs_toggle: "modal",
+                bs_target: "#loginModal" } do
+    %>
+        <%= link_to new_user_session_path,
+            class: "nav-link",
+            data: {
+                turbo_frame: "login_modal_frame"
+            }
+        %>
+    <% end %>
+<% elsif current_user == user %>
+    <>
+<% elsif !current_user.visible? %>
+    <%= button_tag 'Follow', class: 'btn btn-danger rounded-pill' do %>
+        <%= link_to new_profile_users_path, class: "nav-link" %>
+    <% end %>
+<% elsif current_user.followed_to?(user) %>
+    <%= button_to 'Unfollow', unfollow_user_path(user), 
+        method: :delete,
+        form_class: 'd-inline-block',
+        class: 'btn btn-outline-danger rounded-pill'
+    %>
+<% else %>
+    <%= button_to 'Follow', follow_user_path(user),
+        method: :post,
+        form_class: 'd-inline-block',
+        class: 'btn btn-danger rounded-pill'
+    %>
+<% end %>

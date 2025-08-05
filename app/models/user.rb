@@ -74,6 +74,10 @@ class User < ApplicationRecord
     Subscription.find_by(follower_id: id, following_id: following_user.id).destroy
   end
 
+  def followed_to?(following_user)
+    Subscription.find_by(follower_id: id, following_id: following_user.id).present?
+  end
+
   private
 
   def must_be_at_least_14_years_old

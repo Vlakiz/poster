@@ -14,9 +14,12 @@
       </div>
     </div>
     <div class='col-12 col-lg-8 col-xxl-9'>
-      <h3 class="border-bottom pb-2 ps-3">
-        <%= user.nickname %>
-      </h3>
+      <div class="border-bottom ps-3 mb-2 pb-2 d-flex align-items-center">
+        <h3 class="d-inline-block me-3 mb-0">
+          <%= user.nickname %>
+        </h3>
+        <%= render 'users/follow_button', user: user %>
+      </div>
       <div class="ms-3">
         <% if user.visible? %>        
           <div class="mb-2 fw-medium">
