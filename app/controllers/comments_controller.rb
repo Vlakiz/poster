@@ -9,8 +9,8 @@ class CommentsController < ApplicationController
     @post_id = params[:post_id]
 
     @comments = Post.find(@post_id)
-                    .comments
-                    .includes(user: :avatar_attachment)
+                    .comments.not_replies
+                    .includes(:replies, user: :avatar_attachment)
                     .page(page)
 
     if @order == "older"
