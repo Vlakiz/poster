@@ -14,17 +14,19 @@
       </div>
     </div>
     <div class='col-12 col-lg-8 col-xxl-9'>
-      <div class="border-bottom ps-3 mb-2 pb-2 d-flex align-items-center">
-        <h3 class="d-inline-block me-3 mb-0">
-          <%= user.nickname %>
-        </h3>
-        <%= render 'users/follow_button', user: user %>
+      <div class="ps-3 mb-1 pb-2 d-flex justify-content-between">
+        <div class="d-inline-block">
+          <h4 class="fw-bold mb-1">
+            <%= full_name %>
+          </h4>
+          <div class="mb-2 fw-medium text-secondary">
+            <%= nickname(user) %>
+          </div>
+        </div>
+        <%= render 'shared/follow_button', user: user, small: false %>
       </div>
       <div class="ms-3">
         <% if user.visible? %>        
-          <div class="mb-2 fw-medium">
-            <%= full_name %>
-          </div>
           <div class="mb-2 text-secondary">
             <div class="country-flag d-inline me-1">
               <%= flag %>

@@ -1,0 +1,30 @@
+<% unless controller_name == 'registrations' || controller_name == 'sessions' %>
+    <aside class="w-100 overflow-hidden border-start border-top bg-light rounded-4">
+        <ul class="list-group list-group-flush sidebar-links fw-medium">
+            <li class="list-group-item py-3 text-secondary bg-light">
+                <%= link_to '#', class: 'nav-link' do %>
+                    <i class="bi bi-layout-text-window me-1"></i>
+                    <span>Newest<span>
+                <% end %>
+            </li>
+            <li class="list-group-item py-3 text-danger bg-light">
+                <%= link_to '#', class: 'nav-link' do %>
+                    <i class="bi bi-fire me-1"></i>
+                    <span>Trending<span>
+                <% end %>
+            </li>
+            <li class="list-group-item py-3 text-secondary bg-light">
+                <%= link_to '#', class: 'nav-link' do %>
+                    <i class="bi bi-bookmarks me-1"></i>
+                    <span>Subscriptions<span>
+                <% end %>
+            </li>
+            <li class="list-group-item py-3 text-secondary bg-light">
+                <%= link_to '#', class: 'nav-link' do %>
+                    <i class="bi bi-star me-1"></i>
+                    <span>Best<span>
+                <% end %>
+            </li>
+        </ul>
+    </aside>
+<% end %>

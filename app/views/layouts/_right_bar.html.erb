@@ -1,4 +1,4 @@
-<%- unless controller_name == 'registrations' || controller_name == 'sessions' %>
+<% unless controller_name == 'registrations' || controller_name == 'sessions' %>
     <aside class="p-4 bg-light w-100 rounded-4 border-start border-top" id="sidebar">
         <% if user_signed_in? %>
             <div class="d-flex">

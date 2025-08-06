@@ -1,7 +1,7 @@
 <% [notice, alert].each_with_index do |msg, i| %>
     <% next unless msg %>
     <%= content_tag :div,
-                    class: "alert alert-#{i.zero? ? 'success' : 'danger'} text-center position-absolute d-flex align-items-center mt-3",
+                    class: "alert alert-#{i.zero? ? 'success' : 'danger'} text-center position-absolute d-flex align-items-center mt-3 rounded-pill",
                     role: 'alert',
                     style: "opacity: 0.9; z-index: 98",
                     data: { controller: "alert" } do
