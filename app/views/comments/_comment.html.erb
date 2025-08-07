@@ -56,7 +56,13 @@
       <% end %>
     </div>
     <div class="card-footer text-body-secondary border-0">
-      <%= render 'shared/like', post: comment.post, comment: comment %>
+      <div class="d-inline-block me-3">
+        <%= render 'shared/like', post: comment.post, comment: comment %>
+      </div>
+      <span class="replies-count">
+        <i class="bi bi-reply-fill"></i>
+        <%= comment.replies_count %>
+      </span>
     </div>
   </turbo-frame>
 </div>

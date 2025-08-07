@@ -1,5 +1,5 @@
 <% if current_user&.visible? %>
-    <%= button_tag class: 'nav-link d-inline me-4',
+    <%= button_tag class: "nav-link",
         data: { controller: 'likes',
                 action: 'click->likes#like',
                 'likes-is-liked-value': liked?(comment || post),
@@ -18,7 +18,7 @@
         </div>
     <% end %>
 <% elsif user_signed_in? %>
-    <%= button_tag class: 'nav-link d-inline me-4' do %>
+    <%= button_tag class: 'nav-link' do %>
         <%= link_to new_profile_users_path,
             class: "nav-link" do
         %>
@@ -34,7 +34,7 @@
         <% end %>
     <% end %>
 <% else %>
-    <%= button_tag class: 'nav-link d-inline me-4',
+    <%= button_tag class: 'nav-link',
         data: { bs_toggle: "modal",
                 bs_target: "#loginModal" } do
     %>

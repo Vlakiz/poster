@@ -25,7 +25,9 @@
   </div>
 
   <div class="post-footer text-secondary mt-3 d-flex align-items-center">
-    <%= render 'shared/like', post: post, comment: nil %>
+    <div class="d-inline-block me-4">
+      <%= render 'shared/like', post: post, comment: nil %>
+    </div>
     <%= link_to post_path(post), class: 'nav-link d-inline' do %>
       <i class="bi bi-chat-fill me-1"></i>
       <%= post.comments_count %>
