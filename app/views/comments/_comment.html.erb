@@ -1,23 +1,23 @@
-<div id="<%= dom_id comment %>" class="card rounded-5 overflow-hidden comment-block">
+<div id="<%= dom_id comment %>" class="card rounded-5 overflow-hidden comment-block border-0">
   <turbo-frame id="<%= dom_id comment %>_frame" data-controller="turbo-frame">
-    <div class="card-header d-flex py-3 border-0">
+    <div class="card-header d-flex py-0 border-0 bg-white">
       <div class="col-10 d-flex align-items-center text-truncate">
         <div class="comment-avatar me-2">
           <%= avatar comment.user, class_name: 'img-xs rounded-circle' %>
         </div>
-        <div class="me-1 fw-semibold text-truncate">
+        <div class="fw-semibold text-truncate">
           <%= link_to nickname(comment.user), comment.user,
             class: "nav-link text-truncate",
             title: nickname(comment.user),
             data: { turbo_frame: "_top" }
           %>
         </div>
-        <span class="text-secondary">
+        <span class="text-secondary mx-2">
           •
         </span>
-        <span class="ms-1 text-body-secondary">
+        <small class="text-body-secondary">
           <%= time_ago_in_words comment.created_at %> ago
-        </span>
+        </small>
       </div>
       <div class="col-2 text-end">
         <% if comment.user == current_user %>
@@ -47,7 +47,7 @@
         <% end %>
       </div>
     </div>
-    <div class="card-body comment-body mb-2 mx-2">
+    <div class="card-body comment-body py-2">
       <%= simple_format(comment.body) %>
       <% if modified?(comment) %>
         <div class="position-absolute bottom-0 end-0 translate-middle text-body-tertiary">
@@ -55,7 +55,7 @@
         </div>
       <% end %>
     </div>
-    <div class="card-footer text-body-secondary border-0">
+    <div class="card-footer text-body-secondary border-0 bg-white pt-1">
       <div class="d-inline-block me-3">
         <%= render 'shared/like', post: comment.post, comment: comment %>
       </div>

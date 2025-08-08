@@ -34,13 +34,13 @@
           <%= render 'layouts/page-controls' %>
             <%- if sidebarable? %>
               <div class="row">
-                <div class="d-none d-lg-block col-0 col-xl-2">
+                <div class="d-none d-xl-block col-xl-2">
                   <%= render 'layouts/left_bar' %>
                 </div>
                 <div class="col-12 col-lg-8 col-xl-7">
                   <%= yield %>
                 </div>
-                <div class='d-none d-lg-block  col-4 col-xl-3'>
+                <div class='d-none d-lg-block col-lg-4 col-xl-3'>
                   <%= render 'layouts/right_bar' %>
                 </div>
               </div>

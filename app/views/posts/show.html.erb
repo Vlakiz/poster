@@ -40,7 +40,7 @@
   </div>
 <%- end %>
 
-<div id="comments" class="mt-4 col-md-10 col-lg-9 col-xl-8">
+<div id="comments" class="mt-4">
   <div class='mb-4 bg-light p-3 border rounded-5'>
     <% if user_signed_in? %>
       <%= render "comments/form", post: @post, comment: @new_comment %>

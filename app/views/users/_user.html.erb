@@ -47,8 +47,11 @@
           </div>
           <div class="d-block mt-2">
             Rating :
-            <span class='user-rating ms-1 fw-bold'>
-              <%= user.rating %>
+            <span class="text-danger">
+              <i class="bi bi-hearts"></i>
+              <span class='user-rating fw-bold'>
+                <%= user.rating %>
+              </span>
             </span>
           </div>
         <% elsif current_user == user %>

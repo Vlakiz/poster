@@ -1,8 +1,11 @@
 <div class="sort-button text-end mb-3 pe-3">
     <%= button_tag 'Sort by',
-        type: 'button', class: "btn btn-outline-danger dropdown-toggle rounded-pill",
-        data: { bs_toggle: 'dropdown' }, aria_expanded: 'false'
+        type: 'button', class: "nav-link d-inline-block navbar-toggler rounded-pill",
+        data: { bs_toggle: 'dropdown' }, aria_expanded: 'false' do
     %>
+        <i class="bi bi-filter-left me-1 fs-5"></i>
+        Sort by
+    <% end %>
     <div class="dropdown">
         <ul class="dropdown-menu">
         <li>

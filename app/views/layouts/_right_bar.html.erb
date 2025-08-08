@@ -1,34 +1,42 @@
 <% unless controller_name == 'registrations' || controller_name == 'sessions' %>
-    <aside class="p-4 bg-light w-100 rounded-4 border-start border-top" id="sidebar">
-        <% if user_signed_in? %>
-            <div class="d-flex">
-                <div class="sidebar-avatar me-3 ratio ratio-1x1">
-                    <%= avatar current_user, class_name: 'img-sm rounded-circle img-thumbnail' %>
-                </div>
-                <div class="sidebar-user-info text-truncate me-2">
-                    <div class="fw-semibold mb-2"> 
-                        <%= link_to nickname(current_user), current_user, class: 'nav-link' %>
+    <aside>
+        <% if user_signed_in? %>            
+            <div class="bg-light overflow-hidden w-100 border rounded-pill">
+                <div class="d-flex">
+                    <div class="sidebar-avatar ratio ratio-1x1">
+                        <%= avatar current_user, class_name: 'img-sm rounded-circle img-thumbnail' %>
                     </div>
-                    <div class="text-danger mb-2">
-                        <i class="bi bi-star-fill"></i>
-                        <span><%= current_user.rating %></span>
-                    </div>
-                </div>
-                <div class="flex-fill text-end">
-                    <div>
-                        <%= link_to destroy_user_session_path,
-                            class: "nav-link text-secondary fs-5 sidebar-logout d-inline-block",
-                            data: { turbo_method: :delete } do
-                        %>
-                            <i class="bi bi-box-arrow-left"></i>
-                        <% end %>
+                    <div class="d-flex flex-fill">
+                        <div class="sidebar-user-info text-truncate mx-1 py-2 col-9 row align-items-center">
+                            <div class="fw-semibold text-truncate"> 
+                                <%= link_to current_user, class: 'nav-link text-truncate' do %>
+                                    <small><%= nickname(current_user) %></small>
+                                <% end %>
+                            </div>
+                            <div class="text-danger">
+                                <i class="bi bi-hearts"></i>
+                                <span><%= current_user.rating %></span>
+                            </div>
+                        </div>
+                        <div class="text-end d-flex align-items-center col-3 border-start rounded-circle">
+                            <div class="">
+                                <%= link_to destroy_user_session_path,
+                                    class: "fs-5 sidebar-logout d-inline-block ms-2 ps-1",
+                                    data: { turbo_method: :delete } do
+                                %>
+                                    <i class="bi bi-box-arrow-left"></i>
+                                <% end %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         <% else %>
-            <h4 class="mb-4">Sign In</h4>
-            <%= render "devise/sessions/form" %>
-            <%= render "devise/shared/links" %>
+            <div class="p-4 bg-light w-100 rounded-4 border-start border-top">
+                <h4 class="mb-4">Sign In</h4>
+                <%= render "devise/sessions/form" %>
+                <%= render "devise/shared/links" %>
+            </div>
         <% end %>
     </aside>
 <% end %>
