@@ -2,9 +2,9 @@
     <%= button_tag class: "nav-link",
         data: { controller: 'likes',
                 action: 'click->likes#like',
-                'likes-is-liked-value': liked?(comment || post),
-                'likes-post-id-value': post.id,
-                'likes-comment-id-value': comment&.id,
+                'likes-is-liked-value': liked?(resource),
+                'likes-resource-id-value': resource.id,
+                'likes-collection-name-value': resource.model_name.collection,
                 'likes-is-authorized-value': user_signed_in?, } do
     %>
         <div class="post-like text-danger">
@@ -13,7 +13,7 @@
                 data: { 'likes-target': 'likeButton' }
             )%>
             <span data-likes-target='likeCount'>
-                <%= (comment || post).likes_count %>
+                <%= resource.likes_count %>
             </span>
         </div>
     <% end %>
@@ -28,7 +28,7 @@
                     data: { 'likes-target': 'likeButton' }
                 )%>
                 <span data-likes-target='likeCount'>
-                    <%= (comment || post).likes_count %>
+                    <%= resource.likes_count %>
                 </span>
             </div>
         <% end %>
@@ -47,7 +47,7 @@
             <div class="post-like text-danger">
                 <i class="bi bi-heart me-1 align-text-top d-inline-block"></i>
                 <span>
-                    <%= (comment || post).likes_count %>
+                    <%= resource.likes_count %>
                 </span>
             </div>
         <% end %>

@@ -6,8 +6,8 @@ export default class extends Controller {
   static values = {
     isLiked: { type: Boolean, default: false },
     isAuthorized: { type: Boolean, default: false },
-    postId: Number,
-    commentId: { type: Number, default: null },
+    collectionName: String,
+    resourceId: Number
   }
 
   connect() {
@@ -26,7 +26,7 @@ export default class extends Controller {
       this.likeCountTarget.textContent = +this.likeCountTarget.textContent - 1
     }
 
-    fetch(`/posts/${this.postIdValue}/${this.commentIdValue ? `comments/${this.commentIdValue}/` : ''}like`, {
+    fetch(`/${this.collectionNameValue}/${this.resourceIdValue}/like`, {
       method: this.isLikedValue == false ? 'DELETE' : 'POST',
       headers: {
         'Accept': 'application/json',

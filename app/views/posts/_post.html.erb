@@ -35,7 +35,7 @@
 
   <div class="post-footer text-secondary mt-3 d-flex align-items-center">
     <div class="d-inline-block me-4">
-      <%= render 'shared/like', post: post, comment: nil %>
+      <%= render 'shared/like', resource: post %>
     </div>
     <%= link_to post_path(post), class: 'nav-link d-inline' do %>
       <i class="bi bi-chat-fill me-1"></i>

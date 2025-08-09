@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     post :like, to: "likes#create", as: :like
     delete :like, to: "likes#destroy", as: :unlike
 
-    resources :comments do
+    resources :comments, shallow: true do
       post :like, to: "likes#create", as: :like
       delete :like, to: "likes#destroy", as: :unlike
     end
