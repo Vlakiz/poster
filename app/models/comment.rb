@@ -30,6 +30,6 @@ class Comment < ApplicationRecord
   end
 
   def strip_body
-    self.body = body.strip;
+    self.body = body.strip
   end
 end

@@ -2,7 +2,6 @@ class CommentsController < ApplicationController
   before_action :set_comment_and_post, only: %i[ show edit update destroy ]
   before_action :authorize_comment, only: %i[ show edit update destroy ]
 
-  # GET /comments or /comments.json
   def index
     page = params[:page]
     @order = params[:order]
@@ -25,29 +24,25 @@ class CommentsController < ApplicationController
     render partial: "comments/comments", locals: { comments: @comments, post_id: @post_id, order: @order }
   end
 
-  # GET /comments/1 or /comments/1.json
   def show
     render @comment
   end
 
-  # GET /comments/new
   def new
     @comment = Comment.new
   end
 
-  # GET /comments/1/edit
   def edit
     @previous_page = @post
   end
 
-  # POST /comments or /comments.json
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.post, notice: "Comment was added." }
+        format.html { redirect_to @comment.post, notice: "Comment has been added." }
         format.json { render :show, status: :created, location: @comment }
       else
         @post = @comment.post
@@ -60,12 +55,15 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /comments/1 or /comments/1.json
   def update
+    previous_update = @comment.updated_at
     respond_to do |format|
       if @comment.update(comment_params)
+        current_update = @comment.updated_at
+        is_changed = previous_update != current_update
+
         format.html { redirect_to post_comment_path(post_id: @comment.post_id),
-                                  notice: "Comment was updated." }
+                                  notice: is_changed ? "Comment has been updated." : nil }
         format.json { render :show, status: :ok, location: @comment }
       else
         @previous_page = @post
@@ -75,12 +73,11 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1 or /comments/1.json
   def destroy
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @comment.post, status: :see_other, notice: "Comment was deleted." }
+      format.html { redirect_to @comment.post, status: :see_other, notice: "Comment has been deleted." }
       format.json { head :no_content }
     end
   end
