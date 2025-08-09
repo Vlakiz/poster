@@ -10,6 +10,7 @@ class Comment < ApplicationRecord
 
   validates :body, length: { minimum: 3, maximum: 200 }
   validate :replied_to_a_comment_on_the_same_post, if: :is_reply?
+  validate :replied_to_not_a_reply, if: :is_reply?
 
   before_save :strip_body
 
@@ -26,6 +27,12 @@ class Comment < ApplicationRecord
   def replied_to_a_comment_on_the_same_post
     unless replied_to.post_id == post_id
       errors.add(:body, "replies to the comment from another post")
+    end
+  end
+
+  def replied_to_not_a_reply
+    if replied_to.replied_to
+      errors.add(:body, "can't reply to a reply")
     end
   end
 

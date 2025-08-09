@@ -23,7 +23,7 @@
         <% if comment.user == current_user %>
           <div class="comment-controls">
             <div class="d-inline me-2">
-              <%= link_to edit_post_comment_path(comment.post, comment),
+              <%= link_to edit_comment_path(comment),
                 class: "nav-link edit-comment d-inline",
                 data: {
                     turbo_frame: "#{dom_id comment}_frame",
@@ -33,7 +33,7 @@
                 <i class="bi bi-pen"></i>
               <% end %>
             </div>
-            <%= link_to post_comment_path(comment.post, comment),
+            <%= link_to comment_path(comment),
               class: "nav-link d-inline",
               data: {
                 turbo_method: :delete,
@@ -69,10 +69,40 @@
       <div class="d-inline-block me-3">
         <%= render 'shared/like', resource: comment %>
       </div>
-      <span class="replies-count">
+      <div class="replies-count d-inline-block me-3">
         <i class="bi bi-reply-fill"></i>
         <%= comment.replies_count %>
-      </span>
+      </div>
+      <div class="d-inline-block">
+        <small>
+          <%= link_to "Reply",
+                      new_post_comment_path(post_id: comment.post,
+                                            replied_to_id: comment.replied_to_id || comment,
+                                            reply_nickname: nickname(comment.user)),
+                      class: 'nav-link text-secondary fw-medium',
+                      data: { turbo_frame: "#{dom_id comment}_new_reply_frame" }
+          %>
+        </small>
+      </div>
     </div>
+    <div class="new-reply pt-1 pb-3 ms-4">
+      <turbo-frame id="<%= dom_id comment %>_new_reply_frame"
+        data-controller="turbo-frame"
+        data-turbo-frame-target='content'
+      >
+      </turbo-frame>
+    <div>
+    <% if comment.replies.any? %>
+      <div class="px-3 pb-2">
+        <turbo-frame id="<%= dom_id comment %>_replies_frame">        
+          <div>
+            <%= link_to comment_replies_path(comment), class: 'text-danger fw-medium nav-link' do %>
+              <i class="bi bi-chevron-down me-1"></i>
+              <span>Show replies</span>
+            <% end %>
+          </div>
+        </turbo-frame>
+      </div>
+    <% end %>
   </turbo-frame>
 </div>

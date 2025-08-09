@@ -16,7 +16,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user&.visbile? && (@record.user == @user || @user.admin? || @user.editor? || @user.moderator?)
+    @user&.visible? && (@record.user == @user || @user.admin? || @user.editor? || @user.moderator?)
   end
 
   class Scope < ApplicationPolicy::Scope

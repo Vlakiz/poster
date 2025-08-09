@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="turbo-frame"
 export default class extends Controller {
-  static targets = ["spinner"]
+  static targets = ["spinner", "content"]
 
   connect() {
     this.element.addEventListener('turbo:before-prefetch', this.disablePreFetchEvent);
@@ -23,6 +23,11 @@ export default class extends Controller {
   disablePreFetchEvent(event) {
     event.preventDefault();
   }
+
+  clearFrame(event) {
+    event.preventDefault();
+    this.contentTarget.innerHTML = '';
+  }
   
   addSpinnerToLink(event) {
     const spinner = document.createElement('div');
@@ -37,7 +42,8 @@ export default class extends Controller {
 
   replaceBySpinner(_event) {
     const spinner = document.createElement('div');
-    spinner.role = 'status';spinner.className = 'spinner-border text-danger';
+    spinner.role = 'status';
+    spinner.className = 'spinner-border text-danger';
 
     const spinnerWrap = document.createElement('div');
     spinnerWrap.className = 'text-center';

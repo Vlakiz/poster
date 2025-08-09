@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment_and_post, only: %i[ show edit update destroy ]
+  before_action :set_comment_and_post, only: %i[ show edit update destroy replies ]
   before_action :authorize_comment, only: %i[ show edit update destroy ]
 
   def index
@@ -24,12 +24,23 @@ class CommentsController < ApplicationController
     render partial: "comments/comments", locals: { comments: @comments, post_id: @post_id, order: @order }
   end
 
+  def replies
+    page = params[:page]
+    @comments = @comment.replies.page(page)
+  end
+
   def show
     render @comment
   end
 
   def new
-    @comment = Comment.new
+    authorize Comment
+
+    if params[:reply_nickname]
+      body = "#{params[:reply_nickname]}, "
+    end
+    @comment = Comment.new(post_id: params.expect(:post_id), replied_to_id: params[:replied_to_id], body: body)
+    render :new, layout: false
   end
 
   def edit
@@ -37,6 +48,8 @@ class CommentsController < ApplicationController
   end
 
   def create
+    authorize Comment
+
     @comment = Comment.new(comment_params)
     @comment.user = current_user
 
@@ -62,8 +75,7 @@ class CommentsController < ApplicationController
         current_update = @comment.updated_at
         is_changed = previous_update != current_update
 
-        format.html { redirect_to post_comment_path(post_id: @comment.post_id),
-                                  notice: is_changed ? "Comment has been updated." : nil }
+        format.html { redirect_to comment_path, notice: is_changed ? "Comment has been updated." : nil }
         format.json { render :show, status: :ok, location: @comment }
       else
         @previous_page = @post
@@ -86,7 +98,7 @@ class CommentsController < ApplicationController
 
   def set_comment_and_post
     @comment = Comment.find(params.expect(:id))
-    @post = @comment.post
+    @post = Post.find(params[:post_id]) if params[:post_id]
   end
 
   def authorize_comment
@@ -94,6 +106,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.expect(comment: [ :body, :post_id ])
+    params.expect(comment: [ :body, :post_id, :replied_to_id ])
   end
 end
