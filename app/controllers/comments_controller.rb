@@ -27,6 +27,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1 or /comments/1.json
   def show
+    render @comment
   end
 
   # GET /comments/new
@@ -63,7 +64,8 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment.post, notice: "Comment was updated." }
+        format.html { redirect_to post_comment_path(post_id: @comment.post_id),
+                                  notice: "Comment was updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         @previous_page = @post

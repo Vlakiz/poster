@@ -20,8 +20,17 @@
     </h3>
   </div>
 
-  <div class="post-content">
-    <%= simple_format post.body %>
+  <div data-controller='read-more' data-read-more-max-height-value=300>
+    <div class="post-content" data-read-more-target="textToHide">
+      <%= simple_format post.body %>
+    </div>
+    <div class="position-relative" data-read-more-target="showMoreButton" hidden>
+      <div class="post-show-more-fade position-absolute w-100 bottom-100"></div>
+      <button class="show-more-btn nav-link text-danger"
+              data-action='click->read-more#showMore'>
+        Show more ...
+      </button>
+    </div>
   </div>
 
   <div class="post-footer text-secondary mt-3 d-flex align-items-center">

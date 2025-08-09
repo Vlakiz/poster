@@ -26,7 +26,7 @@
 
   <div class="mt-3 d-flex justify-content-end">
     <% if turbo_frame_request? %>
-      <%= link_to 'Back', post_comment_path,
+      <%= link_to 'Back', post_comment_path(post_id: comment.post_id),
         class: "btn btn-secondary rounded-pill px-3 me-2",
         data: { action: 'click->turbo-frame#addSpinnerToLink' }
       %>

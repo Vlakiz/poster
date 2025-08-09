@@ -47,13 +47,23 @@
         <% end %>
       </div>
     </div>
-    <div class="card-body comment-body py-2">
-      <%= simple_format(comment.body) %>
-      <% if modified?(comment) %>
-        <div class="position-absolute bottom-0 end-0 translate-middle text-body-tertiary">
-          <sub>Edited</sub>
-        </div>
-      <% end %>
+    <div class="card-body py-2 position-relative"
+         data-controller='read-more' data-read-more-max-height-value=200>
+      <div class="comment-body" data-read-more-target="textToHide">
+        <% if modified?(comment) %>
+          <div class="position-absolute bottom-0 end-0 translate-middle-x text-body-tertiary">
+            <sub>Edited</sub>
+          </div>
+        <% end %>
+        <%= simple_format(comment.body) %>
+      </div>
+      <div class="position-relative" data-read-more-target="showMoreButton" hidden>
+        <div class="comment-show-more-fade position-absolute w-100 bottom-100"></div>
+        <button class="show-more-btn nav-link text-secondary fw-medium"
+                data-action='click->read-more#showMore'>
+          <small>More ...</small>
+        </button>
+      </div>
     </div>
     <div class="card-footer text-body-secondary border-0 bg-white pt-1">
       <div class="d-inline-block me-3">

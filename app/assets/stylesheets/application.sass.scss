@@ -139,3 +139,25 @@ aside {
         }
     }
 }
+
+@mixin show-more-fade($height, $bg-color) {
+    height: $height;
+    background-image: linear-gradient(transparent 0px, rgba($bg-color, 0.9) 80%, rgba($bg-color, 1) 100%);
+}
+
+.post-show-more-fade {
+    @include show-more-fade(100px, var(--bs-light-rgb));
+}
+
+.comment-show-more-fade {
+    @include show-more-fade(60px, white);
+}
+
+.show-more-btn {
+    border-bottom: solid 1px transparent;
+    transition: border 0.1s ease-out;
+
+    &:hover {
+        border-bottom: solid 1px rgba(var(--bs-danger-rgb), var(--bs-text-opacity));
+    }
+}
