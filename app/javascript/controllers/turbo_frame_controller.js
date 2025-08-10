@@ -20,8 +20,11 @@ export default class extends Controller {
   }
 
   replaceBySpinner(event) {
+    const frameTarget = event.currentTarget;
     const fetchFrameId = event.detail.fetchOptions?.headers?.["Turbo-Frame"]
-    if (fetchFrameId !== event.currentTarget.id) return;
+    if (frameTarget.tagName === 'TURBO-FRAME' && fetchFrameId !== event.currentTarget.id) {
+      return;
+    }
 
     const spinner = document.createElement('div');
     spinner.role = 'status';
@@ -31,7 +34,7 @@ export default class extends Controller {
     spinnerWrap.className = 'text-center';
     spinnerWrap.appendChild(spinner);
 
-    const target = this.hasSpinnerTarget ? this.spinnerTarget : event.currentTarget;
+    const target = this.hasSpinnerTarget ? this.spinnerTarget : frameTarget;
 
     const savedHeight = target.offsetHeight;
     target.innerHTML = '';

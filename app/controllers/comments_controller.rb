@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
                    notice: notice
           end
         else
-          format.html { redirect_to @comment.post, notice: notice }
+          format.html { redirect_to post_path(@comment.post, corder: "newer"), notice: notice }
         end
         format.json { render :show, status: :created, location: @comment }
       else

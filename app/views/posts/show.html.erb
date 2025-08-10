@@ -63,7 +63,7 @@
   <div id='comments-list' class="">
     <turbo-frame
       id="post_<%= @post.id %>_comments_frame"
-      src="<%= post_comments_path(post_id: @post.id) %>"
+      src="<%= post_comments_path(post_id: @post.id, order: @comments_order) %>"
       data-controller="turbo-frame"
     >
       <div class='d-flex justify-content-center'>
