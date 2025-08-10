@@ -16,7 +16,8 @@ export default class extends Controller {
 
   disconnect() {
     this.element.removeEventListener('turbo:before-prefetch', this.disablePreFetchEvent);
-    this.element.removeEventListener('turbo:before-fetch-request', this.disableAllInnerLinks);
+    this.element.removeEventListener('turbo:before-fetch-request', this.replaceBySpinner.bind(this));
+    this.preserveHeightValue && this.element.removeEventListener('turbo:before-frame-render', this.returnHeight.bind(this));
   }
 
   replaceBySpinner(event) {

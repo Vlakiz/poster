@@ -26,7 +26,10 @@ class CommentsController < ApplicationController
 
   def replies
     page = params[:page]
-    @comments = Comment.replying_to(params[:comment_id]).page(page, per_page: 5)
+    @comment_id = params[:comment_id]
+    @replies = Comment.replying_to(params[:comment_id]).page(page).per(5)
+
+    render partial: "comments/replies", locals: { replies: @replies }
   end
 
   def show

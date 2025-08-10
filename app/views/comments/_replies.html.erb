@@ -1,0 +1,26 @@
+<turbo-frame id="comment_<%= @comment_id %>_replies_<%= replies.current_page %>_frame">
+    <div class="ms-2">
+        <% replies.each do |reply| %>
+            <div class="comment-wrapper mb-1">
+                <%= render reply %>
+            </div>
+        <% end %>
+    </div>
+    <% if replies.next_page %>
+        <%= turbo_frame_tag "comment_#{@comment_id}_replies_#{replies.next_page}_frame",
+            data: { controller: "turbo-frame",
+                    "turbo-frame-target" => "content",
+                    "turbo-frame-preserve-height-value" => true,
+                    "turbo-frame-min-height-value" => 50 } do
+        %>
+            <%= link_to comment_replies_path(comment_id: @comment_id, page: replies.next_page),
+                        class: "nav-link text-danger ms-4 fw-medium" do
+            %>
+                <small>
+                    <i class="bi bi-chevron-down me-1"></i>
+                    <span>More replies</span>
+                </small>
+            <% end %>
+        <% end %>
+    <% end %>
+</turbo-frame>

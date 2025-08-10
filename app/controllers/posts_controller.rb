@@ -25,7 +25,7 @@ class PostsController < ApplicationController
 
   def show
     @new_comment = Comment.new(post: @post, user: current_user)
-    @comments_order = params[:corder] || 'rating'
+    @comments_order = params[:corder] || "rating"
   end
 
   def new
