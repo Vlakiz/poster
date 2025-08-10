@@ -58,13 +58,13 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        notice = "Comment has been added."
         if turbo_frame_request? && @comment.replied_to_id
           replied_to_id = @comment.replied_to_id
-          flash.now[:notice] = "Comment has been added."
+          flash.now[:notice] = notice
           format.html do
             render partial: "shared/empty_frame",
-                   locals: { frame_id: "comment_#{replied_to_id}_new_reply_frame" },
-                   notice: notice
+                   locals: { frame_id: "comment_#{replied_to_id}_new_reply_frame" }
           end
         else
           format.html { redirect_to post_path(@comment.post, corder: "newer"), notice: notice }
@@ -102,7 +102,16 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @comment.post, status: :see_other, notice: "Comment has been deleted." }
+      notice = "Comment has been deleted."
+      if turbo_frame_request?
+          flash.now[:notice] = notice
+          format.html do
+            render partial: "shared/empty_frame",
+                   locals: { frame_id: "comment_#{@comment.id}_frame" }
+          end
+      else
+        format.html { redirect_to @comment.post, status: :see_other, notice: notice }
+      end
       format.json { head :no_content }
     end
   end

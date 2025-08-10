@@ -29,7 +29,7 @@ export default class extends Controller {
 
     const spinner = document.createElement('div');
     spinner.role = 'status';
-    spinner.className = 'spinner-border text-danger';
+    spinner.className = `spinner-${this.preserveHeightValue ? 'grow text-light' : 'border text-danger'}`;
 
     const spinnerWrap = document.createElement('div');
     spinnerWrap.className = 'text-center';
