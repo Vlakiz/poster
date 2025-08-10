@@ -3,7 +3,7 @@
               data-turbo-frame-preserve-height-value=true
               data-turbo-frame-target='spinner'
 >
-  <div id="<%= dom_id comment %>" class="card rounded-5 overflow-hidden comment-block border-0">
+  <div id="<%= dom_id comment %>" class="card overflow-hidden comment-block border-0">
     <div class="card-header d-flex py-0 border-0 bg-white">
       <div class="col-10 d-flex align-items-center text-truncate">
         <div class="comment-avatar me-2">
@@ -19,7 +19,7 @@
         <span class="text-secondary mx-2">
           •
         </span>
-        <small class="text-body-secondary">
+        <small class="text-body-secondary" role="button" title="<%= comment.created_at %>">
           <%= time_ago_in_words comment.created_at %> ago
         </small>
         <% if modified?(comment) %>
@@ -28,19 +28,21 @@
       </div>
       <div class="col-2 text-end">
         <% if comment.user == current_user %>
-          <div class="comment-controls">
+          <div class="comment-controls text-secondary">
             <div class="d-inline me-2">
               <%= link_to edit_comment_path(comment),
                 class: "nav-link edit-comment d-inline",
+                title: "Edit",
                 data: {
                     turbo_frame: "#{dom_id comment}_frame"
                 } do
               %>
-                <i class="bi bi-pen"></i>
+                <i class="bi bi-pencil-square"></i>
               <% end %>
             </div>
             <%= link_to comment_path(comment),
               class: "nav-link d-inline",
+              title: "Delete",
               data: {
                 turbo_method: :delete,
                 action: "click->turbo-frame#replaceBySpinner"
@@ -93,7 +95,7 @@
     >
     </turbo-frame>
     <% if comment.replies.any? %>
-      <div class="px-3 pb-2">
+      <div class="ps-3 pb-2">
         <turbo-frame id="<%= dom_id comment %>_replies_1_frame"
           data-controller="turbo-frame"
           data-turbo-frame-target='content'

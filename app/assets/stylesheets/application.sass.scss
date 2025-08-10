@@ -127,14 +127,14 @@ aside {
         
         i {
             display: inline-block;
-            transition: all 0.1s ease-out;
+            transition: margin-right 0.1s ease-out;
         }
 
         &:hover {
             color: #403434 !important;
 
             i {
-                transform: scale(1.15);
+                margin-right: 5px !important;
             }
         }
     }
