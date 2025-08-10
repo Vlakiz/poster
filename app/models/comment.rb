@@ -15,6 +15,7 @@ class Comment < ApplicationRecord
   before_save :strip_body
 
   scope :not_replies, -> { where(replied_to: nil) }
+  scope :replying_to, ->(comment_id) { where(replied_to: comment_id) }
 
   paginates_per 10
 

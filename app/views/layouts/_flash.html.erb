@@ -1,13 +1,16 @@
-<% [notice, alert].each_with_index do |msg, i| %>
-    <% next unless msg %>
-    <%= content_tag :div,
-                    class: "alert alert-#{i.zero? ? 'success' : 'danger'} text-center position-absolute d-flex align-items-center mt-3 rounded-pill",
-                    role: 'alert',
-                    style: "opacity: 0.9; z-index: 98",
-                    data: { controller: "alert" } do
-    %>
-        <%= content_tag :i, '', class: "bi bi-#{i.zero? ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-3" %>
-        <p class="mb-0"><%= msg.strip.gsub(/\n/, '<br/>').html_safe %></p>
-        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="position-absolute h-100 top-0">
+    <% [notice, alert].each_with_index do |msg, i| %>
+        <% next unless msg %>
+        <%= content_tag :div,
+                        class: "alert alert-#{i.zero? ? 'success' : 'danger'} text-center position-sticky"\
+                               " d-flex align-items-center mt-3 rounded-pill",
+                        role: 'alert',
+                        style: "opacity: 0.9; top: 100px; z-index: 999",
+                        data: { controller: "alert" } do
+        %>
+            <%= content_tag :i, '', class: "bi bi-#{i.zero? ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-3" %>
+            <p class="mb-0"><%= msg.strip.gsub(/\n/, '<br/>').html_safe %></p>
+            <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        <% end %>
     <% end %>
-<% end %>
+</div>

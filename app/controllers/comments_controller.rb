@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment_and_post, only: %i[ show edit update destroy replies ]
+  before_action :set_comment_and_post, only: %i[ show edit update destroy ]
   before_action :authorize_comment, only: %i[ show edit update destroy ]
 
   def index
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
 
   def replies
     page = params[:page]
-    @comments = @comment.replies.page(page)
+    @comments = Comment.replying_to(params[:comment_id]).page(page, per_page: 5)
   end
 
   def show
@@ -55,7 +55,17 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.post, notice: "Comment has been added." }
+        if turbo_frame_request? && @comment.replied_to_id
+          replied_to_id = @comment.replied_to_id
+          flash.now[:notice] = "Comment has been added."
+          format.html do
+            render partial: "shared/empty_frame",
+                   locals: { frame_id: "comment_#{replied_to_id}_new_reply_frame" },
+                   notice: notice
+          end
+        else
+          format.html { redirect_to @comment.post, notice: notice }
+        end
         format.json { render :show, status: :created, location: @comment }
       else
         @post = @comment.post

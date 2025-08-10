@@ -1,5 +1,7 @@
 <turbo-frame id="comment_<%= @comment.replied_to_id %>_new_reply_frame">
-    <div class="border rounded-5 bg-light p-3">
-        <%= render "form", comment: @comment, post: @comment.post %>
+    <div class="new-reply pt-1 pb-3 ms-4">
+        <div class="border rounded-5 bg-light p-3">
+            <%= render "form", comment: @comment, post: @comment.post %>
+        </div>
     </div>
 <turbo-frame>

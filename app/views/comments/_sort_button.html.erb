@@ -10,20 +10,17 @@
         <ul class="dropdown-menu">
         <li>
             <%= link_to 'Best', post_comments_path(post_id: post_id),
-            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame",
-                                            action: 'click->turbo-frame#replaceBySpinner' }
+            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame" }
             %>
         </li>
         <li>
             <%= link_to 'Newest', post_comments_path(post_id: post_id, order: 'newer'),
-            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame",
-                                            action: 'click->turbo-frame#replaceBySpinner' }
+            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame" }
             %>
         </li>
         <li>
             <%= link_to 'Oldest', post_comments_path(post_id: post_id, order: 'older'),
-            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame",
-                                            action: 'click->turbo-frame#replaceBySpinner' }
+            class: 'dropdown-item', data: { turbo_frame: "post_#{post_id}_comments_frame" }
             %>
         </li>
         </ul>
