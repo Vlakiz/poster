@@ -55,7 +55,7 @@
     <div class="card-body py-2 position-relative"
          data-controller='read-more' data-read-more-max-height-value=200>
       <div class="comment-body" data-read-more-target="textToHide">
-        <%= simple_format(comment.body) %>
+        <%= raw ats_to_links(simple_format(comment.body)) %>
       </div>
       <div class="position-relative" data-read-more-target="showMoreButton" hidden>
         <div class="comment-show-more-fade position-absolute w-100 bottom-100"></div>

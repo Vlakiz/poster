@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }\
 
-  resources :users, only: [ :show, :edit, :update ] do
+  get "users/:id", to: "users#show", constraints: { id: /\d+/ }, as: "user"
+  get "users/:nickname", to: "users#show", constraints: { nickname: /\w+/ }, as: "nickname"
+  resources :users, only: [ :edit, :update ] do
     member do
       delete :remove_avatar
 

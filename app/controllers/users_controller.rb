@@ -57,7 +57,11 @@ class UsersController < ApplicationController
   end
 
   def set_and_authorize_user
-    @user = User.find(params.expect(:id))
+    if params[:nickname]
+      @user = User.find_by(nickname: params[:nickname])
+    else
+      @user = User.find(params.expect(:id))
+    end
     authorize @user
   end
 
