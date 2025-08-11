@@ -12,6 +12,6 @@ module CommentsHelper
             link_to($~, nickname_path($1),
                     class: "link-underline link-underline-opacity-0 text-danger",
                     data: { turbo_frame: "_top" })
-        end
+        end.html_safe
     end
 end

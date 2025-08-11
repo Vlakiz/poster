@@ -8,7 +8,7 @@
       <span class="text-secondary mx-2">
         •
       </span>
-      <div class="d-inline text-secondary">
+      <div class="d-inline text-secondary" title="<%= post.published_at %>" role="button">
         <%= time_ago_in_words post.published_at.to_i %> ago
       </div>
     </div>
