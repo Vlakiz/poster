@@ -1,11 +1,11 @@
-<div class="position-relative h-100 border-end">
+<div class="position-relative h-100">
     <div id="left-bar" class="sidebar position-sticky py-3">
         <nav class="overflow-hidden">
             <ul class="sidebar-links text-secondary fw-medium list-group">
-                <%= render 'shared/sidebars/left/nav_link', path: '/new', name: 'Newest', icon: 'layout-text-window' %>
+                <%= render 'shared/sidebars/left/nav_link', path: '/new', name: 'Newest', icon: 'clock' %>
                 <%= render 'shared/sidebars/left/nav_link', path: '/hot', name: 'Trending', icon: 'fire' %>
-                <%= render 'shared/sidebars/left/nav_link', path: '/feed', name: 'Feed', icon: 'bookmarks' %>
-                <%= render 'shared/sidebars/left/nav_link', path: '/best', name: 'Best', icon: 'star' %>
+                <%= render 'shared/sidebars/left/nav_link', path: '/feed', name: 'Subscriptions', icon: 'bookmarks' %>
+                <%= render 'shared/sidebars/left/nav_link', path: '/best', name: 'Top Rated', icon: 'star' %>
             </ul>
         </nav>
     </div>

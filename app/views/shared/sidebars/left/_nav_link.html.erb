@@ -1,6 +1,6 @@
-<%= content_tag :li, class: "mb-1 sidebar-link #{" active" if current_page?(path)}" do %>
+<%= content_tag :li, class: "mb-2 sidebar-link #{" active" if current_page?(path)}" do %>
     <div class="link-wrapper px-3 py-2 rounded-4 me-2">
-        <%= link_to path, class: 'nav-link fw-medium d-flex align-items-center' do %>
+        <%= link_to path, class: 'nav-link fw-bold d-flex align-items-center' do %>
             <i class="bi bi-<%= icon %> me-3"></i>
             <span><%= name %><span>
         <% end %>
