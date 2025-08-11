@@ -1,0 +1,33 @@
+<aside class="bg-light overflow-hidden w-100 rounded-pill">
+    <div class="d-flex">
+        <div class="sidebar-avatar ratio ratio-1x1">
+            <%= avatar current_user, class_name: 'img-sm rounded-circle img-thumbnail' %>
+        </div>
+        <div class="d-flex flex-fill">
+            <div class="sidebar-user-info text-truncate mx-1 py-2 col-9 row align-items-center">
+                <div class="fw-semibold text-truncate"> 
+                    <%= link_to current_user, class: 'nav-link text-truncate', title: 'Go to profile' do %>
+                        <small><%= nickname(current_user) %></small>
+                    <% end %>
+                </div>
+                <div class="text-danger d-inline-block">
+                    <span role="button" title="Rating">
+                        <i class="bi bi-person-arms-up"></i>
+                        <span><%= current_user.rating %></span>
+                    </span>
+                </div>
+            </div>
+            <div class="text-end d-flex align-items-center col-3 border-start rounded-circle">
+                <div class="">
+                    <%= link_to destroy_user_session_path,
+                        class: "fs-5 sidebar-logout d-inline-block ms-2 ps-1",
+                        title: 'Sign out',
+                        data: { turbo_method: :delete } do
+                    %>
+                        <i class="bi bi-box-arrow-left"></i>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

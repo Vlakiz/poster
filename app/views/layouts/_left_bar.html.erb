@@ -1,30 +1,12 @@
-<% unless controller_name == 'registrations' || controller_name == 'sessions' %>
-    <aside class="w-100 overflow-hidden border-start border-top bg-light rounded-4" id="left-bar">
-        <ul class="list-group list-group-flush sidebar-links fw-medium">
-            <li class="list-group-item py-3 text-secondary bg-light">
-                <%= link_to '#', class: 'nav-link' do %>
-                    <i class="bi bi-layout-text-window me-1"></i>
-                    <span>Newest<span>
-                <% end %>
-            </li>
-            <li class="list-group-item py-3 text-danger bg-light">
-                <%= link_to '#', class: 'nav-link' do %>
-                    <i class="bi bi-fire me-1"></i>
-                    <span>Trending<span>
-                <% end %>
-            </li>
-            <li class="list-group-item py-3 text-secondary bg-light">
-                <%= link_to '#', class: 'nav-link' do %>
-                    <i class="bi bi-bookmarks me-1"></i>
-                    <span>Subscriptions<span>
-                <% end %>
-            </li>
-            <li class="list-group-item py-3 text-secondary bg-light">
-                <%= link_to '#', class: 'nav-link' do %>
-                    <i class="bi bi-star me-1"></i>
-                    <span>Best<span>
-                <% end %>
-            </li>
-        </ul>
-    </aside>
-<% end %>
+<div class="position-relative h-100 border-end">
+    <div id="left-bar" class="sidebar position-sticky py-3">
+        <nav class="overflow-hidden">
+            <ul class="sidebar-links text-secondary fw-medium list-group">
+                <%= render 'shared/sidebars/left/nav_link', path: '/new', name: 'Newest', icon: 'layout-text-window' %>
+                <%= render 'shared/sidebars/left/nav_link', path: '/hot', name: 'Trending', icon: 'fire' %>
+                <%= render 'shared/sidebars/left/nav_link', path: '/feed', name: 'Feed', icon: 'bookmarks' %>
+                <%= render 'shared/sidebars/left/nav_link', path: '/best', name: 'Best', icon: 'star' %>
+            </ul>
+        </nav>
+    </div>
+</div>

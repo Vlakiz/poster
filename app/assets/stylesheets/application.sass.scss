@@ -1,14 +1,63 @@
 @import './application.bootstrap.scss';
 
 header {
+    background: #fff6f6;
     z-index: 99;
-    max-height: 87px;
+    height: 80px;
 
     .header-logout {
         transition: color 0.1s ease-in-out;
 
         &:hover {
             color: black !important;
+        }
+    }
+}
+
+.sidebar {
+    top: 83px;
+}
+
+#left-bar {
+    .sidebar-link {
+        .link-wrapper {
+            transition: all 0.1s ease-in-out;
+        }
+
+        i {
+            display: inline-block;
+            transition: padding-right 0.2s ease-out;
+        }
+
+        &:hover, .active {
+            .link-wrapper {
+                background-color: var(--bs-light);
+                color: var(--bs-danger);
+            }
+
+            i {
+                padding-right: 2px !important;
+            }
+        }
+    }
+}
+
+#right-bar {
+    .sidebar-avatar {
+        width: 30%;
+        min-width: 64px;
+
+        img {
+            position: absolute;
+        }
+    }
+
+    .sidebar-logout {
+        color: gray;
+        transition: color 0.1s ease-in-out;
+
+        &:hover {
+            color: #403434 !important;
         }
     }
 }
@@ -93,49 +142,6 @@ header {
 
         &.liking {
             transform: scale(1.5);
-        }
-    }
-}
-
-aside {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 115px;
-
-    .sidebar-avatar {
-        width: 30%;
-        min-width: 64px;
-
-        img {
-            position: absolute;
-        }
-    }
-
-    .sidebar-logout {
-        color: gray;
-        transition: color 0.1s ease-in-out;
-
-        &:hover {
-            color: #403434 !important;
-        }
-    }
-}
-
-#left-bar {
-    a {
-        transition: color 0.1s ease-in-out;
-        
-        i {
-            display: inline-block;
-            transition: margin-right 0.1s ease-out;
-        }
-
-        &:hover {
-            color: #403434 !important;
-
-            i {
-                margin-right: 5px !important;
-            }
         }
     }
 }

@@ -1,2 +1,8 @@
+$danger: #ff4d4d;
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.btn-danger {
+    color: #fff !important;
+}

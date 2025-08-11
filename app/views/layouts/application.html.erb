@@ -32,26 +32,20 @@
         </div>
         <div id="page-content">
           <%= render 'layouts/page-controls' %>
-            <%- if sidebarable? %>
-              <div class="row">
-                <div class="d-none d-xl-block col-xl-2">
-                  <%= render 'layouts/left_bar' %>
-                </div>
-                <div class="col-12 col-lg-8 col-xl-7">
-                  <%= yield %>
-                </div>
-                <div class='d-none d-lg-block col-lg-4 col-xl-3'>
-                  <%= render 'layouts/right_bar' %>
-                </div>
-              </div>
-            <% else %>
-              <div class="row">
-                <div class="col-0 col-lg-2">
-                </div>
-                <div class="col-12 col-lg-8 col-xl-7">
-                  <%= yield %>
-                </div>
-            <% end %>
+          <div class="row">
+            <div class="d-none d-xl-block col-xl-2">
+              <% if sidebarable? %>
+                <%= render 'layouts/left_bar' %>
+              <% end %>
+            </div>
+            <div class="col-12 col-lg-8 col-xl-7 mt-3">
+              <%= yield %>
+            </div>
+            <div class='d-none d-lg-block col-lg-4 col-xl-3'>
+              <% if sidebarable? %>
+                <%= render 'layouts/right_bar' %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
