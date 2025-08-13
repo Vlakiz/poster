@@ -1,7 +1,9 @@
+<% content_for :title, "Sign Up" %>
+
 <div class='d-flex justify-content-center'>
   <div class="col-8 border rounded p-5">
     <%= turbo_frame_tag "signup_modal_frame" do %>
-      <h2 class="mb-4">Sign up</h2>
+      <h2 class="mb-4">Sign Up</h2>
       <%= render "devise/registrations/form" %>
     <% end %>
     <%= render "devise/shared/links" %>

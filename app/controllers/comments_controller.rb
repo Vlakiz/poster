@@ -42,6 +42,7 @@ class CommentsController < ApplicationController
     if params[:reply_nickname]
       body = "#{params[:reply_nickname]}, "
     end
+
     @ref_reply_id = params[:ref_reply_id]
     @comment ||= Comment.new(post_id: params.expect(:post_id),
                              replied_to_id: params[:replied_to_id],
@@ -51,6 +52,7 @@ class CommentsController < ApplicationController
 
   def edit
     @previous_page = @post
+    render :edit, layout: false
   end
 
   def create
@@ -110,7 +112,8 @@ class CommentsController < ApplicationController
       notice = "Comment has been deleted."
       frame_id = request.headers["Turbo-Frame"]
       format.json { head :no_content }
-      format.any { render :destroy, formats: :turbo_stream, locals: { notice: notice, frame_id: frame_id } }
+      format.any { render :destroy, formats: :turbo_stream,
+                          locals: { notice: notice, frame_id: frame_id } }
     end
   end
 
