@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get :replies
     end
   end
+  get "/:feed", to: "posts#feed", as: :feed, constraints: { feed: /(hot|new|subscriptions|best)/ }
 
   root "posts#feed"
 
