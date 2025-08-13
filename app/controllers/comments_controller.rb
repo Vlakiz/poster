@@ -25,9 +25,14 @@ class CommentsController < ApplicationController
   end
 
   def replies
-    page = params[:page]
     @comment_id = params[:comment_id]
-    @replies = Comment.replying_to(params[:comment_id]).page(page).per(5)
+
+    if params[:hide]
+      @hide = true
+    else
+      page = params[:page]
+      @replies = Comment.replying_to(params[:comment_id]).page(page).per(5)
+    end
 
     render :replies, formats: :turbo_stream
   end

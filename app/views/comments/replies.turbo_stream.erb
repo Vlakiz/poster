@@ -1,4 +1,8 @@
-<% if @replies.first_page? %>
+<% if @hide %>
+    <%= turbo_stream.update "comment_#{@comment_id}_replies_frame" do %>
+        <%= render partial: "comments/show_replies", locals: { comment_id: @comment_id } %>
+    <% end %>
+<% elsif @replies.first_page? %>
     <%= turbo_stream.update "comment_#{@comment_id}_replies_frame" do %>
         <%= render partial: "comments/replies", locals: { replies: @replies } %>
     <% end %>

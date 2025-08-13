@@ -100,16 +100,7 @@
             data-turbo-frame-preserve-height-value=true
             data-turbo-frame-min-height-value=50
           >
-            <div>
-              <div id="comment_<%= comment.id %>_replies_next_page">
-              </div>
-              <%= link_to comment_replies_path(comment),
-                          class: 'text-danger fw-medium nav-link' do
-              %>
-                <i class="bi bi-chevron-down me-1"></i>
-                <span>Show replies</span>
-              <% end %>
-            </div>
+            <%= render partial: 'comments/show_replies', locals: { comment_id: comment.id } %>
           </turbo-frame>
         <% else %>
           <div id="comment_<%= comment.id %>_replies_next_page"></div>
