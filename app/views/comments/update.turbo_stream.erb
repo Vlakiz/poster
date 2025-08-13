@@ -1,0 +1,9 @@
+<% if notice%>
+    <%= turbo_stream.prepend :alerts do %>
+        <%= render "shared/flash", message: notice, is_success: true %>
+    <% end %>
+<% end %>
+
+<%= turbo_stream.replace frame_id do %>
+    <%= render partial: "comments/comment", formats: [:html], locals: { comment: @comment } %>
+<% end %>

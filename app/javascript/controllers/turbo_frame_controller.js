@@ -11,18 +11,21 @@ export default class extends Controller {
   connect() {
     this.element.addEventListener('turbo:before-prefetch', this.disablePreFetchEvent);
     this.element.addEventListener('turbo:before-fetch-request', this.replaceBySpinner.bind(this));
+    this.preserveHeightValue && this.element.addEventListener('turbo:before-fetch-response', this.returnHeight.bind(this));
     this.preserveHeightValue && this.element.addEventListener('turbo:before-frame-render', this.returnHeight.bind(this));
+
   }
 
   disconnect() {
     this.element.removeEventListener('turbo:before-prefetch', this.disablePreFetchEvent);
     this.element.removeEventListener('turbo:before-fetch-request', this.replaceBySpinner.bind(this));
+    this.preserveHeightValue && this.element.removeEventListener('turbo:before-fetch-response', this.returnHeight.bind(this));
     this.preserveHeightValue && this.element.removeEventListener('turbo:before-frame-render', this.returnHeight.bind(this));
   }
 
   replaceBySpinner(event) {
     const frameTarget = event.currentTarget;
-    const fetchFrameId = event.detail.fetchOptions?.headers?.["Turbo-Frame"]
+    const fetchFrameId = event.detail.fetchOptions?.headers?.["Turbo-Frame"];
     if (frameTarget.tagName === 'TURBO-FRAME' && fetchFrameId !== event.currentTarget.id) {
       return;
     }
@@ -49,7 +52,7 @@ export default class extends Controller {
   }
 
   returnHeight(event) {
-    event.stopPropagation();
+    // event.stopPropagation();
     const target = this.hasSpinnerTarget ? this.spinnerTarget : event.target;
     target.style.height = null;
     target.classList.remove('bg-blink-light', 'd-flex', 'align-items-center', 'justify-content-center', 'rounded-5');

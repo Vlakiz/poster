@@ -1,0 +1,9 @@
+<div class="position-absolute h-100 top-0">
+    <div id="alerts" class="position-sticky" style="opacity: 0.9; top: 100px; z-index: 999">
+        <% [notice, alert].each_with_index do |msg, i| %>
+            <% next unless msg %>
+
+            <%= render "shared/flash", message: msg, is_success: i.zero? %>
+        <% end %>
+    </div>
+</div>

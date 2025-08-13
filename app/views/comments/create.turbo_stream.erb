@@ -1,0 +1,13 @@
+<%= turbo_stream.prepend :alerts do %>
+    <%= render "shared/flash", message: notice, is_success: true %>
+<% end %>
+
+<%= turbo_stream.before "comment_#{replied_to_id}_replies_next_page" do %>
+    <div class="mt-1">
+        <%= render "comment", comment: @comment %>
+    </div>
+<% end %>
+
+<%= turbo_stream.replace form_frame_id do %>
+    <%= render partial: "comments/new_reply", locals: { frame_id: form_frame_id } %>
+<% end %>

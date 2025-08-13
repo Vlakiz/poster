@@ -3,7 +3,7 @@
               data-turbo-frame-preserve-height-value=true
               data-turbo-frame-target='spinner'
 >
-  <div id="<%= dom_id comment %>" class="card overflow-hidden comment-block border-0">
+  <div class="card overflow-hidden comment-block border-0">
     <div class="card-header d-flex py-0 border-0 bg-white">
       <div class="col-10 d-flex align-items-center text-truncate">
         <div class="comment-avatar me-2">
@@ -71,15 +71,18 @@
       <div class="d-inline-block me-3">
         <%= render 'shared/like', resource: comment %>
       </div>
-      <div class="replies-count d-inline-block me-3">
-        <i class="bi bi-reply-fill"></i>
-        <%= comment.replies_count %>
-      </div>
+      <% unless comment.is_reply? %>
+        <div class="replies-count d-inline-block me-3">
+          <i class="bi bi-reply-fill"></i>
+          <%= comment.replies_count %>
+        </div>
+      <% end %>
       <div class="d-inline-block">
         <small>
           <%= link_to "Reply",
-                      new_post_comment_path(post_id: comment.post,
-                                            replied_to_id: comment.replied_to_id || comment,
+                      new_post_comment_path(post_id: comment.post_id,
+                                            replied_to_id: comment.replied_to_id || comment.id,
+                                            ref_reply_id: comment.id,
                                             reply_nickname: nickname(comment.user)),
                       class: 'nav-link text-secondary fw-medium',
                       data: { turbo_frame: "#{dom_id comment}_new_reply_frame" }
@@ -87,28 +90,30 @@
         </small>
       </div>
     </div>
-    <turbo-frame id="<%= dom_id comment %>_new_reply_frame"
-      data-controller="turbo-frame"
-      data-turbo-frame-target='content'
-      data-turbo-frame-min-height-value=100
-      data-turbo-frame-preserve-height-value=true
-    >
-    </turbo-frame>
-    <% if comment.replies.any? %>
+    <%= render partial: 'comments/new_reply', locals: { frame_id: "#{dom_id comment}_new_reply_frame" }  %>
+    <% unless comment.is_reply? %>
       <div class="ps-3 pb-2">
-        <turbo-frame id="<%= dom_id comment %>_replies_1_frame"
-          data-controller="turbo-frame"
-          data-turbo-frame-target='content'
-          data-turbo-frame-preserve-height-value=true
-          data-turbo-frame-min-height-value=50
-        >
-          <div>
-            <%= link_to comment_replies_path(comment), class: 'text-danger fw-medium nav-link' do %>
-              <i class="bi bi-chevron-down me-1"></i>
-              <span>Show replies</span>
-            <% end %>
-          </div>
-        </turbo-frame>
+        <% if comment.replies.any? %>
+          <turbo-frame id="<%= dom_id comment %>_replies_frame"
+            data-controller="turbo-frame"
+            data-turbo-frame-target='content'
+            data-turbo-frame-preserve-height-value=true
+            data-turbo-frame-min-height-value=50
+          >
+            <div>
+              <div id="comment_<%= comment.id %>_replies_next_page">
+              </div>
+              <%= link_to comment_replies_path(comment),
+                          class: 'text-danger fw-medium nav-link' do
+              %>
+                <i class="bi bi-chevron-down me-1"></i>
+                <span>Show replies</span>
+              <% end %>
+            </div>
+          </turbo-frame>
+        <% else %>
+          <div id="comment_<%= comment.id %>_replies_next_page"></div>
+        <% end %>
       </div>
     <% end %>
   </div>

@@ -29,18 +29,18 @@
   </div>
 
   <div class="mt-3 d-flex justify-content-end">
-    <% if turbo_frame_request? && action_name == 'edit' %>
+    <% if turbo_frame_request? && (action_name == 'edit' || action_name == 'update') %>
       <%= link_to 'Back', comment_path(comment),
         class: "btn btn-secondary rounded-pill px-3 me-2"
       %>
-    <% elsif turbo_frame_request? && action_name == 'new' %>
+    <% elsif turbo_frame_request? && (action_name == 'new' || action_name == 'create') %>
       <%= button_tag "Cancel", class: "btn btn-secondary rounded-pill px-3 me-2",
                                data: { action: 'click->turbo-frame#clearFrame' }
       %>
     <% else %>
       <%= button_tag "Cancel", class: "btn btn-secondary rounded-pill px-3 me-2", type: 'reset' %>
     <% end %>
-    <%= form.submit(action_name == 'edit' ? 'Edit' : 'Comment',
+    <%= form.submit(action_name == 'edit' || action_name == 'update' ? 'Edit' : 'Comment',
       class: "btn btn-danger rounded-pill px-3 fw-medium")
     %>
   </div>

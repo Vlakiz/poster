@@ -1,0 +1,10 @@
+<%= content_tag :div,
+                class: "alert alert-#{is_success ? 'success' : 'danger'} text-center"\
+                       " d-flex align-items-center mt-3 rounded-pill",
+                role: 'alert',
+                data: { controller: "alert" } do
+%>
+    <%= content_tag :i, '', class: "bi bi-#{is_success ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-3" %>
+    <p class="mb-0"><%= message.strip.gsub(/\n/, '<br/>').html_safe %></p>
+    <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+<% end %>

@@ -1,0 +1,7 @@
+<%= turbo_stream.prepend :alerts do %>
+    <%= render "shared/flash", message: notice, is_success: true %>
+<% end %>
+
+<%= turbo_stream.replace frame_id do %>
+    <%= render "shared/empty_frame", frame_id: frame_id %>
+<% end %>

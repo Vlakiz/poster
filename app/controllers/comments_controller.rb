@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     @comment_id = params[:comment_id]
     @replies = Comment.replying_to(params[:comment_id]).page(page).per(5)
 
-    render partial: "comments/replies", locals: { replies: @replies }
+    render :replies, formats: :turbo_stream
   end
 
   def show
@@ -42,7 +42,10 @@ class CommentsController < ApplicationController
     if params[:reply_nickname]
       body = "#{params[:reply_nickname]}, "
     end
-    @comment = Comment.new(post_id: params.expect(:post_id), replied_to_id: params[:replied_to_id], body: body)
+    @ref_reply_id = params[:ref_reply_id]
+    @comment ||= Comment.new(post_id: params.expect(:post_id),
+                             replied_to_id: params[:replied_to_id],
+                             body: body,)
     render :new, layout: false
   end
 
@@ -55,27 +58,26 @@ class CommentsController < ApplicationController
 
     @comment = Comment.new(comment_params)
     @comment.user = current_user
+    form_frame_id = request.headers["Turbo-Frame"]
 
     respond_to do |format|
       if @comment.save
         notice = "Comment has been added."
-        if turbo_frame_request? && @comment.replied_to_id
-          replied_to_id = @comment.replied_to_id
-          flash.now[:notice] = notice
-          format.html do
-            render partial: "shared/empty_frame",
-                   locals: { frame_id: "comment_#{replied_to_id}_new_reply_frame" }
-          end
-        else
-          format.html { redirect_to post_path(@comment.post, corder: "newer"), notice: notice }
+        replied_to_id = @comment.replied_to_id
+
+        format.turbo_stream do
+          render :create, locals: { notice: notice,
+                                    replied_to_id: replied_to_id,
+                                    form_frame_id: form_frame_id }
         end
+        format.html { redirect_to post_path(@comment.post, corder: "newer"), notice: notice }
         format.json { render :show, status: :created, location: @comment }
       else
-        @post = @comment.post
-        @new_comment = @comment
-        @comments = @post.comments.order(created_at: :desc)
+        if turbo_frame_request?
+          @ref_reply_id = form_frame_id[/comment_(\d+)_new/, 1]
+        end
 
-        format.html { render "posts/show", status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity, layout: !turbo_frame_request? }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -87,12 +89,15 @@ class CommentsController < ApplicationController
       if @comment.update(comment_params)
         current_update = @comment.updated_at
         is_changed = previous_update != current_update
+        notice = is_changed ? "Comment has been updated." : nil
+        frame_id = request.headers["Turbo-Frame"]
 
-        format.html { redirect_to comment_path, notice: is_changed ? "Comment has been updated." : nil }
         format.json { render :show, status: :ok, location: @comment }
+        format.any { render :update, formats: :turbo_stream,
+                            locals: { notice: notice, frame_id: frame_id }  }
       else
         @previous_page = @post
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, layout: !turbo_frame_request? }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -103,16 +108,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       notice = "Comment has been deleted."
-      if turbo_frame_request?
-          flash.now[:notice] = notice
-          format.html do
-            render partial: "shared/empty_frame",
-                   locals: { frame_id: "comment_#{@comment.id}_frame" }
-          end
-      else
-        format.html { redirect_to @comment.post, status: :see_other, notice: notice }
-      end
+      frame_id = request.headers["Turbo-Frame"]
       format.json { head :no_content }
+      format.any { render :destroy, formats: :turbo_stream, locals: { notice: notice, frame_id: frame_id } }
     end
   end
 
