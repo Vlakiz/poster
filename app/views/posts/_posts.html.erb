@@ -8,11 +8,11 @@
     <turbo-frame
         id="posts_next_page"
         data-controller="lazy-loader"
-        data-lazy-loader-url-value="<%=  %>"
     >
         <%= link_to '', feed_path(filter.merge(page: posts.next_page)),
                     class: 'd-none',
-                    data: { 'lazy-loader-target' => 'link' } %>
+                    data: { 'lazy-loader-target' => 'link' }
+        %>
         <div class="text-center">
             <div class="spinner-border text-danger text-center" role="status">
                 <span class="visually-hidden">Loading...</span>

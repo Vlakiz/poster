@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
       @comments = @comments.order(likes_count: :desc, created_at: :desc)
     end
 
-    render partial: "comments/comments", locals: { comments: @comments, post_id: @post_id, order: @order }
+    render :index, formats: @comments.first_page? ? :html : :turbo_stream
   end
 
   def replies

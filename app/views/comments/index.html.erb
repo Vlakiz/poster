@@ -1,0 +1,14 @@
+<turbo-frame id="post_<%= @post_id %>_comments_frame">
+    <% if @comments.any? %>
+        <% unless @comments.prev_page %>
+            <%= render 'sort_button', post_id: @post_id %>
+        <% end %>
+        <div data-turbo-frame-target='spinner'>
+            <%= render 'comments', comments: @comments, post_id: @post_id, order: @order %>
+        </div>
+    <% elsif @comments.first_page? %>
+        <div class="text-secondary">
+            No comments on the post yet. Be the first
+        </div>
+    <% end %>
+</turbo-frame>

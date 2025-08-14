@@ -1,37 +1,25 @@
-<turbo-frame
-    id="post_<%= @post_id %>_comments_frame"
->
-    <% if comments.any? %>
-        <% unless comments.prev_page %>
-            <%= render 'comments/sort_button', post_id: post_id %>
-        <% end %>
-        <div data-turbo-frame-target='spinner'>
-            <% comments.each do |comment| %>
-                <div class="comment-wrapper ps-0 mb-3">
-                    <%= render comment %>
-                </div>
-            <% end %>
+<% comments.each do |comment| %>
+    <div class="comment-wrapper ps-0 mb-3">
+        <%= render comment %>
+    </div>
+<% end %>
 
-            <% if comments.next_page %>
-                <div
-                    data-controller="lazy-loader"
-                    data-lazy-loader-url-value="<%= post_comments_path(post_id: post_id,
-                                                                       page: comments.next_page,
-                                                                       order: order,) %>"
-                    id="comments_next_page"
-                >
-                    <div class="text-center">
-                        <div class="spinner-border text-danger text-center" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
+<% if comments.next_page %>
+    <turbo-frame
+        data-controller="lazy-loader"
+        id="comments_next_page"
+    >
+        <%= link_to '', post_comments_path(post_id: post_id,
+                                           page: comments.next_page,
+                                           order: order,),
+                    class: 'd-none',
+                    data: { 'lazy-loader-target' => 'link' }
+        %>
+        <div class="text-center">
+            <div class="spinner-border text-danger text-center" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
-    <% elsif comments.first_page? %>
-        <div class="text-secondary">
-            No comments on the post yet. Be the first one
-        </div>
-    <% end %>
-</turbo-frame>
+    </turbo-frame>
+<% end %>
   
