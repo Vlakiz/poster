@@ -1,0 +1,3 @@
+<%= turbo_stream.replace 'posts_next_page' do %>
+    <%= render 'posts', formats: [:html], posts: @posts, filter: @filter %>
+<% end %>

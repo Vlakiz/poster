@@ -4,17 +4,16 @@
 
 import { application } from "./application"
 
-import ContentLoader from '@stimulus-components/content-loader'
-
 import AlertController from "./alert_controller"
 import LikesController from "./likes_controller"
 import TextareaAutoResizeController from "./textarea_auto_resize_controller"
 import TurboFrameController from "./turbo_frame_controller"
 import ReadMore from './read_more_controller'
+import LazyLoader from './lazy_loader'
 
 application.register("alert", AlertController);
 application.register("textarea-auto-resize", TextareaAutoResizeController);
 application.register("likes", LikesController);
 application.register('turbo-frame', TurboFrameController);
-application.register('content-loader', ContentLoader);
+application.register('lazy-loader', LazyLoader);
 application.register('read-more', ReadMore);

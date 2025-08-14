@@ -15,11 +15,9 @@ Rails.application.routes.draw do
       get "profile/new", action: :new_profile, as: "new_profile"
       post "profile/create", action: :create_profile, as: "create_profile"
     end
-
-    get :posts, to: "posts#index"
   end
 
-  resources :posts  do
+  resources :posts, except: [ :index ]  do
     post :like, to: "likes#create", as: :like
     delete :like, to: "likes#destroy", as: :unlike
 
@@ -31,7 +29,7 @@ Rails.application.routes.draw do
   end
   get "/:feed", to: "posts#feed", as: :feed, constraints: { feed: /(hot|new|subscriptions|best)/ }
 
-  root "posts#feed"
+  root to: redirect("/hot")
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

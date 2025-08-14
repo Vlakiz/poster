@@ -11,6 +11,9 @@ class Post < ApplicationRecord
 
     scope :random, ->(seed) { order(Arel.sql("ABS(random_seed - #{seed.to_f})")) }
     scope :from_user, ->(user_id) { where(author_id: user_id) }
+    scope :fresh, ->() { order(published_at: :desc) }
+    scope :best, ->() { order(likes_count: :desc) }
+    scope :subscriptions, ->(user) { where(author_id: user.followings) }
 
     paginates_per 10
 

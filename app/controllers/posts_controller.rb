@@ -1,49 +1,25 @@
 class PostsController < ApplicationController
   before_action :set_and_authorize_post, only: %i[ show edit update destroy ]
 
-  def index
-    filter = { feed: params[:feed] } if params[:feed]
-
-    if params[:user_id]
-      filter = { user_id: params[:user_id] }
-
-      @posts = Post.from_user(params[:user_id]).order(published_at: :desc)
-    elsif params[:seed_id]
-      filter = { seed_id: params[:seed_id] }
-
-      @posts = Post.random(@seed_id)
-    elsif params[:feed] == "new"
-      @posts = Post.all.order(published_at: :desc)
-    elsif params[:feed] == "best"
-      @posts = Post.all.order(likes_count: :desc)
-    elsif params[:feed] == "subscriptions"
-      @posts = Post.where(author_id: User.last.followings).order(published_at: :desc)
-    end
-
-    @posts = @posts.includes(user: :avatar_attachment).page(params[:page])
-
-    render partial: "posts/posts", locals: { posts: @posts, filter: filter }
-  end
-
   def feed
     @filter = { feed: params[:feed] }
 
-    if params[:feed].nil?
-      redirect_to feed_path(feed: :hot)
-      return
+    if params[:user_id]
+      @filter = { user_id: params[:user_id] }
+      @posts = Post.from_user(params[:user_id]).fresh
     elsif params[:feed] == "hot"
-      @filter = { seed_id: rand.round(5) }
-      @posts = Post.random(@seed_id)
+      @filter.merge!(seed_id: params[:seed_id] || rand.round(5))
+      @posts = Post.random(@filter[:seed_id])
     elsif params[:feed] == "new"
-      @posts = Post.all.order(published_at: :desc)
+      @posts = Post.fresh
     elsif params[:feed] == "best"
-      @posts = Post.all.order(likes_count: :desc)
+      @posts = Post.best
     elsif params[:feed] == "subscriptions"
-      @posts = Post.where(author_id: User.last.followings).order(published_at: :desc)
+      @posts = Post.subscriptions(current_user).fresh
     end
-    @posts = @posts.includes(user: :avatar_attachment).page(1)
+    @posts = @posts.includes(user: :avatar_attachment).page(params[:page])
 
-    render :index
+    render :feed, formats: turbo_frame_request? ? :turbo_stream : :html
   end
 
   def show
