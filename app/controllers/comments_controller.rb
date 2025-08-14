@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
 
     @comments = Post.find(@post_id)
                     .comments.not_replies
+                    .includes_user_like(current_user)
                     .includes(user: :avatar_attachment)
                     .page(page)
 
@@ -31,7 +32,10 @@ class CommentsController < ApplicationController
       @hide = true
     else
       page = params[:page]
-      @replies = Comment.replying_to(params[:comment_id]).page(page).per(5)
+      @replies = Comment.replying_to(params[:comment_id])
+                        .includes_user_like(current_user)
+                        .includes(user: :avatar_attachment)
+                        .page(page).per(5)
     end
 
     render :replies, formats: :turbo_stream

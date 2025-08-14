@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     elsif params[:feed] == "subscriptions"
       @posts = Post.subscriptions(current_user).fresh
     end
-    @posts = @posts.includes(user: :avatar_attachment).page(params[:page])
+    @posts = @posts.includes_user_like(current_user).includes(user: :avatar_attachment).page(params[:page])
 
     render :feed, formats: turbo_frame_request? ? :turbo_stream : :html
   end

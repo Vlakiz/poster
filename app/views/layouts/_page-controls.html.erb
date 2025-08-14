@@ -1,7 +1,12 @@
 <% if @previous_page %>
-    <div class='mb-2'>
-        <%= link_to @previous_page, class: 'fs-4 nav-link text-secondary' do %>
-            <i class="bi bi-arrow-left"></i>
-        <% end %>
-    </div>
+    <div class="row">
+        <div class="d-none d-xl-block col-xl-2">
+        </div>
+        <div class="col-12 col-lg-8 col-xl-7">
+            <div class='mb-2'>
+                <%= link_to @previous_page, class: 'fs-4 nav-link text-secondary' do %>
+                    <i class="bi bi-arrow-left"></i>
+                <% end %>
+            </div>
+        </div>
 <% end %>

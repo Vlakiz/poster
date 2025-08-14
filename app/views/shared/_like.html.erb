@@ -2,12 +2,12 @@
     <%= button_tag class: "nav-link",
         data: { controller: 'likes',
                 action: 'click->likes#like',
-                'likes-is-liked-value': liked?(resource),
+                'likes-is-liked-value': resource.liked?(current_user),
                 'likes-resource-id-value': resource.id,
                 'likes-collection-name-value': resource.model_name.collection,
                 'likes-is-authorized-value': user_signed_in?, } do
     %>
-        <div class="post-like text-danger">
+        <div class="post-like text-danger position-relative">
             <%= tag.i(
                 class: "bi bi-heart me-1 align-text-top d-inline-block",
                 data: { 'likes-target': 'likeButton' }
@@ -15,6 +15,8 @@
             <span data-likes-target='likeCount'>
                 <%= resource.likes_count %>
             </span>
+            <turbo-frame class="position-absolute bottom-100 start-0">
+            </turbo-frame>
         </div>
     <% end %>
 <% elsif user_signed_in? %>
