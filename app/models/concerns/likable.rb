@@ -7,10 +7,14 @@ module Likable
 
     scope :includes_user_like, ->(user) do
         if user
-            joins('LEFT OUTER JOIN likes'\
-                  " ON likes.likable_type = \'#{name}\'"\
-                  " AND likes.likable_id = #{table_name}.id"\
-                  " AND likes.user_id = #{user.id}")
+            join_sql = sanitize_sql_array([
+              "LEFT OUTER JOIN likes"\
+              " ON likes.likable_type = ?"\
+              " AND likes.likable_id = #{table_name}.id"\
+              " AND likes.user_id = ?",
+              name, user.id
+            ])
+            joins(join_sql)
               .select("#{table_name}.*, likable_id as like")
         else
             all
