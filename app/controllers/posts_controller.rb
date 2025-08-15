@@ -17,7 +17,14 @@ class PostsController < ApplicationController
     elsif params[:feed] == "subscriptions"
       @posts = Post.subscriptions(current_user).fresh
     end
-    @posts = @posts.includes_user_like(current_user).includes(user: :avatar_attachment).page(params[:page])
+
+    @posts = @posts.includes_user_like(current_user)
+                   .includes(user: :avatar_attachment)
+                   .page(params[:page])
+
+    if user_signed_in?
+      @posts = @posts.includes(preview_likes: [ user: [ :avatar_attachment ] ])
+    end
 
     render :feed, formats: turbo_frame_request? ? :turbo_stream : :html
   end
@@ -25,6 +32,7 @@ class PostsController < ApplicationController
   def show
     @new_comment = Comment.new(post: @post, user: current_user)
     @comments_order = params[:corder] || "rating"
+    @preview_likes = @post.preview_likes.includes(user: [ :avatar_attachment ])
   end
 
   def new

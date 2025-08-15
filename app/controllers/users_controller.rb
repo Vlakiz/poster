@@ -3,6 +3,11 @@ class UsersController < ApplicationController
 
   def show
     @posts = @user.posts.order(published_at: :desc).includes(user: :avatar_attachment).page(params[:p])
+
+    if user_signed_in?
+      @posts = @posts.includes(preview_likes: [ user: [ :avatar_attachment ] ])
+    end
+
     @country_name = ISO3166::Country.find_country_by_alpha2(@user.country).common_name
   end
 

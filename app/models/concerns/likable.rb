@@ -4,6 +4,7 @@ module Likable
   included do
     has_many :likes, as: :likable, dependent: :destroy
     has_many :liking_users, through: :likes, source: :user
+    has_many :preview_likes, -> { order(created_at: :desc).limit(5) }, as: :likable, class_name: "Like"
 
     scope :includes_user_like, ->(user) do
         if user

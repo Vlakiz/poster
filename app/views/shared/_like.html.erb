@@ -1,24 +1,31 @@
 <% if current_user&.visible? %>
-    <%= button_tag class: "nav-link",
-        data: { controller: 'likes',
-                action: 'click->likes#like',
-                'likes-is-liked-value': resource.liked?(current_user),
-                'likes-resource-id-value': resource.id,
-                'likes-collection-name-value': resource.model_name.collection,
-                'likes-is-authorized-value': user_signed_in?, } do
-    %>
-        <div class="post-like text-danger position-relative">
-            <%= tag.i(
-                class: "bi bi-heart me-1 align-text-top d-inline-block",
-                data: { 'likes-target': 'likeButton' }
-            )%>
-            <span data-likes-target='likeCount'>
-                <%= resource.likes_count %>
-            </span>
-            <turbo-frame class="position-absolute bottom-100 start-0">
-            </turbo-frame>
+    <div class="position-relative">
+        <%= button_tag class: "nav-link",
+            data: { controller: "likes",
+                    action: 'click->likes#like',
+                    likes_is_liked_value: resource.liked?(current_user),
+                    likes_resource_id_value: resource.id,
+                    likes_collection_name_value: resource.model_name.collection,
+                    likes_is_authorized_value: user_signed_in?, } do
+        %>
+            <div class="post-like text-danger">
+                <%= tag.i(
+                    class: "bi bi-heart me-1 align-text-top d-inline-block",
+                    data: { likes_target: 'likeButton' }
+                )%>
+                <span data-likes-target='likeCount'>
+                    <%= resource.likes_count %>
+                </span>
+            </div>
+        <% end %>
+        <div class="position-absolute bottom-100 start-0 d-flex p-2 rounded-4 bg-light d-none">
+            <% (@preview_likes || resource.preview_likes).each do |preview_like| %>
+                <%= link_to preview_like.user, class: 'd-flex mx-1' do %>
+                    <%= avatar preview_like.user, class_name: 'img-xs rounded-circle' %>
+                <% end %>
+            <% end %>
         </div>
-    <% end %>
+    </div>
 <% elsif user_signed_in? %>
     <%= button_tag class: 'nav-link' do %>
         <%= link_to new_profile_users_path,

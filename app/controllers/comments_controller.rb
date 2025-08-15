@@ -13,6 +13,10 @@ class CommentsController < ApplicationController
                     .includes(user: :avatar_attachment)
                     .page(page)
 
+    if user_signed_in?
+      @comments = @comments.includes(preview_likes: [ user: [ :avatar_attachment ] ])
+    end
+
     if @order == "older"
       @comments = @comments.order(created_at: :asc)
     elsif @order == "newer"
@@ -36,12 +40,17 @@ class CommentsController < ApplicationController
                         .includes_user_like(current_user)
                         .includes(user: :avatar_attachment)
                         .page(page).per(5)
+
+      if user_signed_in?
+        @replies = @replies.includes(preview_likes: [ user: [ :avatar_attachment ] ])
+      end
     end
 
     render :replies, formats: :turbo_stream
   end
 
   def show
+    @preview_likes = @comment.preview_likes.includes(user: [ :avatar_attachment ])
     render @comment
   end
 
