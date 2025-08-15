@@ -141,13 +141,33 @@ header {
     width: 25px;
 }
 
-.post-like {
-    i {
-        transition: transform 0.2s ease-in-out;
+.like {
+    .like-inner {
+        i {
+            transition: transform 0.2s ease-in-out;
 
-        &.liking {
-            transform: scale(1.5);
+            &.liking {
+                transform: scale(1.5);
+            }
         }
+    }
+
+    &:hover + .likes-preview {
+        visibility: visible;
+        opacity: 0.85;
+    }
+}
+
+.likes-preview {
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgb(59 61 69 / 90%);
+    transition: opacity 0.3s ease-in-out;
+    transition-delay: 0.2s;
+
+    &:hover {
+        visibility: visible;
+        opacity: 1;
     }
 }
 

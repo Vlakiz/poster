@@ -1,6 +1,6 @@
 <% if current_user&.visible? %>
     <div class="position-relative">
-        <%= button_tag class: "nav-link",
+        <%= button_tag class: "nav-link like",
             data: { controller: "likes",
                     action: 'click->likes#like',
                     likes_is_liked_value: resource.liked?(current_user),
@@ -8,7 +8,7 @@
                     likes_collection_name_value: resource.model_name.collection,
                     likes_is_authorized_value: user_signed_in?, } do
         %>
-            <div class="post-like text-danger">
+            <div class="like-inner text-danger">
                 <%= tag.i(
                     class: "bi bi-heart me-1 align-text-top d-inline-block",
                     data: { likes_target: 'likeButton' }
@@ -18,7 +18,7 @@
                 </span>
             </div>
         <% end %>
-        <div class="position-absolute bottom-100 start-0 d-flex p-2 rounded-4 bg-light d-none">
+        <div class="likes-preview position-absolute bottom-100 start-0 d-flex p-2 rounded-5">
             <% (@preview_likes || resource.preview_likes).each do |preview_like| %>
                 <%= link_to preview_like.user, class: 'd-flex mx-1' do %>
                     <%= avatar preview_like.user, class_name: 'img-xs rounded-circle' %>
@@ -31,7 +31,7 @@
         <%= link_to new_profile_users_path,
             class: "nav-link" do
         %>
-            <div class="post-like text-danger">
+            <div class="like-inner text-danger">
                 <%= tag.i(
                     class: "bi bi-heart me-1 align-text-top d-inline-block",
                     data: { 'likes-target': 'likeButton' }
@@ -53,7 +53,7 @@
                 turbo_frame: "login_modal_frame"
             } do
         %>
-            <div class="post-like text-danger">
+            <div class="like-inner text-danger">
                 <i class="bi bi-heart me-1 align-text-top d-inline-block"></i>
                 <span>
                     <%= resource.likes_count %>
