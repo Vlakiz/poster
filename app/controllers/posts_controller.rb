@@ -5,8 +5,11 @@ class PostsController < ApplicationController
     @filter = { feed: params[:feed] }
 
     if params[:user_id]
+      user = User.find(params[:user_id])
+      return head :not_found unless user
+
       @filter = { user_id: params[:user_id] }
-      @posts = Post.from_user(params[:user_id]).fresh
+      @posts = Post.from_user(user).fresh
     elsif params[:feed] == "hot"
       @filter.merge!(seed_id: params[:seed_id] || rand.round(5))
       @posts = Post.random(@filter[:seed_id])
@@ -48,7 +51,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     authorize @post
     @post.user = current_user
-    @post.published_at = DateTime.now
+    @post.publish!
 
     respond_to do |format|
       if @post.save

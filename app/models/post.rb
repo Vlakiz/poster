@@ -17,6 +17,16 @@ class Post < ApplicationRecord
 
     paginates_per 10
 
+    def publish!
+        raise "Post is already published" if published?
+
+        self.published_at = DateTime.now
+    end
+
+    def published?
+        self.published_at.present?
+    end
+
     private
 
     def generate_random_seed
