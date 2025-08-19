@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post, counter_cache: true
 
-  has_many :replies, class_name: "Comment", foreign_key: :replied_to_id
+  has_many :replies, class_name: "Comment", foreign_key: :replied_to_id, dependent: :destroy
   belongs_to :replied_to, class_name: "Comment", optional: true, counter_cache: :replies_count
 
   validates :body, length: { minimum: 3, maximum: 200 }
@@ -14,7 +14,7 @@ class Comment < ApplicationRecord
   before_save :strip_body
 
   scope :not_replies, -> { where(replied_to: nil) }
-  scope :replying_to, ->(comment_id) { where(replied_to: comment_id) }
+  scope :replying_to, ->(comment) { where(replied_to: comment) }
 
   paginates_per 10
 

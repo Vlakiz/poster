@@ -36,7 +36,8 @@ class CommentsController < ApplicationController
       @hide = true
     else
       page = params[:page]
-      @replies = Comment.replying_to(params[:comment_id])
+      comment = Comment.find(params[:comment_id])
+      @replies = Comment.replying_to(comment)
                         .includes_user_like(current_user)
                         .includes(user: :avatar_attachment)
                         .page(page).per(5)
