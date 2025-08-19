@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Subscription, type: :model do
   describe 'associations' do
-    it { should belong_to(:follower).counter_cache(:followings_count) }
-    it { should belong_to(:following).counter_cache(:followers_count) }
+    it { should belong_to(:follower).class_name('User').counter_cache(:followings_count) }
+    it { should belong_to(:following).class_name('User').counter_cache(:followers_count) }
   end
 
   describe 'validations' do

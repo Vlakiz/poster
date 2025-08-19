@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
     include Likable
 
-    belongs_to :user, class_name: "User", foreign_key: :author_id
+    belongs_to :user, foreign_key: :author_id
     has_many :comments, dependent: :destroy
 
     validates :title, length: { minimum: 5, maximum: 50 }

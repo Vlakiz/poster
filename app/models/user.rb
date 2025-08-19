@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  has_many :posts, class_name: "Post", foreign_key: "author_id"
+  has_many :posts, foreign_key: "author_id"
   has_many :comments
 
   has_many :likes, dependent: :destroy
@@ -34,7 +34,7 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 3, maximum: 30 },
     format: {
-      with: /\A[A-z][A-z\s\-]+\z/,
+      with: /\A[A-Za-z][A-Za-z\s\-]+\z/,
       message: "can only contain letters, spaces, or hyphens"
     },
     on: :update
@@ -42,7 +42,7 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 3, maximum: 30 },
     format: {
-      with: /\A[A-z][A-z\s\-]+\z/,
+      with: /\A[A-Za-z][A-Za-z\s\-]+\z/,
       message: "can only contain letters, spaces, or hyphens"
     },
     on: :update
@@ -53,7 +53,7 @@ class User < ApplicationRecord
     length: { is: 2 },
     inclusion: { in: ISO3166::Country.all.map(&:alpha2), message: "is not a valid country" },
     on: :update
-  validates :visible, inclusion: [ true, false ]
+  validates :visible, inclusion: { in: [ true, false ], message: "can be either visible or not" }
 
   validate :must_be_at_least_14_years_old, on: :update
 
@@ -67,15 +67,15 @@ class User < ApplicationRecord
   end
 
   def follow!(following_user)
-    Subscription.create(follower_id: id, following_id: following_user.id)
+    Subscription.create(follower: self, following: following_user)
   end
 
   def unfollow!(following_user)
-    Subscription.find_by(follower_id: id, following_id: following_user.id).destroy
+    Subscription.find_by(follower: self, following: following_user)&.destroy
   end
 
   def followed_to?(following_user)
-    Subscription.find_by(follower_id: id, following_id: following_user.id).present?
+    Subscription.exists?(follower: self, following: following_user)
   end
 
   private
@@ -83,7 +83,7 @@ class User < ApplicationRecord
   def must_be_at_least_14_years_old
     minimum_birth_date = MINIMUM_AGE.years.ago.to_date
 
-    if date_of_birth > minimum_birth_date
+    if date_of_birth && date_of_birth > minimum_birth_date
       errors.add(:date_of_birth, "must be at least 14 years old")
     end
   end

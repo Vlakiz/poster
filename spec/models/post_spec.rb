@@ -16,7 +16,7 @@ RSpec.describe Post, type: :model do
     end
 
     describe 'callbacks' do
-        it 'should generate random seed' do
+        it 'should generate random seed on create' do
             post = create(:post, random_seed: nil)
             expect(post.random_seed).not_to be(nil)
         end
@@ -123,38 +123,40 @@ RSpec.describe Post, type: :model do
         end
     end
 
-    describe "#published?" do
-        let(:post) { build(:post) }
+    describe "instance methods" do
+        describe "#published?" do
+            let(:post) { build(:post) }
 
-        it 'expect not to be published by default' do
-            expect(post).not_to be_published
+            it 'expect not to be published by default' do
+                expect(post).not_to be_published
+            end
+
+            it 'expect be truthy if post has published_at' do
+                post.published_at = Time.now
+
+                expect(post).to be_published
+            end
         end
 
-        it 'expect be truthy if post has published_at' do
-            post.published_at = Time.now
+        describe "#publish!" do
+            include ActiveSupport::Testing::TimeHelpers
 
-            expect(post).to be_published
-        end
-    end
+            it 'sets published_at to current time' do
+                post = build(:post)
 
-    describe "#publish!" do
-        include ActiveSupport::Testing::TimeHelpers
+                random_time = Faker::Time.backward
+                travel_to random_time
 
-        it 'sets published_at to current time' do
-            post = build(:post)
+                post.publish!
 
-            random_time = Faker::Time.backward
-            travel_to random_time
+                expect(post.published_at).to eq(random_time)
+            end
 
-            post.publish!
-
-            expect(post.published_at).to eq(random_time)
-        end
-
-        it 'throws an error if published_at is present' do
-            post = build(:post)
-            post.publish!
-            expect { post.publish! }.to raise_error("Post is already published")
+            it 'throws an error if published_at is present' do
+                post = build(:post)
+                post.publish!
+                expect { post.publish! }.to raise_error("Post is already published")
+            end
         end
     end
 end
