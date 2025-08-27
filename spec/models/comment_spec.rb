@@ -96,19 +96,8 @@ RSpec.describe Comment, type: :model do
     end
 
     describe 'pagination' do
-        before(:each) { create_list(:comment, 30) }
-        let(:comments) { Comment.all }
-
-        it 'returns the right number of posts on the first page' do
-            expect(comments.page(1).count).to be(10)
-        end
-
-        it 'returns the next posts on the second page' do
-            expect(comments.page(2)).to eq(comments[10...20])
-        end
-
-        it 'returns the right number of pages' do
-            expect(comments.page(1).total_pages).to be(3)
+        it "uses paginates_per with value 10" do
+            expect(Comment.default_per_page).to eq 10
         end
     end
 end

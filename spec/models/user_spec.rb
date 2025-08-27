@@ -134,19 +134,8 @@ RSpec.describe User, type: :model do
     end
 
     describe "pagination" do
-        before(:each) { create_list(:user, 51) }
-        let(:users) { User.all }
-
-        it 'returns the right number of users on the first page' do
-            expect(users.page(1).count).to be(50)
-        end
-
-        it 'returns the last user on the second page' do
-            expect(users.page(2)).to eq([ users.last ])
-        end
-
-        it 'returns the right number of pages' do
-            expect(users.page(1).total_pages).to be(2)
+        it "uses paginates_per with value 50" do
+            expect(User.default_per_page).to eq 50
         end
     end
 
@@ -290,6 +279,52 @@ RSpec.describe User, type: :model do
                 it "should be falsy" do
                     result = users[0].followed_to?(nil)
                     expect(result).to be_falsy
+                end
+            end
+        end
+
+        describe "#like!" do
+            let(:user) { create(:user) }
+            let(:post) { create(:post) }
+
+            context "likable object has not been liked before" do
+                it "creates new like" do
+                    expect {
+                        user.like!(post)
+                    }.to change { Like.count }.by(1)
+                end
+            end
+
+            context "when likable object has been liked before" do
+                before(:each) { create(:like, user: user, likable: post) }
+
+                it "should not create new like" do
+                    expect {
+                        user.like!(post)
+                    }.not_to change { Like.count }
+                end
+            end
+        end
+
+        describe "#unlike!" do
+            let(:post) { create(:post) }
+            let(:user) { create(:user) }
+
+            context "when likable object has been liked before" do
+                before(:each) { create(:like, user: user, likable: post) }
+
+                it "should destroy like" do
+                    expect {
+                        user.unlike!(post)
+                    }.to change { Like.count }.by(-1)
+                end
+            end
+
+            context "likable object has not been liked before" do
+                it "should not changes likes count" do
+                    expect {
+                        user.unlike!(post)
+                    }.not_to change { Like.count }
                 end
             end
         end

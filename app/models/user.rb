@@ -78,6 +78,14 @@ class User < ApplicationRecord
     Subscription.exists?(follower: self, following: following_user)
   end
 
+  def like!(likable)
+    Like.create(user: self, likable: likable)
+  end
+
+  def unlike!(likable)
+    Like.find_by(user: self, likable: likable)&.destroy
+  end
+
   private
 
   def must_be_at_least_14_years_old

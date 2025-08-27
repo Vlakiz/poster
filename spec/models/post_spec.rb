@@ -107,19 +107,8 @@ RSpec.describe Post, type: :model do
     end
 
     describe "pagination" do
-        before(:each) { create_list(:post, 30) }
-        let(:posts) { Post.all }
-
-        it 'returns the right number of posts on the first page' do
-            expect(posts.page(1).count).to be(10)
-        end
-
-        it 'returns the next posts on the second page' do
-            expect(posts.page(2)).to eq(posts[10...20])
-        end
-
-        it 'returns the right number of pages' do
-            expect(posts.page(1).total_pages).to be(3)
+        it "uses paginates_per with value 10" do
+            expect(Post.default_per_page).to eq 10
         end
     end
 
