@@ -86,12 +86,16 @@ class CommentsController < ApplicationController
         notice = "Comment has been added."
         replied_to_id = @comment.replied_to_id
 
-        format.turbo_stream do
-          render :create, locals: { notice: notice,
-                                    replied_to_id: replied_to_id,
-                                    form_frame_id: form_frame_id }
+        if turbo_frame_request?
+          format.turbo_stream do
+            render :create, locals: { notice: notice,
+                                      replied_to_id: replied_to_id,
+                                      form_frame_id: form_frame_id }
+          end
+        else
+          format.html { redirect_to post_path(@comment.post, corder: "newer"), notice: notice }
         end
-        format.html { redirect_to post_path(@comment.post, corder: "newer"), notice: notice }
+
         format.json { render :show, status: :created, location: @comment }
       else
         if turbo_frame_request?
