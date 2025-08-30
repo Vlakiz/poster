@@ -8,10 +8,10 @@ class Like < ApplicationRecord
   after_destroy :decrement_user_rating
 
   def increment_user_rating
-    likable.user.increment!(:rating)
+    likable.user&.increment!(:rating)
   end
 
   def decrement_user_rating
-    likable.user.decrement!(:rating)
+    likable.user&.decrement!(:rating)
   end
 end

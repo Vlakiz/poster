@@ -21,7 +21,7 @@ class PostsController < ApplicationController
       @posts = Post.subscriptions(current_user).fresh
     end
 
-    @posts = @posts.includes_user_like(current_user)
+    @posts = @posts.with_user_like(current_user)
                    .includes(user: :avatar_attachment)
                    .page(params[:page])
 

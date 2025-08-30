@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
     @comments = Post.find(@post_id)
                     .comments.not_replies
-                    .includes_user_like(current_user)
+                    .with_user_like(current_user)
                     .includes(user: :avatar_attachment)
                     .page(page)
 
@@ -38,7 +38,7 @@ class CommentsController < ApplicationController
       page = params[:page]
       comment = Comment.find(params[:comment_id])
       @replies = Comment.replying_to(comment)
-                        .includes_user_like(current_user)
+                        .with_user_like(current_user)
                         .includes(user: :avatar_attachment)
                         .page(page).per(5)
 
