@@ -1,27 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe LikePolicy, type: :policy do
-  let(:user) { User.new }
-
   subject { described_class }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  let (:visible_user) { build_stubbed(:user, visible: true) }
+  let (:invisible_user) { build_stubbed(:user, visible: false) }
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  permissions :destroy?, :create? do
+    it { should_not permit(invisible_user) }
+    it { should permit(visible_user) }
   end
 end

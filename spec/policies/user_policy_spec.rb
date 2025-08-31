@@ -1,27 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy, type: :policy do
-  let(:user) { User.new }
+  let (:visible_user) { build_stubbed(:user, visible: true) }
+  let (:invisible_user) { build_stubbed(:user, visible: false) }
 
   subject { described_class }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
   permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it { should permit }
   end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  permissions :new_profile?, :create_profile? do
+    it { should_not permit(visible_user) }
+    it { should permit(invisible_user) }
   end
 
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  permissions :remove_avatar?, :update? do
+    let(:admin) { build_stubbed(:user, :admin, visible: true) }
 
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it { should_not permit(invisible_user) }
+    it { should_not permit(visible_user) }
+    it { should permit(admin) }
+    it { should permit(visible_user, visible_user) }
+    it { should_not permit(invisible_user, invisible_user) }
   end
 end

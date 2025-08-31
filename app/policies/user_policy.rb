@@ -12,11 +12,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def remove_avatar?
-    @user && (@record == @user || @user.admin?)
+    @user&.visible? && (@record == @user || @user.admin?)
   end
 
   def update?
-    @user && (@record == @user || @user.admin?)
+    @user&.visible? && (@record == @user || @user.admin?)
   end
 
   class Scope < ApplicationPolicy::Scope
