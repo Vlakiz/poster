@@ -5,6 +5,7 @@ FactoryBot.define do
     nickname { Faker::Internet.unique.username(specifier: 7..25, separators: [ '_' ]) }
     password { "password123" }
     password_confirmation { "password123" }
+    signed_up_at { Faker::Time.backward(days: 30) }
 
     trait :with_avatar do
       after(:build) do |user|
@@ -14,6 +15,14 @@ FactoryBot.define do
           content_type: "image/png"
         )
       end
+    end
+
+    trait :visible do
+      visible { true }
+    end
+
+    trait :invisible do
+      visible { false }
     end
   end
 end

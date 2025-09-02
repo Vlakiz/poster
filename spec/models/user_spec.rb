@@ -120,6 +120,7 @@ RSpec.describe User, type: :model do
 
         context 'when created' do
             let(:user) { create(:user, signed_up_at: nil) }
+            after { travel_back }
 
             it 'should set current registration date' do
                 random_date = Faker::Time.backward(days: 365)

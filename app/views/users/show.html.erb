@@ -32,7 +32,7 @@
 <hr class="mt-5 mb-4"/>
 
 <div id='user-posts'>
-  <%  if @posts.any? %>
+  <% if @posts.any? %>
     <h4 class="ms-3 mb-3">All posts</h4>
     <%= render 'posts/posts', posts: @posts, filter: { feed: 'new', user_id: @user.id } %>
   <% else %>

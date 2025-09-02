@@ -129,6 +129,7 @@ RSpec.describe Post, type: :model do
 
         describe "#publish!" do
             include ActiveSupport::Testing::TimeHelpers
+            after { travel_back }
 
             it 'sets published_at to current time' do
                 post = build(:post)

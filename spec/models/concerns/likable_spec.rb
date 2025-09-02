@@ -52,7 +52,7 @@ RSpec.describe Likable, type: :model do
         it "should return the right count of likable objects" do
           expect(objects.to_a.count).to eq(6)
         end
-        
+
         it "should return objects with new attribute liked" do
           expect(objects).to all(respond_to(:liked))
         end
