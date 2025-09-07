@@ -26,6 +26,10 @@ RSpec.describe "comments/edit", type: :view do
         is_expected.to have_button("Edit")
     end
 
+    it "renders cancel button" do
+        is_expected.to have_button("Cancel")
+    end
+
     it "forms correct action URL" do
         is_expected.to have_selector("form[action='#{comment_path(comment)}'][method='post']")
     end
