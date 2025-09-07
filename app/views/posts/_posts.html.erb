@@ -11,7 +11,7 @@
     >
         <%= link_to '', feed_path(filter.merge(page: posts.next_page)),
                     class: 'd-none',
-                    data: { 'lazy-loader-target' => 'link' }
+                    data: { 'lazy-loader-target' => 'link', testid: 'next_page_link' }
         %>
         <div class="text-center">
             <div class="spinner-border text-danger text-center" role="status">

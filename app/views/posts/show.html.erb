@@ -27,7 +27,7 @@
   <div class="d-inline-block me-4">
     <%= render 'shared/like', resource: @post %>
   </div>
-  <%= link_to post_path(@post, anchor: 'comments'), class: 'nav-link d-inline-block' do %>
+  <%= link_to post_path(@post, anchor: 'comments'), class: 'nav-link d-inline-block', data: { testid: 'comments_count' } do %>
     <i class="bi bi-chat-fill me-1"></i>
     <%= @post.comments_count %>
   <% end %>
@@ -45,7 +45,9 @@
 <div id="comments" class="mt-4">
   <div class='mb-4 bg-light p-3 border rounded-5'>
     <% if user_signed_in? %>
-      <%= render "comments/form", post: @post, comment: @new_comment %>
+      <div data-testid="new_comment_form">
+        <%= render "comments/form", post: @post, comment: @new_comment %>
+      </div>
     <% else %>
       <div class="text-center text-secondary my-2">
         <span>

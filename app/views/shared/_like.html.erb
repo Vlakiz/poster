@@ -27,7 +27,7 @@
         </div>
     </div>
 <% elsif user_signed_in? %>
-    <%= button_tag class: 'nav-link' do %>
+    <%= button_tag class: 'nav-link like' do %>
         <%= link_to new_profile_users_path,
             class: "nav-link" do
         %>
@@ -43,7 +43,7 @@
         <% end %>
     <% end %>
 <% else %>
-    <%= button_tag class: 'nav-link',
+    <%= button_tag class: 'nav-link like',
         data: { bs_toggle: "modal",
                 bs_target: "#loginModal" } do
     %>

@@ -33,31 +33,28 @@ RSpec.describe "users/edit", type: :view do
         before do
             allow(user.avatar).to receive(:attached?).and_return(true)
             allow(user).to receive(:thumbnail).and_return("/path/to/avatar_thumbnail.png")
+            render
         end
 
         it "displays the avatar image" do
-            render
-
             is_expected.to have_xpath("//img[contains(@src,'avatar_thumbnail.png')]")
         end
 
         it "displays delete avatar button" do
-            render
-
             is_expected.to have_selector('a', text: 'Delete avatar')
         end
     end
 
     context "when user has no avatar" do
-        it "does not display the avatar image" do
+        before do
             render
+        end
 
+        it "does not display the avatar image" do
             is_expected.not_to have_xpath("//img[contains(@src,'avatar.png')]")
         end
 
         it "does not display delete avatar button" do
-            render
-
             is_expected.not_to have_selector('a', text: 'Delete avatar')
         end
     end
