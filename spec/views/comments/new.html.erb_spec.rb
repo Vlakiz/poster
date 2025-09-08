@@ -33,7 +33,7 @@ RSpec.describe "comments/new", type: :view do
     it "does not render method patch" do
         is_expected.not_to have_selector("input[name='_method'][value='patch']", visible: false)
     end
-    
+
     describe "comment author's avatar" do
             context "when it's present" do
                 let(:path) { "/path/to/avatar_thumbnail.png" }

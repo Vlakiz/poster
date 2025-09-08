@@ -45,7 +45,7 @@ RSpec.describe "comments/index", type: :view do
             it "is present" do
                 is_expected.to have_button("Sort by")
             end
-            
+
             describe "options" do
                 it "has best option" do
                     is_expected.to have_link("Best", href: post_comments_path(post_id: post.id, order: 'rating'))
